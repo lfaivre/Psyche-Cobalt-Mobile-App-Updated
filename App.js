@@ -7,18 +7,12 @@
  */
 
 import React from 'react';
-import { Platform, StyleSheet, Text, View, StatusBar } from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body
-} from 'native-base';
-
 import Routes from './app/routing/routes';
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings([
+  'VirtualizedLists should never be nested' // TODO: Remove when fixed
+]);
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -29,12 +23,3 @@ export default class App extends React.Component {
     return <Routes />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
