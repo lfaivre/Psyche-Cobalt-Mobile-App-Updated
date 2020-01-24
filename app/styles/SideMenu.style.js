@@ -1,4 +1,4 @@
-// import {Fonts} from '../components/Fonts';
+import { Fonts } from '../components/Fonts';
 
 export default {
   container: {
@@ -6,7 +6,7 @@ export default {
     backgroundColor: '#140025'
   },
   navItemStyle: {
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 18,
     padding: 10,
     color: 'white',
@@ -20,7 +20,7 @@ export default {
     padding: 20,
     justifyContent: 'center',
     backgroundColor: '#140025',
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 20,
     color: 'white',
     letterSpacing: 2
@@ -57,7 +57,7 @@ export default {
     resizeMode: 'contain'
   },
   accordionHeaderText: {
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 20,
     color: 'white',
     letterSpacing: 2

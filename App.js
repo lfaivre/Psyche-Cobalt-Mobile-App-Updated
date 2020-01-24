@@ -8,6 +8,7 @@
 
 import React from 'react';
 import Routes from './app/routing/routes';
+import * as Font from 'expo-font';
 import { YellowBox } from 'react-native';
 
 YellowBox.ignoreWarnings([
@@ -15,11 +16,24 @@ YellowBox.ignoreWarnings([
 ]);
 
 export default class App extends React.Component {
-  componentDidMount() {
-    // StatusBar.setHidden(true);
+  state = {
+    fontLoaded: false
+  };
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      Roboto: require('./app/assets/fonts/Roboto-Regular.ttf'),
+      RobotoLight: require('./app/assets/fonts/Roboto-Light.ttf'),
+      RobotoMedium: require('./app/assets/fonts/Roboto-Medium.ttf'),
+      RobotoThin: require('./app/assets/fonts/Roboto-Thin.ttf'),
+      RobotoBold: require('./app/assets/fonts/Roboto-Bold.ttf')
+    });
+
+    this.setState({ fontLoaded: true });
   }
 
   render() {
-    return <Routes />;
+    // TODO: Add loading component, use instead of null
+    return this.state.fontLoaded ? <Routes /> : null;
   }
 }

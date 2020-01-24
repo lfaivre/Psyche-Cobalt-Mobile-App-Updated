@@ -1,8 +1,8 @@
-// import {Fonts} from '../components/Fonts';
+import { Fonts } from '../components/Fonts';
 
 export default {
   pageHeadingText: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 32,
     paddingTop: '5%',
     paddingBottom: '1%', // prevent cuttoff letters
@@ -19,7 +19,7 @@ export default {
     backgroundColor: '#140025' // may replace w/ background image from GD students?
   },
   timelineTitleStyle: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     color: '#f79f27ff',
     fontSize: 20,
     padding: '3%',
@@ -30,7 +30,7 @@ export default {
     backgroundColor: '#f79f27ff',
     color: '#140025',
     padding: 7,
-    // fontFamily: Fonts.RobotoMedium,
+    fontFamily: Fonts.RobotoMedium,
     fontSize: 16,
     overflow: 'hidden',
     borderRadius: 10
@@ -41,7 +41,7 @@ export default {
   },
   timelineDescriptionStyle: {
     padding: '3%',
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 16,
     color: 'white',
     letterSpacing: 1,

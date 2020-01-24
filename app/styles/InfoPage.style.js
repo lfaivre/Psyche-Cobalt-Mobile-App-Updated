@@ -1,8 +1,8 @@
-// import {Fonts} from '../components/Fonts';
+import { Fonts } from '../components/Fonts';
 
 export default {
   pageHeadingText: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 32,
     paddingTop: '5%',
     paddingBottom: '1%', // prevent cuttoff letters
@@ -13,7 +13,7 @@ export default {
     letterSpacing: 2
   },
   overflowPageHeadingText: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 32,
     paddingBottom: '1%', // prevent cuttoff letters
     paddingLeft: '10%',
@@ -23,7 +23,7 @@ export default {
     letterSpacing: 2
   },
   pageHeadingTextSmall: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 22,
     marginTop: '5%',
     paddingBottom: '1%', // prevent cuttoff letters
@@ -34,7 +34,7 @@ export default {
     letterSpacing: 2
   },
   overflowPageHeadingTextSmall: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 22,
     paddingBottom: '1%', // prevent cuttoff letters
     paddingLeft: '10%',
@@ -44,7 +44,7 @@ export default {
     letterSpacing: 2
   },
   pageBodyText: {
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 20,
     paddingLeft: '10%',
     paddingRight: '10%',
@@ -86,13 +86,13 @@ export default {
     flex: 1
   },
   cardText: {
-    // fontFamily: Fonts.RobotoBold,
+    fontFamily: Fonts.RobotoBold,
     fontSize: 18,
     color: '#140025',
     letterSpacing: 2
   },
   cardCaptionText: {
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 18,
     color: '#140025',
     letterSpacing: 2,

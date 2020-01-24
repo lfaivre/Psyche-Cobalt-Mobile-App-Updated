@@ -1,5 +1,4 @@
-import { Platform } from 'react-native';
-// import {Fonts} from '../components/Fonts';
+import { Fonts } from '../components/Fonts';
 
 export default {
   inactiveTab: {
@@ -10,12 +9,12 @@ export default {
   },
   inactiveText: {
     color: 'white',
-    // fontFamily: Fonts.RobotoMedium,
+    fontFamily: Fonts.RobotoMedium,
     fontSize: 18
   },
   activeText: {
     color: '#f79f27ff',
-    // fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoLight,
     fontSize: 18
   },
   underlineStyle: {
