@@ -8,8 +8,12 @@ import PropTypes from 'prop-types';
 import styles from '../styles/SideMenu.style';
 
 /* Title for accordion */
-const dataArray = [
+const missionArray = [
   { title: <Text style={styles.accordionHeaderText}>Mission</Text> }
+];
+
+const gameArray = [
+  { title: <Text style={styles.accordionHeaderText}>Games</Text> }
 ];
 
 class SideMenu extends React.Component {
@@ -75,6 +79,32 @@ class SideMenu extends React.Component {
     );
   };
 
+  renderGameContent = () => {
+    return (
+      <ImageBackground
+        source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
+        style={{
+          width: '100%'
+        }}
+      >
+        <View style={styles.collapseView}>
+          <Text
+            style={styles.navItemStyle}
+            onPress={this.navigateToScreen('Game One')}
+          >
+            Game One
+          </Text>
+          <Text
+            style={styles.navItemStyle}
+            onPress={this.navigateToScreen('Game Two')}
+          >
+            Game Two
+          </Text>
+        </View>
+      </ImageBackground>
+    );
+  };
+
   /* Update menu styling to show which page is currently selected */
   checkFocus(routeName, routeIndex) {
     if (this.props.navigation.state.index === routeIndex) {
@@ -106,7 +136,7 @@ class SideMenu extends React.Component {
             <Accordion
               headerStyle={styles.accordionHeaderStyle}
               style={styles.navSectionStyle}
-              dataArray={dataArray}
+              dataArray={missionArray}
               expanded={1}
               icon="md-arrow-dropdown"
               expandedIcon="md-arrow-dropup"
@@ -128,6 +158,18 @@ class SideMenu extends React.Component {
             >
               {this.checkFocus('Social Media', 2)}
             </Text>
+
+            <Accordion
+              headerStyle={styles.accordionHeaderStyle}
+              style={styles.navSectionStyle}
+              dataArray={gameArray}
+              expanded={1}
+              icon="md-arrow-dropdown"
+              expandedIcon="md-arrow-dropup"
+              iconStyle={styles.icon}
+              expandedIconStyle={styles.icon}
+              renderContent={this.renderGameContent}
+            />
           </Content>
         </ScrollView>
       </View>

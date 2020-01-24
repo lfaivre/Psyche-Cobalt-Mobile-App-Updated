@@ -6,6 +6,8 @@ import AsteroidScreen from '../screens/AsteroidScreen';
 import SpacecraftScreen from '../screens/SpacecraftScreen';
 import ScienceScreen from '../screens/ScienceScreen';
 import TeamScreen from '../screens/TeamScreen';
+import GameOne from '../screens/GameOne';
+import GameTwo from '../screens/GameTwo';
 
 import SideMenu from '../components/SideMenu';
 import { createAppContainer } from 'react-navigation';
@@ -35,6 +37,12 @@ const RouteConfigs = {
   },
   'The Team': {
     screen: TeamScreen
+  },
+  'Game One': {
+    screen: GameOne
+  },
+  'Game Two': {
+    screen: GameTwo
   }
 };
 
@@ -49,4 +57,5 @@ const DrawerNavigatorConfig = {
 const RootDrawer = createDrawerNavigator(RouteConfigs, DrawerNavigatorConfig);
 
 const AppContainer = createAppContainer(RootDrawer);
+
 export default AppContainer;
