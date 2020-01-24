@@ -1,12 +1,33 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow
+ */
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+import React from 'react';
+import { Platform, StyleSheet, Text, View, StatusBar } from 'react-native';
+import {
+  Icon,
+  Button,
+  Container,
+  Header,
+  Content,
+  Left,
+  Body
+} from 'native-base';
+
+import Routes from './app/routing/routes';
+
+export default class App extends React.Component {
+  componentDidMount() {
+    // StatusBar.setHidden(true);
+  }
+
+  render() {
+    return <Routes />;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -14,6 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 });
