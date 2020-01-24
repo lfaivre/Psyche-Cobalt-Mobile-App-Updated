@@ -13,7 +13,7 @@ import {
   Tabs,
   TabHeading
 } from 'native-base';
-
+import NavigationHeader from '../components/NavigationHeader.js';
 import headerStyle from '../styles/SideMenu.style';
 import pageStyle from '../styles/SocialMedia.style';
 
@@ -22,16 +22,7 @@ export default class SocialMediaScreen extends React.Component {
     return (
       <Container>
         {/* Display the header, including access to the navigation menu */}
-        <Header style={headerStyle.sectionHeadingStyle} hasTabs>
-          <Left>
-            <Icon
-              style={headerStyle.navIconStyle}
-              name="ios-menu"
-              onPress={() => this.props.navigation.openDrawer()}
-            />
-          </Left>
-          <Body></Body>
-        </Header>
+        <NavigationHeader {...this.props} />
         {/* Tabs to access various social media pages */}
         <Tabs
           tabBarUnderlineStyle={pageStyle.underlineStyle}

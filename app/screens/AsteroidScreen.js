@@ -14,27 +14,17 @@ import {
   Card,
   CardItem
 } from 'native-base';
-
+import NavigationHeader from '../components/NavigationHeader.js';
 import headerStyle from '../styles/SideMenu.style';
 import infoPageStyle from '../styles/InfoPage.style';
-import { Fonts } from '../components/Fonts';
+// import { Fonts } from '../components/Fonts';
 
 export default class AsteroidScreen extends React.Component {
   render() {
     return (
       <Container>
         {/* Display the header, including access to the navigation menu */}
-        <Header style={headerStyle.sectionHeadingStyle}>
-          <Left style={{ flex: 1 }}>
-            <Icon
-              style={headerStyle.navIconStyle}
-              name="ios-menu"
-              onPress={() => this.props.navigation.openDrawer()}
-            />
-          </Left>
-          <Body style={{ flex: 1 }}></Body>
-          <Right style={{ flex: 1 }}></Right>
-        </Header>
+        <NavigationHeader {...this.props} />
         {/* Informational content for 'The Asteroid' */}
         <Content
           contentContainerStyle={infoPageStyle.content}

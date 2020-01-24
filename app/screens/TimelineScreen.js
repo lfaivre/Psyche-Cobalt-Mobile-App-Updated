@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
-
 import {
   Icon,
   Button,
@@ -11,9 +10,8 @@ import {
   Body,
   Right
 } from 'native-base';
-
+import NavigationHeader from '../components/NavigationHeader.js';
 import Timeline from 'react-native-timeline-feed';
-
 import headerStyle from '../styles/SideMenu.style';
 import pageStyle from '../styles/TimelineStyle.style';
 
@@ -120,17 +118,7 @@ export default class TimelineScreen extends React.Component {
     return (
       <Container>
         {/* Display the header, including access to the navigation menu */}
-        <Header style={headerStyle.sectionHeadingStyle}>
-          <Left style={{ flex: 1 }}>
-            <Icon
-              style={headerStyle.navIconStyle}
-              name="ios-menu"
-              onPress={() => this.props.navigation.openDrawer()}
-            />
-          </Left>
-          <Body style={{ flex: 1 }} />
-          <Right style={{ flex: 1 }} />
-        </Header>
+        <NavigationHeader {...this.props} />
         {/* The Timeline */}
         <Content
           contentContainerStyle={pageStyle.content}

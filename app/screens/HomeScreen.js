@@ -10,39 +10,15 @@ import {
   Left,
   Right
 } from 'native-base';
-
+import NavigationHeader from '../components/NavigationHeader.js';
 import headerStyle from '../styles/SideMenu.style';
 
 export default class HomeScreen extends React.Component {
-  componentDidMount() {
-    this.props.navigation.openDrawer();
-    this.props.navigation.closeDrawer();
-  }
-
-  componentDidCatch(error, info) {
-    // You can also log the error to an error reporting service
-    logErrorToMyService(error, info);
-  }
   render() {
     return (
       <Container>
         {/* Display the header, including access to the navigation menu */}
-        <Header style={headerStyle.homeSectionHeadingStyle}>
-          <Left>
-            <Icon
-              style={headerStyle.navIconStyle}
-              name="ios-menu"
-              onPress={() => this.props.navigation.openDrawer()}
-            />
-          </Left>
-          <Body></Body>
-          <Right>
-            <Image
-              source={require('../assets/images/icons/nasa_insignia.png')}
-              style={headerStyle.nasaInsigniaStyle}
-            />
-          </Right>
-        </Header>
+        <NavigationHeader {...this.props} />
         <Content
           contentContainerStyle={{
             flex: 1,
