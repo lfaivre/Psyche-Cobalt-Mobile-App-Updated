@@ -33,10 +33,10 @@ export default class ScienceScreen extends React.Component {
               ray and neutron spectrometer, and a magnetometer, and will conduct
               radio science.
             </Text>
-            {/*<Image
-source={require('../assets/images/animations/SciencePhasesAnimation.gif')}
-style={infoPageStyle.animationStyle}
-/>*/}
+            <Image
+              source={require('../assets/images/animations/SciencePhasesAnimation.gif')}
+              style={infoPageStyle.animationStyle}
+            />
 
             <Text style={infoPageStyle.pageHeadingTextSmall}>The Psyche</Text>
             <Text style={infoPageStyle.overflowPageHeadingTextSmall}>

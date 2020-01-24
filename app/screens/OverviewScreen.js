@@ -48,12 +48,10 @@ export default class OverviewScreen extends React.Component {
               properties.
             </Text>
             <Text style={infoPageStyle.pageHeadingTextSmall}> Orbit</Text>
-            {/*
-<Image
-source={require('../assets/images/animations/OrbitsAnimation.gif')}
-style={infoPageStyle.animationStyle}
-/>
-*/}
+            <Image
+              source={require('../assets/images/animations/OrbitsAnimation.gif')}
+              style={infoPageStyle.animationStyle}
+            />
             <Text style={infoPageStyle.pageBodyText}>
               Once the spacecraft arrives at the asteroid in 2026, plans call
               for it to spend 21 months at the asteroid, performing science
