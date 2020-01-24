@@ -1,18 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body,
-  Right
-} from 'native-base';
+import { Text } from 'react-native';
+import { Container, Content } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
 import Timeline from 'react-native-timeline-feed';
-import headerStyle from '../styles/SideMenu.style';
 import pageStyle from '../styles/TimelineStyle.style';
 
 export default class TimelineScreen extends React.Component {

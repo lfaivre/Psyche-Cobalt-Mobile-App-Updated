@@ -1,15 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Alert, Image } from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  Body,
-  Header,
-  Content,
-  Left,
-  Right
-} from 'native-base';
+import { Image } from 'react-native';
+import { Icon, Body, Header, Left, Right } from 'native-base';
 
 import headerStyle from '../styles/SideMenu.style';
 
@@ -19,10 +10,9 @@ export default class NavigationHeader extends React.Component {
   //   this.props.navigation.closeDrawer();
   // }
 
-  componentDidCatch(error, info) {
-    // You can also log the error to an error reporting service
-    logErrorToMyService(error, info);
-  }
+  // componentDidCatch(error, info) {
+  //   logErrorToMyService(error, info);
+  // }
 
   render() {
     return (

@@ -1,20 +1,8 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { Image } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body,
-  Tab,
-  Tabs,
-  TabHeading
-} from 'native-base';
+import { Container, Tab, Tabs, TabHeading } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
-import headerStyle from '../styles/SideMenu.style';
 import pageStyle from '../styles/SocialMedia.style';
 
 export default class SocialMediaScreen extends React.Component {

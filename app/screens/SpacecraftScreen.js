@@ -1,19 +1,8 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body,
-  Right
-} from 'native-base';
+import { Text, Image, ImageBackground } from 'react-native';
+import { Container, Content } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
-import headerStyle from '../styles/SideMenu.style';
 import infoPageStyle from '../styles/InfoPage.style';
-// import { Fonts } from '../components/Fonts';
 
 export default class SpacecraftScreen extends React.Component {
   render() {

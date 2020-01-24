@@ -1,20 +1,8 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
+import { Text, Image, ImageBackground } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body,
-  Card,
-  CardItem,
-  Right
-} from 'native-base';
+import { Container, Content, Body, Card, CardItem } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
-import headerStyle from '../styles/SideMenu.style';
 import infoPageStyle from '../styles/InfoPage.style';
 
 export default class OverviewScreen extends React.Component {
@@ -61,11 +49,11 @@ export default class OverviewScreen extends React.Component {
             </Text>
             <Text style={infoPageStyle.pageHeadingTextSmall}> Orbit</Text>
             {/*
-            <Image
-              source={require('../assets/images/animations/OrbitsAnimation.gif')}
-              style={infoPageStyle.animationStyle}
-            />
-            */}
+<Image
+source={require('../assets/images/animations/OrbitsAnimation.gif')}
+style={infoPageStyle.animationStyle}
+/>
+*/}
             <Text style={infoPageStyle.pageBodyText}>
               Once the spacecraft arrives at the asteroid in 2026, plans call
               for it to spend 21 months at the asteroid, performing science

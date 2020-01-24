@@ -1,23 +1,9 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
-
+import { Text, Image, ImageBackground } from 'react-native';
 import { WebView } from 'react-native-webview';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Right,
-  Body,
-  Card,
-  CardItem
-} from 'native-base';
+import { Container, Content, Body, Card, CardItem } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
-import headerStyle from '../styles/SideMenu.style';
 import infoPageStyle from '../styles/InfoPage.style';
-// import { Fonts } from '../components/Fonts';
 
 export default class AsteroidScreen extends React.Component {
   render() {

@@ -1,19 +1,8 @@
-import React, { Component } from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
-import {
-  Icon,
-  Button,
-  Container,
-  Header,
-  Content,
-  Left,
-  Body,
-  Right
-} from 'native-base';
+import React from 'react';
+import { Text, Image, ImageBackground } from 'react-native';
+import { Container, Content } from 'native-base';
 import NavigationHeader from '../components/NavigationHeader.js';
-import headerStyle from '../styles/SideMenu.style';
 import infoPageStyle from '../styles/InfoPage.style';
-// import {Fonts} from '../components/Fonts';
 
 export default class ScienceScreen extends React.Component {
   render() {
@@ -45,9 +34,9 @@ export default class ScienceScreen extends React.Component {
               radio science.
             </Text>
             {/*<Image
-              source={require('../assets/images/animations/SciencePhasesAnimation.gif')}
-              style={infoPageStyle.animationStyle}
-            />*/}
+source={require('../assets/images/animations/SciencePhasesAnimation.gif')}
+style={infoPageStyle.animationStyle}
+/>*/}
 
             <Text style={infoPageStyle.pageHeadingTextSmall}>The Psyche</Text>
             <Text style={infoPageStyle.overflowPageHeadingTextSmall}>

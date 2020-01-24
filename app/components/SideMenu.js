@@ -2,11 +2,7 @@ import React from 'react';
 import { NavigationActions } from 'react-navigation';
 import { ScrollView, Text, View, ImageBackground } from 'react-native';
 import { Accordion, Body, Header, Left, Icon, Content } from 'native-base';
-import {
-  DrawerNavigator,
-  DrawerItems,
-  withNavigationFocus
-} from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 
 import PropTypes from 'prop-types';
 import styles from '../styles/SideMenu.style';
