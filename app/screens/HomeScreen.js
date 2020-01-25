@@ -5,7 +5,7 @@ import NavigationHeader from '../components/NavigationHeader.js';
 export default class HomeScreen extends React.Component {
   render() {
     return (
-      <Container>
+      <Container style={{ backgroundColor: '#140025' }}>
         {/* Display the header, including access to the navigation menu */}
         <NavigationHeader {...this.props} />
         <Content

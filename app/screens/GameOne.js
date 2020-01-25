@@ -5,7 +5,7 @@ import NavigationHeader from '../components/NavigationHeader.js';
 export default class GameOne extends React.Component {
   render() {
     return (
-      <Container>
+      <Container style={{ backgroundColor: '#140025' }}>
         <NavigationHeader {...this.props} />
         <Content>
           <Text>Game One</Text>
