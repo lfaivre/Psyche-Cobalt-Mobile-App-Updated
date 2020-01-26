@@ -10,6 +10,7 @@ import React from 'react';
 import Routes from './app/routing/routes';
 import * as Font from 'expo-font';
 import { YellowBox } from 'react-native';
+import { ScreenOrientation } from 'expo';
 
 YellowBox.ignoreWarnings([
   'VirtualizedLists should never be nested' // TODO: Remove when fixed
@@ -21,6 +22,9 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
     await Font.loadAsync({
       Roboto: require('./app/assets/fonts/Roboto-Regular.ttf'),
       RobotoLight: require('./app/assets/fonts/Roboto-Light.ttf'),

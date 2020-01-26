@@ -1,16 +1,34 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
-import NavigationHeader from '../components/NavigationHeader.js';
+import { StatusBar } from 'react-native';
+import { ScreenOrientation } from 'expo';
+import { GameEngine } from 'react-native-game-engine';
+
+import { PsycheRover } from '../game/renderers';
+import { CreateBox, Physics } from '../game/systems';
+import { ENGINE, WORLD } from '../game/init';
 
 export default class GameOne extends React.Component {
   render() {
     return (
-      <Container style={{ backgroundColor: '#140025' }}>
-        <NavigationHeader {...this.props} />
-        <Content>
-          <Text>Game One</Text>
-        </Content>
-      </Container>
+      <GameEngine
+        style={styles.container}
+        systems={[Physics, CreateBox]}
+        entities={{
+          physics: {
+            engine: ENGINE,
+            world: WORLD
+          }
+        }}
+      >
+        <StatusBar hidden={true} />
+      </GameEngine>
     );
   }
 }
+
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF'
+  }
+};

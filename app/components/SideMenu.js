@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavigationActions } from 'react-navigation';
+import { ScreenOrientation } from 'expo';
 import { ScrollView, Text, View, ImageBackground } from 'react-native';
 import { Accordion, Body, Header, Left, Icon, Content } from 'native-base';
 import { withNavigationFocus } from 'react-navigation';
@@ -27,7 +28,16 @@ class SideMenu extends React.Component {
   /* Handle navigating to a new screen
    *  @param route, the screen to navigate to
    */
-  navigateToScreen = route => () => {
+  navigateToScreen = route => async () => {
+    if (route !== 'Game One') {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.PORTRAIT_UP
+      );
+    } else {
+      await ScreenOrientation.lockAsync(
+        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+      );
+    }
     const navigateAction = NavigationActions.navigate({
       routeName: route
     });
