@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import { PsycheRover } from '../game/renderers';
+import { Box } from '../game/renderers';
 
 const MoveFinger = (entities, { touches }) => {
   touches
@@ -36,7 +36,7 @@ const CreateBox = (entities, { touches, screen }) => {
         body: body,
         size: [boxSize, boxSize],
         color: 'black',
-        renderer: PsycheRover
+        renderer: Box
       };
     });
   return entities;
