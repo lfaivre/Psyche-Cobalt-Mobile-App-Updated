@@ -1,5 +1,6 @@
 import Matter from 'matter-js';
 import { Box } from '../game/renderers';
+import { INITIAL_PSYCHEROVER } from '../game/utilities';
 
 const MoveFinger = (entities, { touches }) => {
   touches
@@ -29,7 +30,7 @@ const CreateBox = (entities, { touches, screen }) => {
         t.event.pageY,
         boxSize,
         boxSize,
-        { frictionAir: 0.021, restitution: 1.0 }
+        { frictionAir: 0.021 }
       );
       Matter.World.add(world, [body]);
       entities[++boxIds] = {
@@ -44,8 +45,18 @@ const CreateBox = (entities, { touches, screen }) => {
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
+  // engine.world.gravity.y = 0;
   Matter.Engine.update(engine, time.delta);
   return entities;
 };
 
-export { MoveFinger, CreateBox, Physics };
+const Collision = (entities, { time, dispatch }) => {
+  let engine = entities['physics'].engine;
+  Matter.Events.on(engine, 'collisionStart', function(event) {
+    // console.log('START COLLISION');
+    // dispatch({ type: 'update' });
+  });
+  return entities;
+};
+
+export { MoveFinger, CreateBox, Physics, Collision };

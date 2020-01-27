@@ -20,7 +20,7 @@ const PSYCHEROVER_WIDTH = Math.trunc(SCREEN_WIDTH * 0.15);
 const PSYCHEROVER_HEIGHT = Math.trunc(SCREEN_HEIGHT * 0.075);
 const INITIAL_PSYCHEROVER = Matter.Bodies.rectangle(
   SCREEN_WIDTH / 2,
-  SCREEN_HEIGHT / 1.5,
+  SCREEN_HEIGHT / 2,
   PSYCHEROVER_WIDTH,
   PSYCHEROVER_HEIGHT,
   { isStatic: true }
