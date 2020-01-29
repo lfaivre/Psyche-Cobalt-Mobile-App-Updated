@@ -36,7 +36,7 @@ const styles = {
     left: 0,
     flexDirection: 'row',
     justifyContent: 'space-between'
-    // backgroundColor: 'blue'
+    // backgroundColor: 'green'
   },
   powerUpContainer: {
     flexDirection: 'row'

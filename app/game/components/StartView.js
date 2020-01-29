@@ -26,7 +26,7 @@ export default class StartView extends React.Component {
 const styles = {
   outerContainer: {
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: '#140025'
   },
   container: {
     flex: 1,
@@ -39,20 +39,20 @@ const styles = {
     letterSpacing: 2,
     fontFamily: Fonts.RobotoLight,
     textAlign: 'center',
-    color: '#140025'
+    color: 'white'
   },
   buttonText: {
     fontSize: 20,
     letterSpacing: 2,
     fontFamily: Fonts.RobotoLight,
     textAlign: 'center',
-    color: '#140025'
+    color: 'white'
   },
   button: {
     height: 50,
     width: 200,
     borderWidth: 1,
-    borderColor: '#140025',
+    borderColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparent'

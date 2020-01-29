@@ -7,6 +7,7 @@ import Matter from 'matter-js';
 
 import StartView from '../game/components/StartView';
 import BottomBar from '../game/components/BottomBar';
+import TopBar from '../game/components/TopBar';
 import { Fonts } from '../components/Fonts';
 import { PsycheRover } from '../game/renderers';
 import { CreateBox, Physics, Collision } from '../game/systems';
@@ -117,14 +118,8 @@ export default class GameOne extends React.Component {
           running={this.state.running}
           onEvent={this.onEvent}
         >
-          <Button onPress={() => this.handlePress(false)} style={styles.button}>
-            <Text style={styles.buttonText}>Exit</Text>
-          </Button>
+          <TopBar handlePress={this.handlePress} />
           <BottomBar health={this.state.health} />
-          {/*<View style={styles.textContainer}>
-            <Text style={styles.text}>Note: Tap on screen for boxes.</Text>
-          </View>*/}
-
           <StatusBar hidden={true} />
         </GameEngine>
       </ImageBackground>
