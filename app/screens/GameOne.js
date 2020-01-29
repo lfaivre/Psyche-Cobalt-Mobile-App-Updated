@@ -1,11 +1,12 @@
 import React from 'react';
-import { StatusBar, View, Alert } from 'react-native';
+import { StatusBar, View, Alert, ImageBackground } from 'react-native';
 import { Button, Text } from 'native-base';
 import { ScreenOrientation } from 'expo';
 import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
 
 import StartView from '../game/components/StartView';
+import BottomBar from '../game/components/BottomBar';
 import { Fonts } from '../components/Fonts';
 import { PsycheRover } from '../game/renderers';
 import { CreateBox, Physics, Collision } from '../game/systems';
@@ -21,7 +22,7 @@ import {
 import { ENGINE, WORLD } from '../game/init';
 
 export default class GameOne extends React.Component {
-  state = { ready: false, running: true, count: 0 };
+  state = { ready: false, running: true, imageLoaded: false, health: 100 };
 
   handlePress = setReady => {
     this.setState({ ready: setReady });
@@ -44,19 +45,26 @@ export default class GameOne extends React.Component {
       psycheRover: {
         body: INITIAL_PSYCHEROVER,
         size: [PSYCHEROVER_WIDTH, PSYCHEROVER_HEIGHT],
-        color: 'black',
+        color: '#bca0dc',
         renderer: PsycheRover
       }
     });
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
     Matter.World.add(WORLD, [INITIAL_PSYCHEROVER]);
-    this.setState({ running: true });
+    this.setState({ running: true, health: 100 });
   };
 
   componentDidMount() {
-    Matter.Events.on(ENGINE, 'collisionStart', function(event) {
-      console.log('COLLISION!');
+    Matter.Events.on(ENGINE, 'collisionStart', e => {
+      if (this.state.health !== undefined) {
+        let newHealth = this.state.health - 10;
+        if (newHealth >= 0) {
+          this.setState({ health: newHealth });
+        } else {
+          this.setState({ health: 0 });
+        }
+      }
     });
     this.engine = null;
   }
@@ -78,37 +86,48 @@ export default class GameOne extends React.Component {
 
   render() {
     return this.state.ready ? (
-      <GameEngine
-        ref={ref => {
-          this.engine = ref;
+      <ImageBackground
+        source={require('../assets/images/backgrounds/space-bg.jpg')}
+        style={{
+          resizeMode: 'contain',
+          flex: 1
         }}
-        style={styles.container}
-        systems={[Physics, CreateBox, Collision]}
-        entities={{
-          physics: {
-            engine: ENGINE,
-            world: WORLD
-          },
-          psycheRover: {
-            body: INITIAL_PSYCHEROVER,
-            size: [PSYCHEROVER_WIDTH, PSYCHEROVER_HEIGHT],
-            color: 'black',
-            renderer: PsycheRover
-          }
+        onLoadEnd={() => {
+          console.log('Image loaded!');
         }}
-        running={this.state.running}
-        onEvent={this.onEvent}
       >
-        <Button onPress={() => this.handlePress(false)} style={styles.button}>
-          <Text style={styles.buttonText}>Exit</Text>
-        </Button>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>Note: Tap on screen for boxes.</Text>
-          <Text style={styles.text}>Count: {this.state.count}</Text>
-        </View>
+        <GameEngine
+          ref={ref => {
+            this.engine = ref;
+          }}
+          style={styles.container}
+          systems={[Physics, CreateBox, Collision]}
+          entities={{
+            physics: {
+              engine: ENGINE,
+              world: WORLD
+            },
+            psycheRover: {
+              body: INITIAL_PSYCHEROVER,
+              size: [PSYCHEROVER_WIDTH, PSYCHEROVER_HEIGHT],
+              color: '#bca0dc',
+              renderer: PsycheRover
+            }
+          }}
+          running={this.state.running}
+          onEvent={this.onEvent}
+        >
+          <Button onPress={() => this.handlePress(false)} style={styles.button}>
+            <Text style={styles.buttonText}>Exit</Text>
+          </Button>
+          <BottomBar health={this.state.health} />
+          {/*<View style={styles.textContainer}>
+            <Text style={styles.text}>Note: Tap on screen for boxes.</Text>
+          </View>*/}
 
-        <StatusBar hidden={true} />
-      </GameEngine>
+          <StatusBar hidden={true} />
+        </GameEngine>
+      </ImageBackground>
     ) : (
       <StartView {...this.props} handlePress={this.handlePress} />
     );
@@ -117,8 +136,8 @@ export default class GameOne extends React.Component {
 
 const styles = {
   container: {
-    flex: 1,
-    backgroundColor: '#FFF'
+    flex: 1
+    // backgroundColor: '#FFF'
   },
   textContainer: {
     height: 50,

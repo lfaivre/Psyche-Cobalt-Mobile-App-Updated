@@ -1,5 +1,5 @@
 import Matter from 'matter-js';
-import { Box } from '../game/renderers';
+import { Asteroid } from '../game/renderers';
 import { INITIAL_PSYCHEROVER } from '../game/utilities';
 
 const MoveFinger = (entities, { touches }) => {
@@ -25,19 +25,17 @@ const CreateBox = (entities, { touches, screen }) => {
   touches
     .filter(t => t.type === 'press')
     .forEach(t => {
-      let body = Matter.Bodies.rectangle(
+      let body = Matter.Bodies.circle(
         t.event.pageX,
         t.event.pageY,
-        boxSize,
-        boxSize,
-        { frictionAir: 0.021 }
+        boxSize / 2
       );
       Matter.World.add(world, [body]);
       entities[++boxIds] = {
         body: body,
         size: [boxSize, boxSize],
-        color: 'black',
-        renderer: Box
+        color: '#bfbfbf',
+        renderer: Asteroid
       };
     });
   return entities;

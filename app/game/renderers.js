@@ -1,7 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 
-class Box extends React.Component {
+class Asteroid extends React.Component {
   render() {
     const width = this.props.size[0];
     const height = this.props.size[1];
@@ -17,7 +17,8 @@ class Box extends React.Component {
             top: y,
             width: width,
             height: height,
-            backgroundColor: this.props.color || 'black'
+            borderRadius: width / 2,
+            backgroundColor: this.props.color || '#bfbfbf'
           }
         ]}
       />
@@ -41,10 +42,10 @@ class PsycheRover extends React.Component {
             top: y,
             width: width,
             height: height,
-            backgroundColor: this.props.color || 'black'
+            backgroundColor: this.props.color || '#bca0dc'
           }
         ]}
-      />
+      ></View>
     );
   }
 }
@@ -56,4 +57,4 @@ const styles = {
   psycheRover: {}
 };
 
-export { Box, PsycheRover };
+export { Asteroid, PsycheRover };

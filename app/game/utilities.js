@@ -8,11 +8,10 @@ const SCREEN_HEIGHT = height;
 
 // BOX DIMENSIONS (TEMPORARY)
 const BOX_SIZE = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
-const INITIAL_BOX = Matter.Bodies.rectangle(
+const INITIAL_BOX = Matter.Bodies.circle(
   SCREEN_WIDTH / 2,
   SCREEN_HEIGHT / 2,
-  BOX_SIZE,
-  BOX_SIZE
+  BOX_SIZE / 2
 );
 
 // PSYCHEROVER DIMENSIONS
@@ -23,7 +22,9 @@ const INITIAL_PSYCHEROVER = Matter.Bodies.rectangle(
   SCREEN_HEIGHT / 2,
   PSYCHEROVER_WIDTH,
   PSYCHEROVER_HEIGHT,
-  { isStatic: true }
+  {
+    isStatic: true
+  }
 );
 
 export {
