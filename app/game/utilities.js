@@ -3,8 +3,18 @@ import Matter from 'matter-js';
 
 // SCREEN HEIGHT AND SCREEN WIDTH
 const { width, height } = Dimensions.get('screen');
-const SCREEN_WIDTH = width;
-const SCREEN_HEIGHT = height;
+
+// TEMPORARY TO WORK AROUND ERROR
+let SCREEN_WIDTH = 0;
+let SCREEN_HEIGHT = 0;
+
+if (width > height) {
+  SCREEN_WIDTH = width;
+  SCREEN_HEIGHT = height;
+} else {
+  SCREEN_WIDTH = height;
+  SCREEN_HEIGHT = width;
+}
 
 // BOX DIMENSIONS (TEMPORARY)
 const BOX_SIZE = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
