@@ -1,21 +1,5 @@
 import Matter from 'matter-js';
-import { Asteroid } from './renderers';
-import { INITIAL_PSYCHEROVER } from '../utilities';
-
-const MoveFinger = (entities, { touches }) => {
-  touches
-    .filter(t => t.type === 'move')
-    .forEach(t => {
-      let finger = entities[t.id];
-      if (finger && finger.position) {
-        finger.position = [
-          finger.position[0] + t.delta.pageX,
-          finger.position[1] + t.delta.pageY
-        ];
-      }
-    });
-  return entities;
-};
+import { Asteroid } from './renderers/Asteroid';
 
 let boxIds = 0;
 
@@ -25,6 +9,7 @@ const CreateBox = (entities, { touches, screen }) => {
   touches
     .filter(t => t.type === 'press')
     .forEach(t => {
+      console.log('GAME: CREATE BOX');
       let body = Matter.Bodies.circle(
         t.event.pageX,
         t.event.pageY,
@@ -48,13 +33,4 @@ const Physics = (entities, { time }) => {
   return entities;
 };
 
-const Collision = (entities, { time, dispatch }) => {
-  let engine = entities['physics'].engine;
-  Matter.Events.on(engine, 'collisionStart', function(event) {
-    // console.log('START COLLISION');
-    // dispatch({ type: 'update' });
-  });
-  return entities;
-};
-
-export { MoveFinger, CreateBox, Physics, Collision };
+export { CreateBox, Physics };

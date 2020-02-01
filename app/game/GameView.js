@@ -10,8 +10,8 @@ import TopBar from './components/TopBar';
 
 // Game Engine
 import { ENGINE, WORLD } from './engine/init';
-import { PsycheRover } from './engine/renderers';
-import { CreateBox, Physics, Collision } from './engine/systems';
+import { PsycheRover } from './engine/renderers/PsycheRover';
+import { CreateBox, Physics } from './engine/systems';
 import {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
@@ -25,7 +25,8 @@ export default class GameView extends React.Component {
   _isMounted = false;
 
   componentDidMount() {
-    // this.engine = {};
+    // this.engine = null;
+    console.log('GAME: MOUNTED');
     this._isMounted = true;
     this.reset();
     Matter.Events.on(ENGINE, 'collisionStart', e => {
@@ -59,6 +60,7 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
+    console.log('GAME: RESET');
     this.engine.swap({
       physics: {
         engine: ENGINE,
@@ -96,7 +98,7 @@ export default class GameView extends React.Component {
             this.engine = ref;
           }}
           style={styles.container}
-          systems={[Physics, CreateBox, Collision]}
+          systems={[Physics, CreateBox]}
           entities={{
             physics: {
               engine: ENGINE,
