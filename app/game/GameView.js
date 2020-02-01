@@ -9,9 +9,9 @@ import BottomBar from './components/BottomBar';
 import TopBar from './components/TopBar';
 
 // Game Engine
-import { ENGINE, WORLD } from './init';
-import { PsycheRover } from './renderers';
-import { CreateBox, Physics, Collision } from './systems';
+import { ENGINE, WORLD } from './engine/init';
+import { PsycheRover } from './engine/renderers';
+import { CreateBox, Physics, Collision } from './engine/systems';
 import {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,

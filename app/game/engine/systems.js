@@ -1,6 +1,6 @@
 import Matter from 'matter-js';
-import { Asteroid } from '../game/renderers';
-import { INITIAL_PSYCHEROVER } from '../game/utilities';
+import { Asteroid } from './renderers';
+import { INITIAL_PSYCHEROVER } from '../utilities';
 
 const MoveFinger = (entities, { touches }) => {
   touches
