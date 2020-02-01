@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Text } from 'native-base';
-import NavigationHeader from '../../components/NavigationHeader.js';
-import { Fonts } from '../../components/Fonts';
+import NavigationHeader from '../components/NavigationHeader.js';
+import { Fonts } from '../components/Fonts';
 
 export default class StartView extends React.Component {
   render() {
