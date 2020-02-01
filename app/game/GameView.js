@@ -10,15 +10,12 @@ import TopBar from './components/TopBar';
 
 // Game Engine
 import { ENGINE, WORLD } from './engine/init';
-import { PsycheRover } from './engine/renderers/PsycheRover';
-import { CreateBox, Physics } from './engine/systems';
 import {
-  SCREEN_WIDTH,
-  SCREEN_HEIGHT,
-  PSYCHEROVER_WIDTH,
-  PSYCHEROVER_HEIGHT,
-  INITIAL_PSYCHEROVER
-} from './utilities';
+  PsycheRover,
+  PsycheRover_Matter
+} from './engine/renderers/PsycheRover';
+import { CreateBox, Physics } from './engine/systems';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from './utilities';
 
 export default class GameView extends React.Component {
   state = { running: true, imageLoaded: false, health: 100 };
@@ -67,15 +64,12 @@ export default class GameView extends React.Component {
         world: WORLD
       },
       psycheRover: {
-        body: INITIAL_PSYCHEROVER,
-        size: [PSYCHEROVER_WIDTH, PSYCHEROVER_HEIGHT],
-        color: '#bca0dc',
+        body: PsycheRover_Matter,
         renderer: PsycheRover
       }
     });
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
-    Matter.World.add(WORLD, [INITIAL_PSYCHEROVER]);
     if (this._isMounted) {
       this.setState({ running: true, health: 100 });
     }
@@ -105,9 +99,7 @@ export default class GameView extends React.Component {
               world: WORLD
             },
             psycheRover: {
-              body: INITIAL_PSYCHEROVER,
-              size: [PSYCHEROVER_WIDTH, PSYCHEROVER_HEIGHT],
-              color: '#bca0dc',
+              body: PsycheRover_Matter,
               renderer: PsycheRover
             }
           }}
