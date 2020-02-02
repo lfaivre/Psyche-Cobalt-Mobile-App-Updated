@@ -30,7 +30,7 @@ export default class NavigationModal extends React.Component {
               onPress={() => {
                 // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
-                this.props.handleGameView(false);
+                this.props.handleGameView('start');
               }}
               style={styles.exitButton}
             >
@@ -38,7 +38,9 @@ export default class NavigationModal extends React.Component {
             </TouchableHighlight>
             <TouchableHighlight
               onPress={() => {
+                // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
+                this.props.handleGameView('tutorial');
               }}
               style={styles.tutorialButton}
             >

@@ -5,17 +5,24 @@ import GameView from '../game/GameView';
 import StartView from '../game/StartView';
 
 export default class GameOne extends React.Component {
-  state = { gameView: false };
+  state = { gameView: 'start' };
 
-  handleGameView = setReady => {
-    this.setState({ gameView: setReady });
+  handleGameView = view => {
+    this.setState({ gameView: view });
   };
 
   render() {
-    return this.state.gameView ? (
-      <GameView handleGameView={this.handleGameView} />
-    ) : (
-      <StartView {...this.props} handleGameView={this.handleGameView} />
-    );
+    switch (this.state.gameView) {
+      case 'start':
+        return (
+          <StartView {...this.props} handleGameView={this.handleGameView} />
+        );
+      case 'tutorial':
+        return (
+          <StartView {...this.props} handleGameView={this.handleGameView} />
+        );
+      case 'game':
+        return <GameView handleGameView={this.handleGameView} />;
+    }
   }
 }

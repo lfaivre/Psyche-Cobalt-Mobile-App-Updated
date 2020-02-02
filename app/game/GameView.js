@@ -4,6 +4,7 @@ import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
 
 // Components
+import LoadingModal from './components/LoadingModal';
 import NavigationModal from './components/NavigationModal';
 import BottomBar from './components/BottomBar';
 import TopBar from './components/TopBar';
@@ -90,9 +91,10 @@ export default class GameView extends React.Component {
           flex: 1
         }}
         onLoadEnd={() => {
-          console.log('Image loaded!');
+          this.setState({ imageLoaded: true });
         }}
       >
+        <LoadingModal imageLoaded={this.state.imageLoaded} />
         <GameEngine
           ref={ref => {
             this.engine = ref;
