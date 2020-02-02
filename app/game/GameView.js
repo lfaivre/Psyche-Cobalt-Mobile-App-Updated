@@ -4,7 +4,7 @@ import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
 
 // Components
-import { Fonts } from '../components/Fonts';
+import NavigationModal from './components/NavigationModal';
 import BottomBar from './components/BottomBar';
 import TopBar from './components/TopBar';
 
@@ -15,15 +15,17 @@ import {
   PsycheRover_Matter
 } from './engine/renderers/PsycheRover';
 import { CreateBox, Physics } from './engine/systems';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from './utilities';
 
 export default class GameView extends React.Component {
-  state = { running: true, imageLoaded: false, health: 100 };
+  state = {
+    running: true,
+    imageLoaded: false,
+    health: 100,
+    modalVisible: false
+  };
   _isMounted = false;
 
   componentDidMount() {
-    // this.engine = null;
-    console.log('GAME: MOUNTED');
     this._isMounted = true;
     this.reset();
     Matter.Events.on(ENGINE, 'collisionStart', e => {
@@ -45,6 +47,11 @@ export default class GameView extends React.Component {
     Matter.Engine.clear(ENGINE);
   }
 
+  // View Handlers
+  setModalVisible = visible => {
+    this.setState({ modalVisible: visible });
+  };
+
   // GameEngine Handlers
   onEvent = e => {
     if (e.type === 'game-over') {
@@ -57,7 +64,6 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
-    console.log('GAME: RESET');
     this.engine.swap({
       physics: {
         engine: ENGINE,
@@ -107,7 +113,12 @@ export default class GameView extends React.Component {
           onEvent={this.onEvent}
         >
           <StatusBar hidden={true} />
-          <TopBar handlePress={this.props.handlePress} />
+          <NavigationModal
+            modalVisible={this.state.modalVisible}
+            setModalVisible={this.setModalVisible}
+            handleGameView={this.props.handleGameView}
+          />
+          <TopBar setModalVisible={this.setModalVisible} />
           <BottomBar health={this.state.health} />
         </GameEngine>
       </ImageBackground>
@@ -118,40 +129,5 @@ export default class GameView extends React.Component {
 const styles = {
   container: {
     flex: 1
-    // backgroundColor: '#FFF'
-  },
-  textContainer: {
-    height: 50,
-    width: 400,
-    position: 'absolute',
-    left: SCREEN_WIDTH / 2 - 200,
-    top: SCREEN_HEIGHT / 2 - 25,
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  text: {
-    fontSize: 20,
-    letterSpacing: 2,
-    fontFamily: Fonts.RobotoLight,
-    color: 'rgba(20, 0, 37, 0.2)'
-  },
-  buttonText: {
-    fontSize: 20,
-    letterSpacing: 2,
-    fontFamily: Fonts.RobotoLight,
-    textAlign: 'center',
-    color: 'white'
-  },
-  button: {
-    height: 50,
-    width: 100,
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    border: 'none',
-    borderRadius: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#140025'
   }
 };

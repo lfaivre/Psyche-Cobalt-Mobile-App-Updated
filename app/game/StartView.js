@@ -12,7 +12,7 @@ export default class StartView extends React.Component {
         <View style={styles.container}>
           <Text style={styles.text}>UNTITLED GAME</Text>
           <Button
-            onPress={() => this.props.handlePress(true)}
+            onPress={() => this.props.handleGameView(true)}
             style={styles.button}
           >
             <Text style={styles.buttonText}>Start</Text>

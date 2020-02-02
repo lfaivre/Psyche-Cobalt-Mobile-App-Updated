@@ -5,17 +5,17 @@ import GameView from '../game/GameView';
 import StartView from '../game/StartView';
 
 export default class GameOne extends React.Component {
-  state = { ready: false };
+  state = { gameView: false };
 
-  handlePress = setReady => {
-    this.setState({ ready: setReady });
+  handleGameView = setReady => {
+    this.setState({ gameView: setReady });
   };
 
   render() {
-    return this.state.ready ? (
-      <GameView handlePress={this.handlePress} />
+    return this.state.gameView ? (
+      <GameView handleGameView={this.handleGameView} />
     ) : (
-      <StartView {...this.props} handlePress={this.handlePress} />
+      <StartView {...this.props} handleGameView={this.handleGameView} />
     );
   }
 }

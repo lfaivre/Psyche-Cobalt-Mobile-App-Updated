@@ -9,8 +9,7 @@ export default class TopBar extends React.Component {
       <View style={styles.topBarContainer}>
         <TouchableHighlight
           onPress={() => {
-            console.log('click menu');
-            this.props.handlePress(false);
+            this.props.setModalVisible(true);
           }}
           style={styles.menuButtonContainer}
         >
