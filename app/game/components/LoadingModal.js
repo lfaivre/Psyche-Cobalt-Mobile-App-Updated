@@ -24,7 +24,7 @@ export default class LoadingModal extends React.Component {
         }}
       >
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>initializing...</Text>
+          <Text style={styles.loadingText}>initializing</Text>
         </View>
       </Modal>
     );
