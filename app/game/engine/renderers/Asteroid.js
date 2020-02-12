@@ -16,11 +16,18 @@ const Create_Asteroid_Matter = (posX, posY, radius) => {
 class Asteroid extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
+    // console.log('PSYCHE BOUNDS: ', this.props.body.bounds);
+    // console.log('Add Body');
+  }
+
+  componentWillUnmount() {
+    Matter.World.remove(WORLD, [this.props.body]);
+    // console.log('Remove Body');
   }
 
   render() {
-    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
-    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
+    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
+    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
     const x = this.props.body.position.x - width / 2;
     const y = this.props.body.position.y - height / 2;
 

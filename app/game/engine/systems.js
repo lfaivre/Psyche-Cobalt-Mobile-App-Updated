@@ -1,27 +1,9 @@
 import Matter from 'matter-js';
 import { Asteroid, Create_Asteroid_Matter } from './renderers/Asteroid';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../game/utilities';
+import { ENGINE, WORLD } from './init';
 
-let boxIds = 0;
-
-const CreateBox = (entities, { touches, screen }) => {
-  touches
-    .filter(t => t.type === 'press')
-    .forEach(t => {
-      console.log('GAME: CREATE BOX');
-      let body = Create_Asteroid_Matter(
-        t.event.pageX,
-        t.event.pageY,
-        Math.trunc(Math.max(screen.width, screen.height) * 0.075) / 2
-      );
-      // console.log(`TYPE OF ENTITIES: ${typeof entities}`);
-      entities[++boxIds] = {
-        body: body,
-        renderer: Asteroid
-      };
-    });
-  return entities;
-};
+// let createdAsteroids = [];
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
@@ -31,10 +13,11 @@ const Physics = (entities, { time }) => {
   return entities;
 };
 
-// GOAL: Generate a specified number of asteroids per second
+// START: DEPLOY ASTEROIDS
 
 const randomBetween = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  // return Math.floor(Math.random() * (max - min + 1) + min);
+  return (Math.random() * (max - min + 1)) << 0;
 };
 
 const calcFrameRate = asteroidsPerSecond => {
@@ -43,25 +26,28 @@ const calcFrameRate = asteroidsPerSecond => {
 };
 
 let frameCounter = 0;
-let frameRate = calcFrameRate(4);
+let frameRate = calcFrameRate(1);
 
 const DeployAsteroids = (entities, { touches, screen }) => {
   frameCounter++;
   if (frameCounter === frameRate) {
     let randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
-    // console.log(
-    //   `GENERATE ASTEROID - Horizontal Position: ${randomHorizontalPos}\n`
-    // );
+    let randomVerticalPos = 0;
+    // let randomVerticalPos = randomBetween(0, SCREEN_HEIGHT - 1);
 
     let body = Create_Asteroid_Matter(
       randomHorizontalPos,
-      0,
-      Math.trunc(Math.max(screen.width, screen.height) * 0.075) / 2
+      randomVerticalPos,
+      Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125) / 2
     );
 
-    entities[++boxIds] = {
+    const asteroidGeneratedKey = `Asteroid${Math.random()}`;
+    entities.created.createdAsteroids.push(asteroidGeneratedKey);
+
+    entities[asteroidGeneratedKey] = {
       body: body,
-      renderer: Asteroid
+      renderer: Asteroid,
+      initial: false
     };
 
     frameCounter = 0;
@@ -69,4 +55,62 @@ const DeployAsteroids = (entities, { touches, screen }) => {
   return entities;
 };
 
-export { CreateBox, Physics, DeployAsteroids };
+// GOAL: Remove asteroid entity on tap
+
+const matterBounds = {
+  max: {
+    x: 383.5,
+    y: 201.5
+  },
+  min: {
+    x: 283.5,
+    y: 173.5
+  }
+};
+
+const touchHandicap = 0;
+
+const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
+  if (
+    touchPosition.x <= asteroidBodyBounds.max.x + touchHandicap &&
+    touchPosition.x >= asteroidBodyBounds.min.x - touchHandicap &&
+    touchPosition.y <= asteroidBodyBounds.max.y + touchHandicap &&
+    touchPosition.y >= asteroidBodyBounds.min.y - touchHandicap
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const DestroyAsteroids = (entities, { touches, screen }) => {
+  let touchPositions = [];
+
+  touches
+    .filter(t => t.type === 'press')
+    .forEach(t => {
+      const touchPosition = {
+        x: t.event.pageX,
+        y: t.event.pageY
+      };
+      touchPositions.push(touchPosition);
+    });
+  if (touchPositions.length !== 0) {
+    for (let i = 0; i < touchPositions.length; i++) {
+      const touchPosition = touchPositions[i];
+      for (asteroid of entities.created.createdAsteroids) {
+        if (touchWithinBounds(entities[asteroid].body.bounds, touchPosition)) {
+          delete entities[asteroid];
+          entities.created.createdAsteroids.splice(
+            entities.created.createdAsteroids.indexOf(asteroid),
+            1
+          );
+        }
+      }
+    }
+  }
+  return entities;
+};
+
+// TODO: Remove asteroids from memory once top of asteroid is greater than sceen height
+
+export { Physics, DeployAsteroids, DestroyAsteroids };

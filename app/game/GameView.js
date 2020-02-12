@@ -15,7 +15,7 @@ import {
   PsycheRover,
   PsycheRover_Matter
 } from './engine/renderers/PsycheRover';
-import { CreateBox, Physics, DeployAsteroids } from './engine/systems';
+import { Physics, DeployAsteroids, DestroyAsteroids } from './engine/systems';
 
 export default class GameView extends React.Component {
   state = {
@@ -29,6 +29,7 @@ export default class GameView extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.reset();
+    // TODO: filter collisions (damage only from asteroid/danger and psyche rover)
     Matter.Events.on(ENGINE, 'collisionStart', e => {
       if (this._isMounted && this.state.health !== undefined) {
         let newHealth = this.state.health - 10;
@@ -65,18 +66,21 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
+    Matter.World.clear(WORLD);
+    Matter.Engine.clear(ENGINE);
     this.engine.swap({
       physics: {
         engine: ENGINE,
         world: WORLD
+      },
+      created: {
+        createdAsteroids: []
       },
       psycheRover: {
         body: PsycheRover_Matter,
         renderer: PsycheRover
       }
     });
-    Matter.World.clear(WORLD);
-    Matter.Engine.clear(ENGINE);
     if (this._isMounted) {
       this.setState({ running: true, health: 100 });
     }
@@ -100,11 +104,14 @@ export default class GameView extends React.Component {
             this.engine = ref;
           }}
           style={styles.container}
-          systems={[Physics, CreateBox, DeployAsteroids]}
+          systems={[Physics, DeployAsteroids, DestroyAsteroids]}
           entities={{
             physics: {
               engine: ENGINE,
               world: WORLD
+            },
+            created: {
+              createdAsteroids: []
             },
             psycheRover: {
               body: PsycheRover_Matter,

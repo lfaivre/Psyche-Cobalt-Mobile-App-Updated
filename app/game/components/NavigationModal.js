@@ -17,10 +17,10 @@ export default class NavigationModal extends React.Component {
       <Modal
         supportedOrientations={['portrait', 'landscape-left']}
         animationType="fade"
-        transparent={false}
+        transparent={true}
         visible={this.props.modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          // Alert.alert('Modal has been closed.');
         }}
       >
         <View style={styles.modalContainer}>
@@ -67,7 +67,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#1e2223'
+    backgroundColor: 'rgba(30,34,35,0.5)'
   },
   titleText: {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
