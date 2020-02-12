@@ -15,12 +15,7 @@ import {
   PsycheRover,
   PsycheRover_Matter
 } from './engine/renderers/PsycheRover';
-import {
-  CreateBox,
-  Physics,
-  DeployAsteroids,
-  DestroyAsteroids
-} from './engine/systems';
+import { Physics, DeployAsteroids, DestroyAsteroids } from './engine/systems';
 
 export default class GameView extends React.Component {
   state = {
@@ -74,11 +69,13 @@ export default class GameView extends React.Component {
     this.engine.swap({
       physics: {
         engine: ENGINE,
-        world: WORLD
+        world: WORLD,
+        initial: true
       },
       psycheRover: {
         body: PsycheRover_Matter,
-        renderer: PsycheRover
+        renderer: PsycheRover,
+        initial: true
       }
     });
     Matter.World.clear(WORLD);
@@ -106,15 +103,17 @@ export default class GameView extends React.Component {
             this.engine = ref;
           }}
           style={styles.container}
-          systems={[Physics, CreateBox, DeployAsteroids, DestroyAsteroids]}
+          systems={[Physics, DeployAsteroids, DestroyAsteroids]}
           entities={{
             physics: {
               engine: ENGINE,
-              world: WORLD
+              world: WORLD,
+              initial: true
             },
             psycheRover: {
               body: PsycheRover_Matter,
-              renderer: PsycheRover
+              renderer: PsycheRover,
+              initial: true
             }
           }}
           running={this.state.running}

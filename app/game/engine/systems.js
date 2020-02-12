@@ -3,26 +3,7 @@ import { Asteroid, Create_Asteroid_Matter } from './renderers/Asteroid';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../game/utilities';
 import { ENGINE, WORLD } from './init';
 
-let boxIds = 0;
-
-const CreateBox = (entities, { touches, screen }) => {
-  // touches
-  //   .filter(t => t.type === 'press')
-  //   .forEach(t => {
-  //     // console.log('GAME: CREATE BOX');
-  //     let body = Create_Asteroid_Matter(
-  //       t.event.pageX,
-  //       t.event.pageY,
-  //       Math.trunc(Math.max(screen.width, screen.height) * 0.075) / 2
-  //     );
-  //     // console.log(`TYPE OF ENTITIES: ${typeof entities}`);
-  //     entities[++boxIds] = {
-  //       body: body,
-  //       renderer: Asteroid
-  //     };
-  //   });
-  return entities;
-};
+let createdAsteroids = [];
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
@@ -35,7 +16,8 @@ const Physics = (entities, { time }) => {
 // START: DEPLOY ASTEROIDS
 
 const randomBetween = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  // return Math.floor(Math.random() * (max - min + 1) + min);
+  return (Math.random() * (max - min + 1)) << 0;
 };
 
 const calcFrameRate = asteroidsPerSecond => {
@@ -61,10 +43,20 @@ const DeployAsteroids = (entities, { touches, screen }) => {
       Math.trunc(Math.max(screen.width, screen.height) * 0.25) / 2
     );
 
-    entities[++boxIds] = {
+    const asteroidGeneratedKey = `Asteroid${Math.random()}`;
+    createdAsteroids.push(asteroidGeneratedKey);
+
+    entities[asteroidGeneratedKey] = {
       body: body,
-      renderer: Asteroid
+      renderer: Asteroid,
+      initial: false
     };
+
+    // for (asteroid of createdAsteroids) {
+    //   console.log('asteroid: ', asteroid);
+    // }
+
+    // console.log('createdAsteroids: ', createdAsteroids);
 
     frameCounter = 0;
   }
@@ -85,6 +77,9 @@ const matterBounds = {
 };
 
 const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
+  console.log('asteroidBodyBounds: ', asteroidBodyBounds);
+  console.log('touchPosition: ', touchPosition);
+
   if (
     touchPosition.x <= asteroidBodyBounds.max.x + 50 &&
     touchPosition.x >= asteroidBodyBounds.min.x - 50 &&
@@ -100,8 +95,7 @@ const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
 
 const DestroyAsteroids = (entities, { touches, screen }) => {
   let touchPositions = [];
-  // let entitiesCopy = entities.psycheRover;
-  // console.log('boxIds: ', boxIds);
+
   touches
     .filter(t => t.type === 'press')
     .forEach(t => {
@@ -114,28 +108,29 @@ const DestroyAsteroids = (entities, { touches, screen }) => {
   if (touchPositions.length !== 0) {
     for (let i = 0; i < touchPositions.length; i++) {
       const touchPosition = touchPositions[i];
-      // console.log('TOUCH POSITION: ', touchPosition);
+      for (asteroid of createdAsteroids) {
+        console.log('asteroid: ', entities[asteroid].body.angle);
 
-      for (let id = 0; id < boxIds; id++) {
-        const asteroidBody = entities[id];
-        let asteroidBodyBounds = {};
-        // console.log('asteroidBody: ', asteroidBody);
-
-        if (entities[id]) {
-          if (entities[id].body !== undefined) {
-            // console.log('CHECK 1');
-            asteroidBodyBounds = entities[id].body.bounds;
-            // console.log('asteroidBodyBounds: ', asteroidBodyBounds);
-
-            if (touchWithinBounds(asteroidBodyBounds, touchPosition)) {
-              // console.log('CHECK 2');
-              Matter.World.remove(WORLD, entities[id].body);
-              // console.log('CHECK 3');
-              delete entities[id];
-            }
-          }
+        if (touchWithinBounds(entities[asteroid].body.bounds, touchPosition)) {
+          delete entities[asteroid];
+          createdAsteroids.splice(createdAsteroids.indexOf(asteroid), 1);
         }
       }
+
+      // for (let id = 0; id < boxIds; id++) {
+      //   const asteroidBody = entities[id];
+      //   let asteroidBodyBounds = {};
+      //
+      //   if (entities[id]) {
+      //     if (entities[id].body !== undefined) {
+      //       asteroidBodyBounds = entities[id].body.bounds;
+      //
+      //       if (touchWithinBounds(asteroidBodyBounds, touchPosition)) {
+      //         delete entities[id];
+      //       }
+      //     }
+      //   }
+      // }
     }
   }
   return entities;
@@ -143,4 +138,4 @@ const DestroyAsteroids = (entities, { touches, screen }) => {
 
 // TODO: Remove asteroids from memory once top of asteroid is greater than sceen height
 
-export { CreateBox, Physics, DeployAsteroids, DestroyAsteroids };
+export { Physics, DeployAsteroids, DestroyAsteroids };
