@@ -38,7 +38,7 @@ const DeployAsteroids = (entities, { touches, screen }) => {
     let body = Create_Asteroid_Matter(
       randomHorizontalPos,
       randomVerticalPos,
-      Math.trunc(Math.max(screen.width, screen.height) * 0.25) / 2
+      Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125) / 2
     );
 
     const asteroidGeneratedKey = `Asteroid${Math.random()}`;

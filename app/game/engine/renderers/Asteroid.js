@@ -26,8 +26,8 @@ class Asteroid extends React.Component {
   }
 
   render() {
-    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
-    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
+    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
+    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
     const x = this.props.body.position.x - width / 2;
     const y = this.props.body.position.y - height / 2;
 
