@@ -20,17 +20,17 @@ const randomBetween = (min, max) => {
   return (Math.random() * (max - min + 1)) << 0;
 };
 
-const calcFrameRate = asteroidsPerSecond => {
+const calcAsteroidSpeed = asteroidsPerSecond => {
   const framesPerSecond = 60;
   return Math.floor(framesPerSecond / asteroidsPerSecond);
 };
 
-let frameCounter = 0;
-let frameRate = calcFrameRate(1);
+let speedCounter = 0;
+let asteroidSpeed = calcAsteroidSpeed(2);
 
 const DeployAsteroids = (entities, { touches, screen }) => {
-  frameCounter++;
-  if (frameCounter === frameRate) {
+  speedCounter++;
+  if (speedCounter === asteroidSpeed) {
     let randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
     let randomVerticalPos = 0;
     // let randomVerticalPos = randomBetween(0, SCREEN_HEIGHT - 1);
@@ -50,12 +50,10 @@ const DeployAsteroids = (entities, { touches, screen }) => {
       initial: false
     };
 
-    frameCounter = 0;
+    speedCounter = 0;
   }
   return entities;
 };
-
-// GOAL: Remove asteroid entity on tap
 
 const matterBounds = {
   max: {
@@ -111,6 +109,28 @@ const DestroyAsteroids = (entities, { touches, screen }) => {
   return entities;
 };
 
-// TODO: Remove asteroids from memory once top of asteroid is greater than sceen height
+// GOAL: Remove asteroids from memory once top of asteroid is greater than sceen height
 
-export { Physics, DeployAsteroids, DestroyAsteroids };
+const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
+  if (asteroidBodyBounds.min.y >= screenHeight) {
+    return true;
+  }
+  return false;
+};
+
+const RemoveAsteroids = (entities, { touches, screen }) => {
+  for (asteroid of entities.created.createdAsteroids) {
+    if (
+      asteroidOutsideOfBounds(entities[asteroid].body.bounds, SCREEN_HEIGHT)
+    ) {
+      delete entities[asteroid];
+      entities.created.createdAsteroids.splice(
+        entities.created.createdAsteroids.indexOf(asteroid),
+        1
+      );
+    }
+  }
+  return entities;
+};
+
+export { Physics, DeployAsteroids, DestroyAsteroids, RemoveAsteroids };

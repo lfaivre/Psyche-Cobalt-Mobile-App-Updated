@@ -7,7 +7,7 @@ import { WORLD } from '../../engine/init';
 
 const PsycheRover_Matter = Matter.Bodies.rectangle(
   SCREEN_WIDTH / 2,
-  SCREEN_HEIGHT / 2,
+  SCREEN_HEIGHT * 0.75,
   Math.trunc(SCREEN_WIDTH * 0.15),
   Math.trunc(SCREEN_HEIGHT * 0.075),
   {

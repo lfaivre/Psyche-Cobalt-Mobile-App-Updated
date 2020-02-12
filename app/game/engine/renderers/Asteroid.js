@@ -17,7 +17,13 @@ class Asteroid extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
     // console.log('PSYCHE BOUNDS: ', this.props.body.bounds);
-    // console.log('Add Body');
+    // console.log('ADD ASTEROID');
+    // console.log('BODY: ', this.props.body);
+    // console.log('BODY POSITION Y: ', this.props.body.position.y);
+    // console.log('BODY MIN Y: ', this.props.body.bounds.min.y);
+    // console.log('BODY MAX Y: ', this.props.body.bounds.max.y);
+    // console.log('SCREEN_HEIGHT: ', SCREEN_HEIGHT);
+    // console.log('\n');
   }
 
   componentWillUnmount() {

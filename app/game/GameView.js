@@ -15,7 +15,12 @@ import {
   PsycheRover,
   PsycheRover_Matter
 } from './engine/renderers/PsycheRover';
-import { Physics, DeployAsteroids, DestroyAsteroids } from './engine/systems';
+import {
+  Physics,
+  DeployAsteroids,
+  DestroyAsteroids,
+  RemoveAsteroids
+} from './engine/systems';
 
 export default class GameView extends React.Component {
   state = {
@@ -104,7 +109,12 @@ export default class GameView extends React.Component {
             this.engine = ref;
           }}
           style={styles.container}
-          systems={[Physics, DeployAsteroids, DestroyAsteroids]}
+          systems={[
+            Physics,
+            DeployAsteroids,
+            DestroyAsteroids,
+            RemoveAsteroids
+          ]}
           entities={{
             physics: {
               engine: ENGINE,
