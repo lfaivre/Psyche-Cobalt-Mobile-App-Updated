@@ -9,6 +9,10 @@ const Create_Asteroid_Matter = (posX, posY, radius) => {
   return Matter.Bodies.circle(posX, posY, radius);
 };
 
+// TODO: include nextMove: int (slow down default 60fps)
+// TODO: include updateFrequency: int (slow down default 60fps)
+// TODO: xspeed, yspeed
+
 class Asteroid extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
