@@ -16,6 +16,7 @@ const Create_Asteroid_Matter = (posX, posY, radius) => {
 class Asteroid extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
+    console.log('PSYCHE BOUNDS: ', this.props.body.bounds);
   }
 
   render() {

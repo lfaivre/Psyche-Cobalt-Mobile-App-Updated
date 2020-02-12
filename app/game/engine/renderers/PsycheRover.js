@@ -18,6 +18,7 @@ const PsycheRover_Matter = Matter.Bodies.rectangle(
 class PsycheRover extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
+    console.log('PSYCHE BOUNDS: ', this.props.body.bounds);
     // console.log(this.props.body);
   }
 
