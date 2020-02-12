@@ -3,11 +3,11 @@ import { Asteroid, Create_Asteroid_Matter } from './renderers/Asteroid';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../game/utilities';
 import { ENGINE, WORLD } from './init';
 
-let createdAsteroids = [];
+// let createdAsteroids = [];
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
-  engine.world.gravity.y = 0;
+  // engine.world.gravity.y = 0;
   // Matter.Engine.update(engine, time.delta * 0.125);
   Matter.Engine.update(engine, time.delta);
   return entities;
@@ -26,16 +26,14 @@ const calcFrameRate = asteroidsPerSecond => {
 };
 
 let frameCounter = 0;
-let frameRate = calcFrameRate(0.25);
+let frameRate = calcFrameRate(1);
 
 const DeployAsteroids = (entities, { touches, screen }) => {
   frameCounter++;
   if (frameCounter === frameRate) {
     let randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
-    let randomVerticalPos = randomBetween(0, SCREEN_HEIGHT - 1);
-    // console.log(
-    //   `GENERATE ASTEROID - Horizontal Position: ${randomHorizontalPos}\n`
-    // );
+    let randomVerticalPos = 0;
+    // let randomVerticalPos = randomBetween(0, SCREEN_HEIGHT - 1);
 
     let body = Create_Asteroid_Matter(
       randomHorizontalPos,
@@ -44,19 +42,13 @@ const DeployAsteroids = (entities, { touches, screen }) => {
     );
 
     const asteroidGeneratedKey = `Asteroid${Math.random()}`;
-    createdAsteroids.push(asteroidGeneratedKey);
+    entities.created.createdAsteroids.push(asteroidGeneratedKey);
 
     entities[asteroidGeneratedKey] = {
       body: body,
       renderer: Asteroid,
       initial: false
     };
-
-    // for (asteroid of createdAsteroids) {
-    //   console.log('asteroid: ', asteroid);
-    // }
-
-    // console.log('createdAsteroids: ', createdAsteroids);
 
     frameCounter = 0;
   }
@@ -76,20 +68,17 @@ const matterBounds = {
   }
 };
 
-const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
-  console.log('asteroidBodyBounds: ', asteroidBodyBounds);
-  console.log('touchPosition: ', touchPosition);
+const touchHandicap = 0;
 
+const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
   if (
-    touchPosition.x <= asteroidBodyBounds.max.x + 50 &&
-    touchPosition.x >= asteroidBodyBounds.min.x - 50 &&
-    touchPosition.y <= asteroidBodyBounds.max.y + 50 &&
-    touchPosition.y >= asteroidBodyBounds.min.y - 50
+    touchPosition.x <= asteroidBodyBounds.max.x + touchHandicap &&
+    touchPosition.x >= asteroidBodyBounds.min.x - touchHandicap &&
+    touchPosition.y <= asteroidBodyBounds.max.y + touchHandicap &&
+    touchPosition.y >= asteroidBodyBounds.min.y - touchHandicap
   ) {
-    console.log('HIT!');
     return true;
   }
-  console.log('MISS!');
   return false;
 };
 
@@ -108,29 +97,15 @@ const DestroyAsteroids = (entities, { touches, screen }) => {
   if (touchPositions.length !== 0) {
     for (let i = 0; i < touchPositions.length; i++) {
       const touchPosition = touchPositions[i];
-      for (asteroid of createdAsteroids) {
-        console.log('asteroid: ', entities[asteroid].body.angle);
-
+      for (asteroid of entities.created.createdAsteroids) {
         if (touchWithinBounds(entities[asteroid].body.bounds, touchPosition)) {
           delete entities[asteroid];
-          createdAsteroids.splice(createdAsteroids.indexOf(asteroid), 1);
+          entities.created.createdAsteroids.splice(
+            entities.created.createdAsteroids.indexOf(asteroid),
+            1
+          );
         }
       }
-
-      // for (let id = 0; id < boxIds; id++) {
-      //   const asteroidBody = entities[id];
-      //   let asteroidBodyBounds = {};
-      //
-      //   if (entities[id]) {
-      //     if (entities[id].body !== undefined) {
-      //       asteroidBodyBounds = entities[id].body.bounds;
-      //
-      //       if (touchWithinBounds(asteroidBodyBounds, touchPosition)) {
-      //         delete entities[id];
-      //       }
-      //     }
-      //   }
-      // }
     }
   }
   return entities;

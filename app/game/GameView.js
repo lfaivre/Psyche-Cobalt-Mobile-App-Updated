@@ -66,20 +66,21 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
+    Matter.World.clear(WORLD);
+    Matter.Engine.clear(ENGINE);
     this.engine.swap({
       physics: {
         engine: ENGINE,
-        world: WORLD,
-        initial: true
+        world: WORLD
+      },
+      created: {
+        createdAsteroids: []
       },
       psycheRover: {
         body: PsycheRover_Matter,
-        renderer: PsycheRover,
-        initial: true
+        renderer: PsycheRover
       }
     });
-    Matter.World.clear(WORLD);
-    Matter.Engine.clear(ENGINE);
     if (this._isMounted) {
       this.setState({ running: true, health: 100 });
     }
@@ -107,13 +108,14 @@ export default class GameView extends React.Component {
           entities={{
             physics: {
               engine: ENGINE,
-              world: WORLD,
-              initial: true
+              world: WORLD
+            },
+            created: {
+              createdAsteroids: []
             },
             psycheRover: {
               body: PsycheRover_Matter,
-              renderer: PsycheRover,
-              initial: true
+              renderer: PsycheRover
             }
           }}
           running={this.state.running}
