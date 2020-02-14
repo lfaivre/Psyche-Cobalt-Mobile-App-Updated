@@ -7,7 +7,7 @@ import { ENGINE, WORLD } from './init';
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
-  // engine.world.gravity.y = 0;
+  engine.world.gravity.y = 0.5;
   // Matter.Engine.update(engine, time.delta * 0.125);
   Matter.Engine.update(engine, time.delta);
   return entities;

@@ -1,8 +1,13 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 
 export default class BottomBar extends React.Component {
+  padHealthStatus = (health, padSize) => {
+    return ('000000000' + health).substr(-padSize);
+  };
+
   render() {
     return (
       <View style={styles.bottomBarContainer}>
@@ -12,6 +17,9 @@ export default class BottomBar extends React.Component {
           <View style={styles.powerUpCircle}></View>
         </View>
         <View style={styles.healthContainer}>
+          <Text style={styles.healthText}>
+            HEALTH {this.padHealthStatus(this.props.health, 3)}
+          </Text>
           <View
             style={[
               styles.healthBar,
@@ -54,10 +62,16 @@ const styles = {
   healthContainer: {
     width: SCREEN_WIDTH * (1 / 2),
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-    // backgroundColor: 'red'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+    // backgroundColor: 'blue'
+  },
+  healthText: {
+    marginBottom: SCREEN_WIDTH * (1 / 128),
+    color: '#bca0dc',
+    fontSize: SCREEN_HEIGHT * (1 / 24),
+    fontFamily: Fonts.RobotoLight
   },
   healthBar: {
     height: SCREEN_HEIGHT * (1 / 32),
