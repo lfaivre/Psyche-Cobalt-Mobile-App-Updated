@@ -4,6 +4,10 @@ import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 
 export default class TopBar extends React.Component {
+  padScoreStatus = (health, padSize) => {
+    return ('000000000' + health).substr(-padSize);
+  };
+
   render() {
     return (
       <View style={styles.topBarContainer}>
@@ -15,6 +19,9 @@ export default class TopBar extends React.Component {
         >
           <Text style={styles.menuButtonText}>M</Text>
         </TouchableHighlight>
+        <Text style={styles.scoreText}>
+          SCORE {this.padScoreStatus(this.props.score, 10)}
+        </Text>
       </View>
     );
   }
@@ -30,7 +37,8 @@ const styles = {
     top: 0,
     left: 0,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
     // backgroundColor: 'blue'
   },
   menuButtonContainer: {
@@ -47,6 +55,12 @@ const styles = {
   menuButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
+    fontFamily: Fonts.RobotoLight
+  },
+  scoreText: {
+    marginHorizontal: SCREEN_WIDTH * (1 / 128),
+    color: '#bca0dc',
+    fontSize: SCREEN_HEIGHT * (1 / 24),
     fontFamily: Fonts.RobotoLight
   }
 };

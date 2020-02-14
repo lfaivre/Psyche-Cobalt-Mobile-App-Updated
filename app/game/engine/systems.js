@@ -28,7 +28,7 @@ const calcAsteroidSpeed = asteroidsPerSecond => {
 let speedCounter = 0;
 let asteroidSpeed = calcAsteroidSpeed(2);
 
-const DeployAsteroids = (entities, { touches, screen }) => {
+const DeployAsteroids = (entities, { touches }) => {
   speedCounter++;
   if (speedCounter === asteroidSpeed) {
     let randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
@@ -80,7 +80,7 @@ const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
   return false;
 };
 
-const DestroyAsteroids = (entities, { touches, screen }) => {
+const DestroyAsteroids = (entities, { touches, dispatch }) => {
   let touchPositions = [];
 
   touches
@@ -102,6 +102,7 @@ const DestroyAsteroids = (entities, { touches, screen }) => {
             entities.created.createdAsteroids.indexOf(asteroid),
             1
           );
+          dispatch({ type: 'destroyAsteroid' });
         }
       }
     }
@@ -118,7 +119,7 @@ const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
   return false;
 };
 
-const RemoveAsteroids = (entities, { touches, screen }) => {
+const RemoveAsteroids = (entities, { touches }) => {
   for (asteroid of entities.created.createdAsteroids) {
     if (
       asteroidOutsideOfBounds(entities[asteroid].body.bounds, SCREEN_HEIGHT)

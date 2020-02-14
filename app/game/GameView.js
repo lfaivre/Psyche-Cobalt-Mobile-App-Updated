@@ -27,6 +27,7 @@ export default class GameView extends React.Component {
     running: true,
     imageLoaded: false,
     health: 100,
+    score: 0,
     modalVisible: false
   };
   _isMounted = false;
@@ -65,8 +66,11 @@ export default class GameView extends React.Component {
       if (this._isMounted) {
         this.setState({ running: false });
       }
-      Alert.alert('Game Over');
+      // Alert.alert('Game Over');
     } else if (e.type === 'update') {
+    } else if (e.type === 'destroyAsteroid') {
+      const newScore = this.state.score + 10;
+      this.setState({ score: newScore });
     }
   };
 
@@ -87,7 +91,7 @@ export default class GameView extends React.Component {
       }
     });
     if (this._isMounted) {
-      this.setState({ running: true, health: 100 });
+      this.setState({ running: true, health: 100, score: 0 });
     }
   };
 
@@ -137,7 +141,10 @@ export default class GameView extends React.Component {
             setModalVisible={this.setModalVisible}
             handleGameView={this.props.handleGameView}
           />
-          <TopBar setModalVisible={this.setModalVisible} />
+          <TopBar
+            setModalVisible={this.setModalVisible}
+            score={this.state.score}
+          />
           <BottomBar health={this.state.health} />
         </GameEngine>
       </ImageBackground>
