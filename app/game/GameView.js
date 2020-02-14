@@ -6,6 +6,7 @@ import Matter from 'matter-js';
 // Components
 import LoadingModal from './components/LoadingModal';
 import NavigationModal from './components/NavigationModal';
+import GameOverModal from './components/GameOverModal';
 import BottomBar from './components/BottomBar';
 import TopBar from './components/TopBar';
 
@@ -28,7 +29,9 @@ export default class GameView extends React.Component {
     imageLoaded: false,
     health: 100,
     score: 0,
-    modalVisible: false
+    // modalVisible: false,
+    navigationModalVisible: false,
+    gameOverModalVisible: false
   };
   _isMounted = false;
 
@@ -48,6 +51,19 @@ export default class GameView extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log(`UPDATED - HEALTH: ${this.state.health}`);
+    if (this.state.health !== prevState.health) {
+      if (this.state.health === 0) {
+        this.setState({ running: false }, () => {
+          console.log('ENGINE RUNNING: ', this.state.running);
+          this.engine.stop();
+          this.setGameOverModalVisible(true);
+        });
+      }
+    }
+  }
+
   componentWillUnmount() {
     // TODO: This is an anti-pattern, need to handle clearing Matter instances correctly
     this._isMounted = false;
@@ -56,8 +72,12 @@ export default class GameView extends React.Component {
   }
 
   // View Handlers
-  setModalVisible = visible => {
-    this.setState({ modalVisible: visible });
+  setNavigationModalVisible = visible => {
+    this.setState({ navigationModalVisible: visible });
+  };
+
+  setGameOverModalVisible = visible => {
+    this.setState({ gameOverModalVisible: visible });
   };
 
   // GameEngine Handlers
@@ -137,12 +157,17 @@ export default class GameView extends React.Component {
         >
           <StatusBar hidden={true} />
           <NavigationModal
-            modalVisible={this.state.modalVisible}
-            setModalVisible={this.setModalVisible}
+            modalVisible={this.state.navigationModalVisible}
+            setModalVisible={this.setNavigationModalVisible}
+            handleGameView={this.props.handleGameView}
+          />
+          <GameOverModal
+            modalVisible={this.state.gameOverModalVisible}
+            setModalVisible={this.setGameOverModalVisible}
             handleGameView={this.props.handleGameView}
           />
           <TopBar
-            setModalVisible={this.setModalVisible}
+            setNavigationModalVisible={this.setNavigationModalVisible}
             score={this.state.score}
           />
           <BottomBar health={this.state.health} />
