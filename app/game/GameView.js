@@ -65,7 +65,7 @@ export default class GameView extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(`UPDATED - HEALTH: ${this.state.health}`);
+    // console.log(`UPDATED - HEALTH: ${this.state.health}`);
     if (this.state.health !== prevState.health) {
       if (this.state.health === 0) {
         // TEMPORARY WORKAROUND, STOP/RUNNING DOESN'T WORK
@@ -116,7 +116,7 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
-    console.log('RESET!!!');
+    // console.log('RESET!!!');
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
     this._engineRef.swap({

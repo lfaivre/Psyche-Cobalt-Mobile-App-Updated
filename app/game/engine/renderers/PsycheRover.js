@@ -11,7 +11,11 @@ const PsycheRover_Matter = Matter.Bodies.rectangle(
   Math.trunc(SCREEN_WIDTH * 0.15),
   Math.trunc(SCREEN_HEIGHT * 0.075),
   {
-    isStatic: true
+    isStatic: true,
+    collisionFilter: {
+      category: 0x0001,
+      mask: 0x0002
+    }
   }
 );
 

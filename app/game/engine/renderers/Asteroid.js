@@ -6,7 +6,12 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/init';
 
 const Create_Asteroid_Matter = (posX, posY, radius) => {
-  return Matter.Bodies.circle(posX, posY, radius);
+  return Matter.Bodies.circle(posX, posY, radius, {
+    collisionFilter: {
+      category: 0x0002,
+      mask: 0x0001
+    }
+  });
 };
 
 // TODO: include nextMove: int (slow down default 60fps)

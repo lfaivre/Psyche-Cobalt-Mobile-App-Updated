@@ -33,12 +33,12 @@ class SideMenu extends React.Component {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
-      console.log('PORTRAIT_UP');
+      // console.log('PORTRAIT_UP');
     } else {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
       );
-      console.log('LANDSCAPE_LEFT');
+      // console.log('LANDSCAPE_LEFT');
     }
     const navigateAction = NavigationActions.navigate({
       routeName: route

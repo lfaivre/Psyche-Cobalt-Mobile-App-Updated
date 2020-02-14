@@ -111,7 +111,7 @@ const DestroyAsteroids = (entities, { touches, dispatch }) => {
   return entities;
 };
 
-// GOAL: Remove asteroids from memory once top of asteroid is greater than sceen height
+// NOTE: Remove asteroids from memory once top of asteroid is greater than sceen height
 
 const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
   if (asteroidBodyBounds.min.y >= screenHeight) {
@@ -135,7 +135,7 @@ const RemoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-// START CHANGES
+// NOTE: Move Asteroids Vertically
 
 let asteroidVerticalSpeed = 5;
 const MoveAsteroids = (entities, { touches }) => {
@@ -148,7 +148,7 @@ const MoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-// END CHANGES
+// GOAL: Add Dangers
 
 export {
   Physics,
