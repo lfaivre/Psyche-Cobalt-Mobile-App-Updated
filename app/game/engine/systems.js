@@ -7,7 +7,8 @@ import { ENGINE, WORLD } from './init';
 
 const Physics = (entities, { time }) => {
   let engine = entities['physics'].engine;
-  engine.world.gravity.y = 0.5;
+  engine.world.gravity.y = 0;
+  // engine.world.gravity.y = 0.5;
   // Matter.Engine.update(engine, time.delta * 0.125);
   Matter.Engine.update(engine, time.delta);
   return entities;
@@ -134,4 +135,25 @@ const RemoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-export { Physics, DeployAsteroids, DestroyAsteroids, RemoveAsteroids };
+// START CHANGES
+
+let asteroidVerticalSpeed = 5;
+const MoveAsteroids = (entities, { touches }) => {
+  for (asteroid of entities.created.createdAsteroids) {
+    Matter.Body.translate(entities[asteroid].body, {
+      x: 0,
+      y: asteroidVerticalSpeed
+    });
+  }
+  return entities;
+};
+
+// END CHANGES
+
+export {
+  Physics,
+  DeployAsteroids,
+  DestroyAsteroids,
+  RemoveAsteroids,
+  MoveAsteroids
+};

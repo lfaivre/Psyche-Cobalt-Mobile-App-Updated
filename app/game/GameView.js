@@ -20,18 +20,29 @@ import {
   Physics,
   DeployAsteroids,
   DestroyAsteroids,
-  RemoveAsteroids
+  RemoveAsteroids,
+  MoveAsteroids
 } from './engine/systems';
 
 export default class GameView extends React.Component {
+  constructor(props) {
+    super(props);
+    this._engineRef = null;
+  }
   state = {
     running: true,
     imageLoaded: false,
     health: 100,
     score: 0,
-    // modalVisible: false,
     navigationModalVisible: false,
-    gameOverModalVisible: false
+    gameOverModalVisible: false,
+    systems: [
+      Physics,
+      DeployAsteroids,
+      DestroyAsteroids,
+      RemoveAsteroids,
+      MoveAsteroids
+    ]
   };
   _isMounted = false;
 
@@ -42,10 +53,12 @@ export default class GameView extends React.Component {
     Matter.Events.on(ENGINE, 'collisionStart', e => {
       if (this._isMounted && this.state.health !== undefined) {
         let newHealth = this.state.health - 10;
-        if (newHealth >= 0) {
-          this.setState({ health: newHealth });
-        } else {
-          this.setState({ health: 0 });
+        if (this.state.health !== 0) {
+          if (newHealth >= 0) {
+            this.setState({ health: newHealth });
+          } else {
+            this.setState({ health: 0 });
+          }
         }
       }
     });
@@ -55,14 +68,22 @@ export default class GameView extends React.Component {
     console.log(`UPDATED - HEALTH: ${this.state.health}`);
     if (this.state.health !== prevState.health) {
       if (this.state.health === 0) {
-        this.setState({ running: false }, () => {
-          console.log('ENGINE RUNNING: ', this.state.running);
-          this.engine.stop();
+        // TEMPORARY WORKAROUND, STOP/RUNNING DOESN'T WORK
+        this.setState({ running: false, systems: [] }, () => {
+          this.stopEngine();
           this.setGameOverModalVisible(true);
         });
       }
     }
   }
+
+  setEngineRef = classRef => {
+    this._engineRef = classRef;
+  };
+
+  stopEngine = () => {
+    if (this._engineRef) this._engineRef.stop();
+  };
 
   componentWillUnmount() {
     // TODO: This is an anti-pattern, need to handle clearing Matter instances correctly
@@ -95,9 +116,10 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
+    console.log('RESET!!!');
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
-    this.engine.swap({
+    this._engineRef.swap({
       physics: {
         engine: ENGINE,
         world: WORLD
@@ -129,16 +151,10 @@ export default class GameView extends React.Component {
       >
         <LoadingModal imageLoaded={this.state.imageLoaded} />
         <GameEngine
-          ref={ref => {
-            this.engine = ref;
-          }}
+          ref={this.setEngineRef}
+          running={this.state.running}
           style={styles.container}
-          systems={[
-            Physics,
-            DeployAsteroids,
-            DestroyAsteroids,
-            RemoveAsteroids
-          ]}
+          systems={this.state.systems}
           entities={{
             physics: {
               engine: ENGINE,
@@ -152,7 +168,6 @@ export default class GameView extends React.Component {
               renderer: PsycheRover
             }
           }}
-          running={this.state.running}
           onEvent={this.onEvent}
         >
           <StatusBar hidden={true} />
