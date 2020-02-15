@@ -21,6 +21,7 @@ const Create_Asteroid_Matter = (posX, posY, radius) => {
 class Asteroid extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
+    // console.log('ASTEROID NEW BODY: ', this.props.body.id);
     // console.log('PSYCHE BOUNDS: ', this.props.body.bounds);
     // console.log('ADD ASTEROID');
     // console.log('BODY: ', this.props.body);

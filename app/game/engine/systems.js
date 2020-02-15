@@ -148,12 +148,40 @@ const MoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-// GOAL: Add Dangers
+// GOAL: Remove Collided Asteroids
+const RemoveCollidedAsteroids = (entities, { touches, dispatch, events }) => {
+  // console.log('LENGTH OF IDS: ', entities.destroy.destroyAsteroids.length);
+  const destroyAsteroids = [];
+
+  if (events.length) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].type === 'asteroidCollision') {
+        destroyAsteroids.push(events[i].id);
+        entities.destroy.destroyAsteroids.push(events[i].id);
+      }
+    }
+  }
+
+  for (asteroid of entities.created.createdAsteroids) {
+    for (id of destroyAsteroids) {
+      if (entities[asteroid] && entities[asteroid].body.id === id) {
+        delete entities[asteroid];
+        entities.created.createdAsteroids.splice(
+          entities.created.createdAsteroids.indexOf(asteroid),
+          1
+        );
+        dispatch({ type: 'removeAfterCollision', id: id });
+      }
+    }
+  }
+  return entities;
+};
 
 export {
   Physics,
   DeployAsteroids,
   DestroyAsteroids,
   RemoveAsteroids,
-  MoveAsteroids
+  MoveAsteroids,
+  RemoveCollidedAsteroids
 };

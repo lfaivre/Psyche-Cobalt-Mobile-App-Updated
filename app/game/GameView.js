@@ -21,7 +21,8 @@ import {
   DeployAsteroids,
   DestroyAsteroids,
   RemoveAsteroids,
-  MoveAsteroids
+  MoveAsteroids,
+  RemoveCollidedAsteroids
 } from './engine/systems';
 
 export default class GameView extends React.Component {
@@ -41,7 +42,8 @@ export default class GameView extends React.Component {
       DeployAsteroids,
       DestroyAsteroids,
       RemoveAsteroids,
-      MoveAsteroids
+      MoveAsteroids,
+      RemoveCollidedAsteroids
     ]
   };
   _isMounted = false;
@@ -49,8 +51,18 @@ export default class GameView extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.reset();
-    // TODO: filter collisions (damage only from asteroid/danger and psyche rover)
     Matter.Events.on(ENGINE, 'collisionStart', e => {
+      if (!e.pairs[0].bodyA.isStatic) {
+        this._engineRef.dispatch({
+          type: 'asteroidCollision',
+          id: e.pairs[0].bodyA.id
+        });
+      } else if (!e.pairs[0].bodyB.isStatic) {
+        this._engineRef.dispatch({
+          type: 'asteroidCollision',
+          id: e.pairs[0].bodyB.id
+        });
+      }
       if (this._isMounted && this.state.health !== undefined) {
         let newHealth = this.state.health - 10;
         if (this.state.health !== 0) {
@@ -65,7 +77,6 @@ export default class GameView extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log(`UPDATED - HEALTH: ${this.state.health}`);
     if (this.state.health !== prevState.health) {
       if (this.state.health === 0) {
         // TEMPORARY WORKAROUND, STOP/RUNNING DOESN'T WORK
@@ -103,12 +114,11 @@ export default class GameView extends React.Component {
 
   // GameEngine Handlers
   onEvent = e => {
+    console.log('EVENT: ', e);
     if (e.type === 'game-over') {
       if (this._isMounted) {
         this.setState({ running: false });
       }
-      // Alert.alert('Game Over');
-    } else if (e.type === 'update') {
     } else if (e.type === 'destroyAsteroid') {
       const newScore = this.state.score + 10;
       this.setState({ score: newScore });
@@ -116,7 +126,6 @@ export default class GameView extends React.Component {
   };
 
   reset = () => {
-    // console.log('RESET!!!');
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
     this._engineRef.swap({
@@ -126,6 +135,9 @@ export default class GameView extends React.Component {
       },
       created: {
         createdAsteroids: []
+      },
+      destroy: {
+        destroyAsteroids: []
       },
       psycheRover: {
         body: PsycheRover_Matter,
@@ -162,6 +174,9 @@ export default class GameView extends React.Component {
             },
             created: {
               createdAsteroids: []
+            },
+            destroy: {
+              destroyAsteroids: []
             },
             psycheRover: {
               body: PsycheRover_Matter,
