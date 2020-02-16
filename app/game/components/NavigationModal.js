@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableHighlight,
-  Modal,
-  Alert,
-  Button
-} from 'react-native';
+import { View, Text, TouchableHighlight, Modal } from 'react-native';
 
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
@@ -19,9 +12,7 @@ export default class NavigationModal extends React.Component {
         animationType="fade"
         transparent={true}
         visible={this.props.modalVisible}
-        onRequestClose={() => {
-          // Alert.alert('Modal has been closed.');
-        }}
+        onRequestClose={() => {}}
       >
         <View style={styles.modalContainer}>
           <Text style={styles.titleText}>menu</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View } from 'react-native';
 
 import TutorialNavigation from './tutorial/TutorialNavigation';
 import TutorialContainer from './tutorial/TutorialContainer';

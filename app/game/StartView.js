@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 
-import NavigationHeader from '../components/NavigationHeader.js';
 import { Fonts } from '../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
 

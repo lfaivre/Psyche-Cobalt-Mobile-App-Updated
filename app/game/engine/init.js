@@ -1,9 +1,10 @@
 import Matter from 'matter-js';
 
-// INSTANTIATE ENGINE AND WORLD
+// NOTE :: MATTERJS - INSTANTIATE ENGINE AND WORLD
 const ENGINE = Matter.Engine.create({ enableSleeping: false });
 const WORLD = ENGINE.world;
-// ENGINE.world.gravity.y = ENGINE.world.gravity.x;
-// ENGINE.world.gravity.x = ENGINE.world.gravity.y;
+
+// NOTE :: MATTERJS - SET ENGINE AND WORLD SETTINGS
+ENGINE.world.gravity.y = 0;
 
 export { ENGINE, WORLD };

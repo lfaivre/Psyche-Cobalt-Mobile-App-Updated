@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, Alert, ImageBackground } from 'react-native';
+import { StatusBar, ImageBackground } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
 
