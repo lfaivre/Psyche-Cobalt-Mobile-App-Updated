@@ -11,7 +11,7 @@ export default class PowerUp extends React.Component {
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
-              console.log('Tapped powerUpClearScreen!');
+              // console.log('Tapped powerUpClearScreen!');
               this.props.emitEngineEvent(
                 'activateClearScreen',
                 this.props.index
@@ -27,10 +27,23 @@ export default class PowerUp extends React.Component {
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
-              console.log('Tapped powerUpHealth!');
+              // console.log('Tapped powerUpHealth!');
               this.props.emitEngineEvent('activateHealth', this.props.index);
             }}
             style={styles.powerUpHealth}
+          >
+            <View></View>
+          </TouchableHighlight>
+        );
+      case 'clock':
+        return (
+          // TODO: Convert to Button
+          <TouchableHighlight
+            onPress={() => {
+              // console.log('Tapped powerUpClock!');
+              this.props.emitEngineEvent('activateClock', this.props.index);
+            }}
+            style={styles.powerUpClock}
           >
             <View></View>
           </TouchableHighlight>
@@ -40,7 +53,7 @@ export default class PowerUp extends React.Component {
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
-              console.log('Tapped Empty!');
+              // console.log('Tapped Empty!');
             }}
             style={styles.powerUpEmpty}
           >
@@ -70,6 +83,16 @@ const styles = {
     // backgroundColor: '#F1DEDE',
     // backgroundColor: '#7A9B76'
     backgroundColor: '#A4FBA6'
+  },
+  powerUpClock: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    // backgroundColor: '#F1DEDE',
+    // backgroundColor: '#7A9B76'
+    backgroundColor: '#EDFF71'
   },
   powerUpEmpty: {
     flex: 1,

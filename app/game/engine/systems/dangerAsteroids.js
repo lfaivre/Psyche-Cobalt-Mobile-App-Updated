@@ -112,13 +112,41 @@ export const RemoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-export const MoveAsteroids = (entities, { touches }) => {
+// activateClock EVENT
+let clockEffectActive = false;
+let clockEffectIterator = 0;
+
+export const MoveAsteroids = (entities, { touches, events }) => {
+  // activateClock EVENT
+
+  if (events.length) {
+    for (let i = 0; i < events.length; i++) {
+      if (events[i].type === 'activateClock') {
+        // console.log('ASTEROIDS AVAILABLE: ', entities.created.createdAsteroids);
+        // TODO: Handle multiple clock events (iterator + 180?)
+        asteroidVerticalSpeed = 2.5;
+        clockEffectActive = true;
+      }
+    }
+  }
+
+  if (clockEffectActive) {
+    if (clockEffectIterator === 180) {
+      clockEffectActive = false;
+      clockEffectIterator = 0;
+      asteroidVerticalSpeed = 5;
+    } else {
+      clockEffectIterator++;
+    }
+  }
+
   for (asteroid of entities.created.createdAsteroids) {
     Matter.Body.translate(entities[asteroid].body, {
       x: 0,
       y: asteroidVerticalSpeed
     });
   }
+
   return entities;
 };
 

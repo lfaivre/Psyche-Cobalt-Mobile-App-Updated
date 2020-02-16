@@ -20,7 +20,7 @@ export default class TutorialView extends React.Component {
     } else if (index > this.lengthZero) {
       this.setState({ index: this.lengthZero });
     } else {
-      console.log('ERROR: TUTORIAL INDEX OUT OF BOUNDS');
+      // console.log('ERROR: TUTORIAL INDEX OUT OF BOUNDS');
     }
   };
 

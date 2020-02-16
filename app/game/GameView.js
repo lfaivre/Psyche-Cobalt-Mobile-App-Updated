@@ -29,10 +29,23 @@ import {
 import {
   DeployClearScreens,
   RemoveClearScreens,
-  MoveClearScreen,
-  AddDangerClearScreens,
-  ClearScreensEffect
+  AddPowerUpClearScreens,
+  ClearScreensEffect,
+  MoveClearScreens
 } from './engine/systems/powerupClearScreens.js';
+import {
+  DeployHealths,
+  RemoveHealths,
+  AddPowerUpHealths,
+  MoveHealths
+} from './engine/systems/powerupHealths.js';
+
+import {
+  DeployClocks,
+  RemoveClocks,
+  AddPowerUpClocks,
+  MoveClocks
+} from './engine/systems/powerupClocks.js';
 
 export default class GameView extends React.Component {
   constructor(props) {
@@ -55,11 +68,19 @@ export default class GameView extends React.Component {
       RemoveCollidedAsteroids,
       DeployClearScreens,
       RemoveClearScreens,
-      MoveClearScreen,
-      AddDangerClearScreens,
-      ClearScreensEffect
+      AddPowerUpClearScreens,
+      ClearScreensEffect,
+      MoveClearScreens,
+      DeployHealths,
+      RemoveHealths,
+      AddPowerUpHealths,
+      MoveHealths,
+      DeployClocks,
+      RemoveClocks,
+      AddPowerUpClocks,
+      MoveClocks
     ],
-    powerUps: ['health', 'health', 'empty']
+    powerUps: ['empty', 'clock', 'empty']
   };
   _isMounted = false;
 
@@ -136,7 +157,7 @@ export default class GameView extends React.Component {
       if (this._isMounted) {
         this.setState({ running: false });
       }
-    } else if (e.type === 'addDangerClearScreens') {
+    } else if (e.type === 'addPowerUpClearScreens') {
       for (const powerUpIndex in this.state.powerUps) {
         if (this.state.powerUps[powerUpIndex] === 'empty') {
           let powerUps = this.state.powerUps;
@@ -145,22 +166,51 @@ export default class GameView extends React.Component {
           return;
         }
       }
-      if (this.state.powerUps.length !== 3) {
-        this.setState({ powerUps: [...this.state.powerUps, 'clearScreen'] });
+    } else if (e.type === 'addPowerUpClocks') {
+      for (const powerUpIndex in this.state.powerUps) {
+        if (this.state.powerUps[powerUpIndex] === 'empty') {
+          let powerUps = this.state.powerUps;
+          powerUps.splice(powerUpIndex, 1, 'clock');
+          this.setState({ powerUps: powerUps });
+          return;
+        }
+      }
+    } else if (e.type === 'addPowerUpHealths') {
+      for (const powerUpIndex in this.state.powerUps) {
+        if (this.state.powerUps[powerUpIndex] === 'empty') {
+          let powerUps = this.state.powerUps;
+          powerUps.splice(powerUpIndex, 1, 'health');
+          this.setState({ powerUps: powerUps });
+          return;
+        }
       }
     } else if (e.type === 'activateClearScreen') {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
         this._engineRef.dispatch({ type: 'effectClearScreens' });
-        console.log('ACTIVATED POWERUP CLEAR SCREEN');
+        // console.log('ACTIVATED POWERUP CLEAR SCREEN');
+      });
+    } else if (e.type === 'activateClock') {
+      let powerUps = this.state.powerUps;
+      powerUps.splice(e.index, 1, 'empty');
+      this.setState({ powerUps: powerUps }, () => {
+        this._engineRef.dispatch({ type: 'effectClock' });
+        // console.log('ACTIVATED POWERUP CLOCK');
       });
     } else if (e.type === 'activateHealth') {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
         // this._engineRef.dispatch({type: ''});
-        console.log('ACTIVATED POWERUP HEALTH');
+        let newHealth = 0;
+        if (this.state.health + 10 <= 100) {
+          newHealth = this.state.health + 10;
+        } else if (this.state.health + 10 > 100) {
+          newHealth = 100;
+        }
+        this.setState({ health: newHealth });
+        // console.log('ACTIVATED POWERUP HEALTH');
       });
     } else if (e.type === 'destroyAsteroid') {
       const newScore = this.state.score + 10;
@@ -179,7 +229,9 @@ export default class GameView extends React.Component {
         },
         created: {
           createdAsteroids: [],
-          createdClearScreens: []
+          createdClearScreens: [],
+          createdHealths: [],
+          createdClocks: []
         },
         destroy: {
           destroyAsteroids: []
@@ -216,7 +268,9 @@ export default class GameView extends React.Component {
             },
             created: {
               createdAsteroids: [],
-              createdClearScreens: []
+              createdClearScreens: [],
+              createdHealths: [],
+              createdClocks: []
             },
             destroy: {
               destroyAsteroids: []
@@ -238,6 +292,7 @@ export default class GameView extends React.Component {
             modalVisible={this.state.gameOverModalVisible}
             setModalVisible={this.setGameOverModalVisible}
             handleGameView={this.props.handleGameView}
+            score={this.state.score}
           />
           <TopBar
             setNavigationModalVisible={this.setNavigationModalVisible}

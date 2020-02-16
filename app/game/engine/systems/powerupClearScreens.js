@@ -11,9 +11,9 @@ import {
 
 // NOTE :: UTILITY FUNCTIONS
 
-const calcClearScreenSpeed = asteroidsPerSecond => {
+const calcClearScreenSpeed = clearScreensPerSecond => {
   const framesPerSecond = 60;
-  return Math.floor(framesPerSecond / asteroidsPerSecond);
+  return Math.floor(framesPerSecond / clearScreensPerSecond);
 };
 
 const dangerOutsideOfBounds = (dangerBodyBounds, screenHeight) => {
@@ -38,9 +38,11 @@ const touchWithinBounds = (dangerBodyBounds, touchPosition) => {
 // NOTE :: VARIABLES
 
 let frameCounter = 0;
-let clearScreenSpeed = calcClearScreenSpeed(1 / 4);
+let clearScreenSpeed = calcClearScreenSpeed(1 / 8);
 let clearScreenVerticalSpeed = 6;
 let touchHandicap = 0;
+let running = false; // TODO: REFACTOR
+let iterations = 0; // TODO: REFACTOR
 
 // NOTE :: SYSTEMS
 
@@ -85,7 +87,7 @@ export const RemoveClearScreens = (entities, { touches }) => {
   return entities;
 };
 
-export const AddDangerClearScreens = (entities, { touches, dispatch }) => {
+export const AddPowerUpClearScreens = (entities, { touches, dispatch }) => {
   let touchPositions = [];
 
   touches
@@ -111,16 +113,13 @@ export const AddDangerClearScreens = (entities, { touches, dispatch }) => {
             entities.created.createdClearScreens.indexOf(clearScreen),
             1
           );
-          dispatch({ type: 'addDangerClearScreens' });
+          dispatch({ type: 'addPowerUpClearScreens' });
         }
       }
     }
   }
   return entities;
 };
-
-let running = false;
-let iterations = 0;
 
 export const ClearScreensEffect = (entities, { touches, dispatch, events }) => {
   // TODO: Need to adjust score for each asteroid destroyed
@@ -157,7 +156,7 @@ export const ClearScreensEffect = (entities, { touches, dispatch, events }) => {
   return entities;
 };
 
-export const MoveClearScreen = (entities, { touches }) => {
+export const MoveClearScreens = (entities, { touches }) => {
   for (clearScreen of entities.created.createdClearScreens) {
     Matter.Body.translate(entities[clearScreen].body, {
       x: 0,
