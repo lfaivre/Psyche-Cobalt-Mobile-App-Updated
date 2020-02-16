@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
+import PowerUp from './PowerUp';
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 
@@ -12,9 +13,33 @@ export default class BottomBar extends React.Component {
     return (
       <View style={styles.bottomBarContainer}>
         <View style={styles.powerUpContainer}>
-          <View style={styles.powerUpCircle}></View>
-          <View style={styles.powerUpCircle}></View>
-          <View style={styles.powerUpCircle}></View>
+          <View style={styles.powerUpCircle}>
+            {this.props.powerUps[0] && (
+              <PowerUp
+                powerUp={this.props.powerUps[0]}
+                index={0}
+                emitEngineEvent={this.props.emitEngineEvent}
+              />
+            )}
+          </View>
+          <View style={styles.powerUpCircle}>
+            {this.props.powerUps[1] && (
+              <PowerUp
+                powerUp={this.props.powerUps[1]}
+                index={1}
+                emitEngineEvent={this.props.emitEngineEvent}
+              />
+            )}
+          </View>
+          <View style={styles.powerUpCircle}>
+            {this.props.powerUps[2] && (
+              <PowerUp
+                powerUp={this.props.powerUps[2]}
+                index={2}
+                emitEngineEvent={this.props.emitEngineEvent}
+              />
+            )}
+          </View>
         </View>
         <View style={styles.healthContainer}>
           <Text style={styles.healthText}>
@@ -34,12 +59,12 @@ export default class BottomBar extends React.Component {
 
 const styles = {
   bottomBarContainer: {
-    height: SCREEN_HEIGHT * (1 / 8),
+    height: SCREEN_HEIGHT * (3 / 16),
     width: SCREEN_WIDTH - SCREEN_WIDTH * (2 / 128),
     marginVertical: SCREEN_WIDTH * (1 / 128),
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
     position: 'absolute',
-    top: SCREEN_HEIGHT - SCREEN_HEIGHT * (1 / 8) - SCREEN_WIDTH * (2 / 128),
+    top: SCREEN_HEIGHT - SCREEN_HEIGHT * (3 / 16) - SCREEN_WIDTH * (2 / 128),
     // top: (111 * SCREEN_HEIGHT) / 128,
     left: 0,
     flexDirection: 'row',
@@ -47,14 +72,17 @@ const styles = {
     // backgroundColor: 'green'
   },
   powerUpContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
     // backgroundColor: 'purple'
   },
   powerUpCircle: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    width: SCREEN_HEIGHT * (1 / 8),
+    height: SCREEN_HEIGHT * (3 / 16),
+    width: SCREEN_HEIGHT * (3 / 16),
+    padding: SCREEN_WIDTH * (1 / 128),
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
-    borderRadius: SCREEN_HEIGHT * (1 / 16),
+    borderRadius: 50,
     borderWidth: 1,
     borderColor: 'white'
     // backgroundColor: 'red'

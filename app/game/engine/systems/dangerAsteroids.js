@@ -33,6 +33,7 @@ const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
 };
 
 // NOTE :: VARIABLES
+
 let speedCounter = 0;
 let asteroidSpeed = calcAsteroidSpeed(2);
 let touchHandicap = 0;

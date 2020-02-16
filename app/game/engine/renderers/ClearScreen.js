@@ -24,8 +24,8 @@ class ClearScreen extends React.Component {
   }
 
   render() {
-    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.0625);
-    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.0625);
+    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375);
+    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375);
     const x = this.props.body.position.x - width / 2;
     const y = this.props.body.position.y - height / 2;
 
@@ -49,7 +49,7 @@ class ClearScreen extends React.Component {
 const styles = {
   asteroid: {
     position: 'absolute',
-    backgroundColor: 'red'
+    backgroundColor: '#DB7F8E'
   }
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StatusBar, ImageBackground } from 'react-native';
+import { View, StatusBar, ImageBackground } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
 
@@ -28,7 +28,10 @@ import {
 } from './engine/systems/dangerAsteroids.js';
 import {
   DeployClearScreens,
-  MoveClearScreen
+  RemoveClearScreens,
+  MoveClearScreen,
+  AddDangerClearScreens,
+  ClearScreensEffect
 } from './engine/systems/powerupClearScreens.js';
 
 export default class GameView extends React.Component {
@@ -38,7 +41,7 @@ export default class GameView extends React.Component {
   }
   state = {
     running: true,
-    imageLoaded: false,
+    imageLoaded: true,
     health: 100,
     score: 0,
     navigationModalVisible: false,
@@ -51,8 +54,12 @@ export default class GameView extends React.Component {
       MoveAsteroids,
       RemoveCollidedAsteroids,
       DeployClearScreens,
-      MoveClearScreen
-    ]
+      RemoveClearScreens,
+      MoveClearScreen,
+      AddDangerClearScreens,
+      ClearScreensEffect
+    ],
+    powerUps: ['health', 'health', 'empty']
   };
   _isMounted = false;
 
@@ -61,15 +68,17 @@ export default class GameView extends React.Component {
     this.reset();
     Matter.Events.on(ENGINE, 'collisionStart', e => {
       if (!e.pairs[0].bodyA.isStatic) {
-        this._engineRef.dispatch({
-          type: 'asteroidCollision',
-          id: e.pairs[0].bodyA.id
-        });
+        if (this._engineRef)
+          this._engineRef.dispatch({
+            type: 'asteroidCollision',
+            id: e.pairs[0].bodyA.id
+          });
       } else if (!e.pairs[0].bodyB.isStatic) {
-        this._engineRef.dispatch({
-          type: 'asteroidCollision',
-          id: e.pairs[0].bodyB.id
-        });
+        if (this._engineRef)
+          this._engineRef.dispatch({
+            type: 'asteroidCollision',
+            id: e.pairs[0].bodyB.id
+          });
       }
       if (this._isMounted && this.state.health !== undefined) {
         let newHealth = this.state.health - 10;
@@ -127,6 +136,32 @@ export default class GameView extends React.Component {
       if (this._isMounted) {
         this.setState({ running: false });
       }
+    } else if (e.type === 'addDangerClearScreens') {
+      for (const powerUpIndex in this.state.powerUps) {
+        if (this.state.powerUps[powerUpIndex] === 'empty') {
+          let powerUps = this.state.powerUps;
+          powerUps.splice(powerUpIndex, 1, 'clearScreen');
+          this.setState({ powerUps: powerUps });
+          return;
+        }
+      }
+      if (this.state.powerUps.length !== 3) {
+        this.setState({ powerUps: [...this.state.powerUps, 'clearScreen'] });
+      }
+    } else if (e.type === 'activateClearScreen') {
+      let powerUps = this.state.powerUps;
+      powerUps.splice(e.index, 1, 'empty');
+      this.setState({ powerUps: powerUps }, () => {
+        this._engineRef.dispatch({ type: 'effectClearScreens' });
+        console.log('ACTIVATED POWERUP CLEAR SCREEN');
+      });
+    } else if (e.type === 'activateHealth') {
+      let powerUps = this.state.powerUps;
+      powerUps.splice(e.index, 1, 'empty');
+      this.setState({ powerUps: powerUps }, () => {
+        // this._engineRef.dispatch({type: ''});
+        console.log('ACTIVATED POWERUP HEALTH');
+      });
     } else if (e.type === 'destroyAsteroid') {
       const newScore = this.state.score + 10;
       this.setState({ score: newScore });
@@ -136,45 +171,43 @@ export default class GameView extends React.Component {
   reset = () => {
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
-    this._engineRef.swap({
-      physics: {
-        engine: ENGINE,
-        world: WORLD
-      },
-      created: {
-        createdAsteroids: [],
-        createdClearScreens: []
-      },
-      destroy: {
-        destroyAsteroids: []
-      },
-      psycheRover: {
-        body: PsycheRover_Matter,
-        renderer: PsycheRover
-      }
-    });
+    if (this._engineRef)
+      this._engineRef.swap({
+        physics: {
+          engine: ENGINE,
+          world: WORLD
+        },
+        created: {
+          createdAsteroids: [],
+          createdClearScreens: []
+        },
+        destroy: {
+          destroyAsteroids: []
+        },
+        psycheRover: {
+          body: PsycheRover_Matter,
+          renderer: PsycheRover
+        }
+      });
     if (this._isMounted) {
       this.setState({ running: true, health: 100, score: 0 });
     }
   };
 
+  // NOTE: FUNCTION FOR TRIGGERING EVENT
+  emitEngineEvent = (event, index) => {
+    this._engineRef.dispatch({ type: event, index: index });
+  };
+  // END: FUNCTION FOR TRIGGERING EVENT
+
   render() {
     return (
-      <ImageBackground
-        source={require('../assets/images/backgrounds/space-bg.jpg')}
-        style={{
-          resizeMode: 'contain',
-          flex: 1
-        }}
-        onLoadEnd={() => {
-          this.setState({ imageLoaded: true });
-        }}
-      >
+      <View style={styles.outerContainer}>
         <LoadingModal imageLoaded={this.state.imageLoaded} />
         <GameEngine
           ref={this.setEngineRef}
           running={this.state.running}
-          style={styles.container}
+          style={styles.innerContainer}
           systems={this.state.systems}
           entities={{
             physics: {
@@ -210,15 +243,23 @@ export default class GameView extends React.Component {
             setNavigationModalVisible={this.setNavigationModalVisible}
             score={this.state.score}
           />
-          <BottomBar health={this.state.health} />
+          <BottomBar
+            health={this.state.health}
+            powerUps={this.state.powerUps}
+            emitEngineEvent={this.emitEngineEvent}
+          />
         </GameEngine>
-      </ImageBackground>
+      </View>
     );
   }
 }
 
 const styles = {
-  container: {
+  outerContainer: {
+    flex: 1,
+    backgroundColor: '#1e2223'
+  },
+  innerContainer: {
     flex: 1
   }
 };
