@@ -16,14 +16,20 @@ import {
   PsycheRover,
   PsycheRover_Matter
 } from './engine/renderers/PsycheRover';
+
+// GAME ENGINE :: SYSTEMS
+import { Physics } from './engine/systems/matter.js';
 import {
-  Physics,
   DeployAsteroids,
   DestroyAsteroids,
   RemoveAsteroids,
   MoveAsteroids,
   RemoveCollidedAsteroids
-} from './engine/systems';
+} from './engine/systems/dangerAsteroids.js';
+import {
+  DeployClearScreens,
+  MoveClearScreen
+} from './engine/systems/powerupClearScreens.js';
 
 export default class GameView extends React.Component {
   constructor(props) {
@@ -43,7 +49,9 @@ export default class GameView extends React.Component {
       DestroyAsteroids,
       RemoveAsteroids,
       MoveAsteroids,
-      RemoveCollidedAsteroids
+      RemoveCollidedAsteroids,
+      DeployClearScreens,
+      MoveClearScreen
     ]
   };
   _isMounted = false;
@@ -114,7 +122,7 @@ export default class GameView extends React.Component {
 
   // GameEngine Handlers
   onEvent = e => {
-    console.log('EVENT: ', e);
+    // console.log('EVENT: ', e);
     if (e.type === 'game-over') {
       if (this._isMounted) {
         this.setState({ running: false });
@@ -134,7 +142,8 @@ export default class GameView extends React.Component {
         world: WORLD
       },
       created: {
-        createdAsteroids: []
+        createdAsteroids: [],
+        createdClearScreens: []
       },
       destroy: {
         destroyAsteroids: []
@@ -173,7 +182,8 @@ export default class GameView extends React.Component {
               world: WORLD
             },
             created: {
-              createdAsteroids: []
+              createdAsteroids: [],
+              createdClearScreens: []
             },
             destroy: {
               destroyAsteroids: []

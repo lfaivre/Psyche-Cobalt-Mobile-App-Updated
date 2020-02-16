@@ -1,35 +1,46 @@
 import Matter from 'matter-js';
-import { Asteroid, Create_Asteroid_Matter } from './renderers/Asteroid';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../game/utilities';
-import { ENGINE, WORLD } from './init';
+import { Asteroid, Create_Asteroid_Matter } from '../renderers/Asteroid';
+import {
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
+  randomBetween
+} from '../../../game/utilities';
 
-// let createdAsteroids = [];
-
-const Physics = (entities, { time }) => {
-  let engine = entities['physics'].engine;
-  engine.world.gravity.y = 0;
-  // engine.world.gravity.y = 0.5;
-  // Matter.Engine.update(engine, time.delta * 0.125);
-  Matter.Engine.update(engine, time.delta);
-  return entities;
-};
-
-// START: DEPLOY ASTEROIDS
-
-const randomBetween = (min, max) => {
-  // return Math.floor(Math.random() * (max - min + 1) + min);
-  return (Math.random() * (max - min + 1)) << 0;
-};
+// NOTE :: UTILITY FUNCTIONS
 
 const calcAsteroidSpeed = asteroidsPerSecond => {
   const framesPerSecond = 60;
   return Math.floor(framesPerSecond / asteroidsPerSecond);
 };
 
+const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
+  if (
+    touchPosition.x <= asteroidBodyBounds.max.x + touchHandicap &&
+    touchPosition.x >= asteroidBodyBounds.min.x - touchHandicap &&
+    touchPosition.y <= asteroidBodyBounds.max.y + touchHandicap &&
+    touchPosition.y >= asteroidBodyBounds.min.y - touchHandicap
+  ) {
+    return true;
+  }
+  return false;
+};
+
+const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
+  if (asteroidBodyBounds.min.y >= screenHeight) {
+    return true;
+  }
+  return false;
+};
+
+// NOTE :: VARIABLES
 let speedCounter = 0;
 let asteroidSpeed = calcAsteroidSpeed(2);
+let touchHandicap = 0;
+let asteroidVerticalSpeed = 5;
 
-const DeployAsteroids = (entities, { touches }) => {
+// NOTE :: SYSTEMS
+
+export const DeployAsteroids = (entities, { touches }) => {
   speedCounter++;
   if (speedCounter === asteroidSpeed) {
     let randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
@@ -47,8 +58,7 @@ const DeployAsteroids = (entities, { touches }) => {
 
     entities[asteroidGeneratedKey] = {
       body: body,
-      renderer: Asteroid,
-      initial: false
+      renderer: Asteroid
     };
 
     speedCounter = 0;
@@ -56,32 +66,7 @@ const DeployAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-const matterBounds = {
-  max: {
-    x: 383.5,
-    y: 201.5
-  },
-  min: {
-    x: 283.5,
-    y: 173.5
-  }
-};
-
-const touchHandicap = 0;
-
-const touchWithinBounds = (asteroidBodyBounds, touchPosition) => {
-  if (
-    touchPosition.x <= asteroidBodyBounds.max.x + touchHandicap &&
-    touchPosition.x >= asteroidBodyBounds.min.x - touchHandicap &&
-    touchPosition.y <= asteroidBodyBounds.max.y + touchHandicap &&
-    touchPosition.y >= asteroidBodyBounds.min.y - touchHandicap
-  ) {
-    return true;
-  }
-  return false;
-};
-
-const DestroyAsteroids = (entities, { touches, dispatch }) => {
+export const DestroyAsteroids = (entities, { touches, dispatch }) => {
   let touchPositions = [];
 
   touches
@@ -111,16 +96,7 @@ const DestroyAsteroids = (entities, { touches, dispatch }) => {
   return entities;
 };
 
-// NOTE: Remove asteroids from memory once top of asteroid is greater than sceen height
-
-const asteroidOutsideOfBounds = (asteroidBodyBounds, screenHeight) => {
-  if (asteroidBodyBounds.min.y >= screenHeight) {
-    return true;
-  }
-  return false;
-};
-
-const RemoveAsteroids = (entities, { touches }) => {
+export const RemoveAsteroids = (entities, { touches }) => {
   for (asteroid of entities.created.createdAsteroids) {
     if (
       asteroidOutsideOfBounds(entities[asteroid].body.bounds, SCREEN_HEIGHT)
@@ -135,10 +111,7 @@ const RemoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-// NOTE: Move Asteroids Vertically
-
-let asteroidVerticalSpeed = 5;
-const MoveAsteroids = (entities, { touches }) => {
+export const MoveAsteroids = (entities, { touches }) => {
   for (asteroid of entities.created.createdAsteroids) {
     Matter.Body.translate(entities[asteroid].body, {
       x: 0,
@@ -148,8 +121,10 @@ const MoveAsteroids = (entities, { touches }) => {
   return entities;
 };
 
-// GOAL: Remove Collided Asteroids
-const RemoveCollidedAsteroids = (entities, { touches, dispatch, events }) => {
+export const RemoveCollidedAsteroids = (
+  entities,
+  { touches, dispatch, events }
+) => {
   // console.log('LENGTH OF IDS: ', entities.destroy.destroyAsteroids.length);
   const destroyAsteroids = [];
 
@@ -175,13 +150,4 @@ const RemoveCollidedAsteroids = (entities, { touches, dispatch, events }) => {
     }
   }
   return entities;
-};
-
-export {
-  Physics,
-  DeployAsteroids,
-  DestroyAsteroids,
-  RemoveAsteroids,
-  MoveAsteroids,
-  RemoveCollidedAsteroids
 };

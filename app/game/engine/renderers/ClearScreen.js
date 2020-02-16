@@ -5,16 +5,16 @@ import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/init';
 
-const Create_Asteroid_Matter = (posX, posY, radius) => {
+const Create_ClearScreen_Matter = (posX, posY, radius) => {
   return Matter.Bodies.circle(posX, posY, radius, {
     collisionFilter: {
-      category: 0x0002,
-      mask: 0x0001
+      category: 0x0004
+      //   mask: 0x0001
     }
   });
 };
 
-class Asteroid extends React.Component {
+class ClearScreen extends React.Component {
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
   }
@@ -24,8 +24,8 @@ class Asteroid extends React.Component {
   }
 
   render() {
-    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
-    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125);
+    const width = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.0625);
+    const height = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.0625);
     const x = this.props.body.position.x - width / 2;
     const y = this.props.body.position.y - height / 2;
 
@@ -49,8 +49,8 @@ class Asteroid extends React.Component {
 const styles = {
   asteroid: {
     position: 'absolute',
-    backgroundColor: '#bfbfbf'
+    backgroundColor: 'red'
   }
 };
 
-export { Asteroid, Create_Asteroid_Matter };
+export { ClearScreen, Create_ClearScreen_Matter };
