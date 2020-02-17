@@ -138,6 +138,7 @@ export const ClearScreensEffect = (entities, { touches, dispatch, events }) => {
             entities.created.createdAsteroids.indexOf(asteroid),
             1
           );
+          dispatch({ type: 'destroyAsteroid' });
           // console.log('DELETE ASTEROID: ', asteroid);
         }
       }
