@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import Matter from 'matter-js';
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
-import { WORLD } from '../../engine/init';
+import { WORLD } from '../../engine/physicsInit';
 
 const PsycheRover_Matter = Matter.Bodies.rectangle(
   SCREEN_WIDTH / 2,

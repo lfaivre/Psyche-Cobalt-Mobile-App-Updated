@@ -11,97 +11,115 @@ import BottomBar from './components/BottomBar';
 import TopBar from './components/TopBar';
 
 // Game Engine
-import { ENGINE, WORLD } from './engine/init';
-import {
-  PsycheRover,
-  PsycheRover_Matter
-} from './engine/renderers/PsycheRover';
+import { ENGINE, WORLD } from './engine/physicsInit';
+import { defaultEntities } from './engine/gameInit';
 
 // GAME ENGINE :: SYSTEMS
-import { Physics } from './engine/systems/matter.js';
-import {
-  DeployAsteroids,
-  DestroyAsteroids,
-  RemoveAsteroids,
-  MoveAsteroids,
-  RemoveCollidedAsteroids
-} from './engine/systems/dangerAsteroids.js';
-import {
-  DeployClearScreens,
-  RemoveClearScreens,
-  AddPowerUpClearScreens,
-  ClearScreensEffect,
-  MoveClearScreens
-} from './engine/systems/powerupClearScreens.js';
-import {
-  DeployHealths,
-  RemoveHealths,
-  AddPowerUpHealths,
-  MoveHealths
-} from './engine/systems/powerupHealths.js';
-
-import {
-  DeployClocks,
-  RemoveClocks,
-  AddPowerUpClocks,
-  MoveClocks
-} from './engine/systems/powerupClocks.js';
+import { systems } from './engine/systems';
+import { Reset } from './engine/systems/reset';
 
 export default class GameView extends React.Component {
-  constructor(props) {
-    super(props);
-    this._engineRef = null;
-  }
   state = {
-    running: true,
-    imageLoaded: true,
-    health: 100,
-    score: 0,
     navigationModalVisible: false,
     gameOverModalVisible: false,
-    systems: [
-      Physics,
-      DeployAsteroids,
-      DestroyAsteroids,
-      RemoveAsteroids,
-      MoveAsteroids,
-      RemoveCollidedAsteroids,
-      DeployClearScreens,
-      RemoveClearScreens,
-      AddPowerUpClearScreens,
-      ClearScreensEffect,
-      MoveClearScreens,
-      DeployHealths,
-      RemoveHealths,
-      AddPowerUpHealths,
-      MoveHealths,
-      DeployClocks,
-      RemoveClocks,
-      AddPowerUpClocks,
-      MoveClocks
-    ],
-    powerUps: ['empty', 'clock', 'empty']
+    running: true,
+    systems: systems,
+    health: 100,
+    score: 0,
+    powerUps: ['empty', 'empty', 'empty']
   };
+
   _isMounted = false;
+  _gameEngineRef = null;
+
+  // NOTE :: LIFECYCLE HOOKS
 
   componentDidMount() {
     this._isMounted = true;
-    this.reset();
+    this.resetGame();
+    this.runCollisionHandler();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.health !== prevState.health && this.state.health === 0) {
+      // TODO: Move to systems
+      this.setState({ systems: [Reset] }, () => {
+        this._gameEngineRef.dispatch({ type: 'gameOver' });
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.stopGame();
+    this._isMounted = false;
+  }
+
+  // NOTE :: MODAL HANDLERS
+
+  setNavigationModalVisible = visible => {
+    this.setState({ navigationModalVisible: visible });
+  };
+
+  setGameOverModalVisible = visible => {
+    this.setState({ gameOverModalVisible: visible });
+  };
+
+  // NOTE :: GAME INITIALIZATION, STOP, AND RESET
+
+  setEngineRef = ref => {
+    this._gameEngineRef = ref;
+  };
+
+  stopGame = () => {
+    if (this._isMounted && this._gameEngineRef) {
+      console.log('STOP GAME');
+      this.setState({ running: false, systems: [] });
+    }
+  };
+
+  resetGame = () => {
+    if (this._isMounted && this._gameEngineRef) {
+      console.log('RESET GAME');
+      Matter.World.clear(WORLD);
+      Matter.Engine.clear(ENGINE);
+      this._gameEngineRef.swap(defaultEntities());
+      this.setState(
+        {
+          running: true
+        },
+        () => {
+          this.setState({
+            systems: systems,
+            health: 100,
+            score: 0,
+            powerUps: ['empty', 'empty', 'empty']
+          });
+        }
+      );
+    }
+  };
+
+  // NOTE :: GAME HANDLERS
+
+  runCollisionHandler = () => {
     Matter.Events.on(ENGINE, 'collisionStart', e => {
-      if (!e.pairs[0].bodyA.isStatic) {
-        if (this._engineRef)
-          this._engineRef.dispatch({
-            type: 'asteroidCollision',
-            id: e.pairs[0].bodyA.id
-          });
-      } else if (!e.pairs[0].bodyB.isStatic) {
-        if (this._engineRef)
-          this._engineRef.dispatch({
-            type: 'asteroidCollision',
-            id: e.pairs[0].bodyB.id
-          });
-      }
-      if (this._isMounted && this.state.health !== undefined) {
+      if (
+        this._isMounted &&
+        this._gameEngineRef &&
+        (!e.pairs[0].bodyA.isStatic || !e.pairs[0].bodyB.isStatic)
+      ) {
+        let id = null;
+        if (!e.pairs[0].bodyA.isStatic) {
+          id = e.pairs[0].bodyA.id;
+        } else if (!e.pairs[0].bodyB.isStatic) {
+          id = e.pairs[0].bodyB.id;
+        }
+        this._gameEngineRef.dispatch({
+          type: 'asteroidCollision',
+          id: id
+        });
+
+        // TODO: Move to systems
         let newHealth = this.state.health - 10;
         if (this.state.health !== 0) {
           if (newHealth >= 0) {
@@ -112,55 +130,14 @@ export default class GameView extends React.Component {
         }
       }
     });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.health !== prevState.health) {
-      if (this.state.health === 0) {
-        // TEMPORARY WORKAROUND, STOP/RUNNING DOESN'T WORK
-        this.setState({ running: false }, () => {
-          this.stopEngine();
-          this.setGameOverModalVisible(true);
-        });
-      }
-    }
-  }
-
-  setEngineRef = classRef => {
-    this._engineRef = classRef;
   };
 
-  stopEngine = () => {
-    if (this._engineRef) this._engineRef.stop();
-  };
-
-  componentWillUnmount() {
-    // TODO: This is an anti-pattern, need to handle clearing Matter instances correctly
-    Matter.World.clear(WORLD);
-    Matter.Engine.clear(ENGINE);
-    this._isMounted = false;
-  }
-
-  // View Handlers
-  setNavigationModalVisible = visible => {
-    this.setState({ navigationModalVisible: visible });
-  };
-
-  setGameOverModalVisible = visible => {
-    this.setState({ gameOverModalVisible: visible });
-  };
-
-  handleGameReset = () => {
-    this.reset();
-  };
-
-  // GameEngine Handlers
   onEvent = e => {
     // console.log('EVENT: ', e);
-    if (e.type === 'game-over') {
-      if (this._isMounted) {
-        this.setState({ running: false });
-      }
+    if (e.type === 'resetComplete') {
+      console.log('RESET ENTITIES COMPLETE');
+      this.stopGame();
+      this.setGameOverModalVisible(true);
     } else if (e.type === 'addPowerUpClearScreens') {
       for (const powerUpIndex in this.state.powerUps) {
         if (this.state.powerUps[powerUpIndex] === 'empty') {
@@ -192,21 +169,21 @@ export default class GameView extends React.Component {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
-        this._engineRef.dispatch({ type: 'effectClearScreens' });
+        this._gameEngineRef.dispatch({ type: 'effectClearScreens' });
         // console.log('ACTIVATED POWERUP CLEAR SCREEN');
       });
     } else if (e.type === 'activateClock') {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
-        this._engineRef.dispatch({ type: 'effectClock' });
+        this._gameEngineRef.dispatch({ type: 'effectClock' });
         // console.log('ACTIVATED POWERUP CLOCK');
       });
     } else if (e.type === 'activateHealth') {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
-        // this._engineRef.dispatch({type: ''});
+        // this._gameEngineRef.dispatch({type: ''});
         let newHealth = 0;
         if (this.state.health + 10 <= 100) {
           newHealth = this.state.health + 10;
@@ -222,68 +199,20 @@ export default class GameView extends React.Component {
     }
   };
 
-  reset = () => {
-    Matter.World.clear(WORLD);
-    Matter.Engine.clear(ENGINE);
-    if (this._engineRef)
-      this._engineRef.swap({
-        physics: {
-          engine: ENGINE,
-          world: WORLD
-        },
-        created: {
-          createdAsteroids: [],
-          createdClearScreens: [],
-          createdHealths: [],
-          createdClocks: []
-        },
-        destroy: {
-          destroyAsteroids: []
-        },
-        psycheRover: {
-          body: PsycheRover_Matter,
-          renderer: PsycheRover
-        }
-      });
-    if (this._isMounted) {
-      this.setState({ running: true, health: 100, score: 0 });
-    }
-  };
-
-  // NOTE: FUNCTION FOR TRIGGERING EVENT
   emitEngineEvent = (event, index) => {
-    this._engineRef.dispatch({ type: event, index: index });
+    this._gameEngineRef.dispatch({ type: event, index: index });
   };
-  // END: FUNCTION FOR TRIGGERING EVENT
 
   render() {
     return (
       <View style={styles.outerContainer}>
-        <LoadingModal imageLoaded={this.state.imageLoaded} />
+        <LoadingModal imageLoaded={true} />
         <GameEngine
           ref={this.setEngineRef}
           running={this.state.running}
           style={styles.innerContainer}
           systems={this.state.systems}
-          entities={{
-            physics: {
-              engine: ENGINE,
-              world: WORLD
-            },
-            created: {
-              createdAsteroids: [],
-              createdClearScreens: [],
-              createdHealths: [],
-              createdClocks: []
-            },
-            destroy: {
-              destroyAsteroids: []
-            },
-            psycheRover: {
-              body: PsycheRover_Matter,
-              renderer: PsycheRover
-            }
-          }}
+          entities={defaultEntities()}
           onEvent={this.onEvent}
         >
           <StatusBar hidden={true} />
@@ -297,7 +226,7 @@ export default class GameView extends React.Component {
             setModalVisible={this.setGameOverModalVisible}
             handleGameView={this.props.handleGameView}
             score={this.state.score}
-            handleGameReset={this.handleGameReset}
+            handleGameReset={this.resetGame}
           />
           <TopBar
             setNavigationModalVisible={this.setNavigationModalVisible}

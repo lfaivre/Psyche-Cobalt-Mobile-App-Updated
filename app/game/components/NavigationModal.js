@@ -58,7 +58,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'rgba(30,34,35,0.5)'
+    backgroundColor: 'rgba(30,34,35,0.75)'
   },
   titleText: {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
