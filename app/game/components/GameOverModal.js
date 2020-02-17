@@ -22,25 +22,25 @@ export default class GameOverModal extends React.Component {
               onPress={() => {
                 // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
-                this.props.handleGameView('start');
+                this.props.handleGameReset();
               }}
               style={styles.exitButton}
             >
-              <Text style={styles.exitButtonText}>exit game</Text>
-            </TouchableHighlight>
-
-            {/*<TouchableHighlight
-              onPress={() => {
-                // TODO: Add callback to handle async state change (?)
-                this.props.setModalVisible(!this.props.modalVisible);
-                this.props.handleGameView('tutorial');
-              }}
-              style={styles.tutorialButton}
-            >
-              <Text style={styles.tutorialButtonText}>view tutorial</Text>
+              <Text style={styles.exitButtonText}>restart</Text>
             </TouchableHighlight>
 
             <TouchableHighlight
+              onPress={() => {
+                // TODO: Add callback to handle async state change (?)
+                this.props.setModalVisible(!this.props.modalVisible);
+                this.props.handleGameView('start');
+              }}
+              style={styles.tutorialButton}
+            >
+              <Text style={styles.tutorialButtonText}>exit game</Text>
+            </TouchableHighlight>
+
+            {/*<TouchableHighlight
               onPress={() => {
                 this.props.setModalVisible(!this.props.modalVisible);
               }}
@@ -87,6 +87,21 @@ const styles = {
   },
   exitButtonText: {
     color: '#1e2223',
+    fontSize: SCREEN_HEIGHT * (1 / 16),
+    fontFamily: Fonts.RobotoLight
+  },
+  tutorialButton: {
+    height: SCREEN_HEIGHT * (1 / 8),
+    width: SCREEN_WIDTH * (2 / 5),
+    borderWidth: 1,
+    borderColor: '#bca0dc',
+    marginVertical: SCREEN_HEIGHT * (1 / 32),
+    justifyContent: 'center',
+    alignItems: 'center'
+    // backgroundColor: 'pink'
+  },
+  tutorialButtonText: {
+    color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
     fontFamily: Fonts.RobotoLight
   }

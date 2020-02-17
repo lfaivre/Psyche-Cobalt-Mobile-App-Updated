@@ -118,7 +118,7 @@ export default class GameView extends React.Component {
     if (this.state.health !== prevState.health) {
       if (this.state.health === 0) {
         // TEMPORARY WORKAROUND, STOP/RUNNING DOESN'T WORK
-        this.setState({ running: false, systems: [] }, () => {
+        this.setState({ running: false }, () => {
           this.stopEngine();
           this.setGameOverModalVisible(true);
         });
@@ -136,9 +136,9 @@ export default class GameView extends React.Component {
 
   componentWillUnmount() {
     // TODO: This is an anti-pattern, need to handle clearing Matter instances correctly
-    this._isMounted = false;
     Matter.World.clear(WORLD);
     Matter.Engine.clear(ENGINE);
+    this._isMounted = false;
   }
 
   // View Handlers
@@ -148,6 +148,10 @@ export default class GameView extends React.Component {
 
   setGameOverModalVisible = visible => {
     this.setState({ gameOverModalVisible: visible });
+  };
+
+  handleGameReset = () => {
+    this.reset();
   };
 
   // GameEngine Handlers
@@ -293,6 +297,7 @@ export default class GameView extends React.Component {
             setModalVisible={this.setGameOverModalVisible}
             handleGameView={this.props.handleGameView}
             score={this.state.score}
+            handleGameReset={this.handleGameReset}
           />
           <TopBar
             setNavigationModalVisible={this.setNavigationModalVisible}
