@@ -106,7 +106,7 @@ export const AddPowerUpClocks = (entities, { touches, dispatch }) => {
             entities.created.createdClocks.indexOf(clock),
             1
           );
-          dispatch({ type: 'addPowerUpClocks' });
+          dispatch({ type: 'addPowerUpToBar', value: 'clock' });
         }
       }
     }

@@ -114,59 +114,39 @@ export default class GameView extends React.Component {
   };
 
   onEvent = e => {
-    if (e.type === 'addPowerUpClearScreens') {
-      for (const powerUpIndex in this.state.powerUps) {
-        if (this.state.powerUps[powerUpIndex] === 'empty') {
-          let powerUps = this.state.powerUps;
-          powerUps.splice(powerUpIndex, 1, 'clearScreen');
-          this.setState({ powerUps: powerUps });
-          return;
-        }
-      }
-    } else if (e.type === 'addPowerUpClocks') {
-      for (const powerUpIndex in this.state.powerUps) {
-        if (this.state.powerUps[powerUpIndex] === 'empty') {
-          let powerUps = this.state.powerUps;
-          powerUps.splice(powerUpIndex, 1, 'clock');
-          this.setState({ powerUps: powerUps });
-          return;
-        }
-      }
-    } else if (e.type === 'addPowerUpHealths') {
-      for (const powerUpIndex in this.state.powerUps) {
-        if (this.state.powerUps[powerUpIndex] === 'empty') {
-          let powerUps = this.state.powerUps;
-          powerUps.splice(powerUpIndex, 1, 'health');
-          this.setState({ powerUps: powerUps });
-          return;
-        }
-      }
-    } else if (e.type === 'activateClearScreen') {
-      let powerUps = this.state.powerUps;
-      powerUps.splice(e.index, 1, 'empty');
-      this.setState({ powerUps: powerUps }, () => {
-        this._gameEngineRef.dispatch({ type: 'effectClearScreens' });
-        // console.log('ACTIVATED POWERUP CLEAR SCREEN');
-      });
-    } else if (e.type === 'activateClock') {
-      let powerUps = this.state.powerUps;
-      powerUps.splice(e.index, 1, 'empty');
-      this.setState({ powerUps: powerUps }, () => {
-        this._gameEngineRef.dispatch({ type: 'effectClock' });
-        // console.log('ACTIVATED POWERUP CLOCK');
-      });
-    } else if (e.type === 'activateHealth') {
-      let powerUps = this.state.powerUps;
-      powerUps.splice(e.index, 1, 'empty');
-      this.setState({ powerUps: powerUps }, () => {
-        this._gameEngineRef.dispatch({ type: 'setHealth', value: 10 });
-      });
-    } else if (e.type === 'setStatusHealth') {
+    if (e.type === 'setStatusHealth') {
       const newHealth = e.value;
       this.setState({ statusHealth: newHealth });
     } else if (e.type === 'setStatusScore') {
       const newScore = e.value;
       this.setState({ statusScore: newScore });
+    } else if (e.type === 'addPowerUpToBar') {
+      for (const powerUpIndex in this.state.powerUps) {
+        if (this.state.powerUps[powerUpIndex] === 'empty') {
+          let powerUps = this.state.powerUps;
+          powerUps.splice(powerUpIndex, 1, e.value);
+          this.setState({ powerUps: powerUps });
+          return;
+        }
+      }
+    } else if (e.type === 'activatePowerUp') {
+      let powerUps = this.state.powerUps;
+      powerUps.splice(e.index, 1, 'empty');
+      this.setState({ powerUps: powerUps }, () => {
+        switch (e.value) {
+          case 'clearScreen':
+            this._gameEngineRef.dispatch({ type: 'effectClearScreens' });
+            break;
+          case 'clock':
+            this._gameEngineRef.dispatch({ type: 'effectClock' });
+            break;
+          case 'health':
+            this._gameEngineRef.dispatch({ type: 'setHealth', value: 10 });
+            break;
+          default:
+            break;
+        }
+      });
     } else if (e.type === 'gameOver') {
       this.setState({ systems: [Reset] }, () => {
         this._gameEngineRef.dispatch({ type: 'beginCleanup' });
@@ -178,8 +158,12 @@ export default class GameView extends React.Component {
     }
   };
 
-  emitEngineEvent = (event, index) => {
-    this._gameEngineRef.dispatch({ type: event, index: index });
+  emitEngineEvent = (index, value) => {
+    this._gameEngineRef.dispatch({
+      type: 'activatePowerUp',
+      index: index,
+      value: value
+    });
   };
 
   render() {

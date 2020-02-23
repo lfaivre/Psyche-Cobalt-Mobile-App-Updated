@@ -113,7 +113,7 @@ export const AddPowerUpClearScreens = (entities, { touches, dispatch }) => {
             entities.created.createdClearScreens.indexOf(clearScreen),
             1
           );
-          dispatch({ type: 'addPowerUpClearScreens' });
+          dispatch({ type: 'addPowerUpToBar', value: 'clearScreen' });
         }
       }
     }

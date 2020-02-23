@@ -121,7 +121,7 @@ export const MoveAsteroids = (entities, { touches, events }) => {
 
   if (events.length) {
     for (let i = 0; i < events.length; i++) {
-      if (events[i].type === 'activateClock') {
+      if (events[i].type === 'effectClock') {
         // console.log('ASTEROIDS AVAILABLE: ', entities.created.createdAsteroids);
         // TODO: Handle multiple clock events (iterator + 180?)
         asteroidVerticalSpeed = 2.5;

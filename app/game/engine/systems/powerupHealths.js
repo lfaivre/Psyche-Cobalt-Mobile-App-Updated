@@ -106,7 +106,7 @@ export const AddPowerUpHealths = (entities, { touches, dispatch }) => {
             entities.created.createdHealths.indexOf(health),
             1
           );
-          dispatch({ type: 'addPowerUpHealths' });
+          dispatch({ type: 'addPowerUpToBar', value: 'health' });
         }
       }
     }
