@@ -8,6 +8,10 @@ export const defaultEntities = () => {
       engine: ENGINE,
       world: WORLD
     },
+    player: {
+      health: 100,
+      score: 0
+    },
     created: {
       createdAsteroids: [],
       createdClearScreens: [],

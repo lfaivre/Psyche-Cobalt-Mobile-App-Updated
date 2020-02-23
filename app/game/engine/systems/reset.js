@@ -16,7 +16,7 @@ export const Reset = (entities, { touches, dispatch, events }) => {
       if (entities.created) delete entities['created'];
       if (entities.destroy) delete entities['destroy'];
       if (entities.psycheRover) delete entities['psycheRover'];
-      dispatch({ type: 'resetComplete' });
+      dispatch({ type: 'endCleanup' });
     } else {
       for (asteroid of entities.created.createdAsteroids) {
         if (entities[asteroid]) {
@@ -59,7 +59,7 @@ export const Reset = (entities, { touches, dispatch, events }) => {
   }
   if (events.length) {
     for (let i = 0; i < events.length; i++) {
-      if (events[i].type === 'gameOver') {
+      if (events[i].type === 'beginCleanup') {
         resetRunning = true;
       }
     }

@@ -1,4 +1,5 @@
 import { Physics } from './physics';
+import { SystemPhase, SystemHealth, SystemScore } from './base';
 import {
   DeployAsteroids,
   DestroyAsteroids,
@@ -29,6 +30,9 @@ import {
 
 export const systems = [
   Physics,
+  SystemPhase,
+  SystemHealth,
+  SystemScore,
   DeployAsteroids,
   DestroyAsteroids,
   RemoveAsteroids,

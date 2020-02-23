@@ -24,9 +24,9 @@ export default class GameView extends React.Component {
     gameOverModalVisible: false,
     running: true,
     systems: systems,
-    health: 100,
-    score: 0,
-    powerUps: ['empty', 'empty', 'empty']
+    powerUps: ['empty', 'empty', 'empty'],
+    statusHealth: 100,
+    statusScore: 0
   };
 
   _isMounted = false;
@@ -38,15 +38,6 @@ export default class GameView extends React.Component {
     this._isMounted = true;
     this.resetGame();
     this.runCollisionHandler();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.health !== prevState.health && this.state.health === 0) {
-      // TODO: Move to systems
-      this.setState({ systems: [Reset] }, () => {
-        this._gameEngineRef.dispatch({ type: 'gameOver' });
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -90,8 +81,8 @@ export default class GameView extends React.Component {
         () => {
           this.setState({
             systems: systems,
-            health: 100,
-            score: 0,
+            statusHealth: 100,
+            statusScore: 0,
             powerUps: ['empty', 'empty', 'empty']
           });
         }
@@ -118,27 +109,12 @@ export default class GameView extends React.Component {
           type: 'asteroidCollision',
           id: id
         });
-
-        // TODO: Move to systems
-        let newHealth = this.state.health - 10;
-        if (this.state.health !== 0) {
-          if (newHealth >= 0) {
-            this.setState({ health: newHealth });
-          } else {
-            this.setState({ health: 0 });
-          }
-        }
       }
     });
   };
 
   onEvent = e => {
-    // console.log('EVENT: ', e);
-    if (e.type === 'resetComplete') {
-      console.log('RESET ENTITIES COMPLETE');
-      this.stopGame();
-      this.setGameOverModalVisible(true);
-    } else if (e.type === 'addPowerUpClearScreens') {
+    if (e.type === 'addPowerUpClearScreens') {
       for (const powerUpIndex in this.state.powerUps) {
         if (this.state.powerUps[powerUpIndex] === 'empty') {
           let powerUps = this.state.powerUps;
@@ -183,19 +159,22 @@ export default class GameView extends React.Component {
       let powerUps = this.state.powerUps;
       powerUps.splice(e.index, 1, 'empty');
       this.setState({ powerUps: powerUps }, () => {
-        // this._gameEngineRef.dispatch({type: ''});
-        let newHealth = 0;
-        if (this.state.health + 10 <= 100) {
-          newHealth = this.state.health + 10;
-        } else if (this.state.health + 10 > 100) {
-          newHealth = 100;
-        }
-        this.setState({ health: newHealth });
-        // console.log('ACTIVATED POWERUP HEALTH');
+        this._gameEngineRef.dispatch({ type: 'setHealth', value: 10 });
       });
-    } else if (e.type === 'destroyAsteroid') {
-      const newScore = this.state.score + 10;
-      this.setState({ score: newScore });
+    } else if (e.type === 'setStatusHealth') {
+      const newHealth = e.value;
+      this.setState({ statusHealth: newHealth });
+    } else if (e.type === 'setStatusScore') {
+      const newScore = e.value;
+      this.setState({ statusScore: newScore });
+    } else if (e.type === 'gameOver') {
+      this.setState({ systems: [Reset] }, () => {
+        this._gameEngineRef.dispatch({ type: 'beginCleanup' });
+      });
+    } else if (e.type === 'endCleanup') {
+      console.log('RESET ENTITIES COMPLETE');
+      this.stopGame();
+      this.setGameOverModalVisible(true);
     }
   };
 
@@ -225,15 +204,15 @@ export default class GameView extends React.Component {
             modalVisible={this.state.gameOverModalVisible}
             setModalVisible={this.setGameOverModalVisible}
             handleGameView={this.props.handleGameView}
-            score={this.state.score}
+            score={this.state.statusScore}
             handleGameReset={this.resetGame}
           />
           <TopBar
             setNavigationModalVisible={this.setNavigationModalVisible}
-            score={this.state.score}
+            score={this.state.statusScore}
           />
           <BottomBar
-            health={this.state.health}
+            health={this.state.statusHealth}
             powerUps={this.state.powerUps}
             emitEngineEvent={this.emitEngineEvent}
           />

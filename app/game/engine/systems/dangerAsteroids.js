@@ -89,7 +89,7 @@ export const DestroyAsteroids = (entities, { touches, dispatch }) => {
             entities.created.createdAsteroids.indexOf(asteroid),
             1
           );
-          dispatch({ type: 'destroyAsteroid' });
+          dispatch({ type: 'setScore', value: 10 });
         }
       }
     }
@@ -162,6 +162,7 @@ export const RemoveCollidedAsteroids = (
       if (events[i].type === 'asteroidCollision') {
         destroyAsteroids.push(events[i].id);
         entities.destroy.destroyAsteroids.push(events[i].id);
+        dispatch({ type: 'setHealth', value: -10 });
       }
     }
   }
