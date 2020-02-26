@@ -12,7 +12,7 @@ export default class PowerUp extends React.Component {
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpClearScreen!');
-              this.props.emitEngineEvent(this.props.index, 'clearScreen');
+              this.props.handleActivatePowerUp(this.props.index, 'clearScreen');
             }}
             style={styles.powerUpClearScreen}
           >
@@ -25,7 +25,7 @@ export default class PowerUp extends React.Component {
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpClock!');
-              this.props.emitEngineEvent(this.props.index, 'clock');
+              this.props.handleActivatePowerUp(this.props.index, 'clock');
             }}
             style={styles.powerUpClock}
           >
@@ -38,7 +38,7 @@ export default class PowerUp extends React.Component {
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpHealth!');
-              this.props.emitEngineEvent(this.props.index, 'health');
+              this.props.handleActivatePowerUp(this.props.index, 'health');
             }}
             style={styles.powerUpHealth}
           >

@@ -18,7 +18,7 @@ export default class BottomBar extends React.Component {
               <PowerUp
                 powerUp={this.props.powerUps[0]}
                 index={0}
-                emitEngineEvent={this.props.emitEngineEvent}
+                handleActivatePowerUp={this.props.handleActivatePowerUp}
               />
             )}
           </View>
@@ -27,7 +27,7 @@ export default class BottomBar extends React.Component {
               <PowerUp
                 powerUp={this.props.powerUps[1]}
                 index={1}
-                emitEngineEvent={this.props.emitEngineEvent}
+                handleActivatePowerUp={this.props.handleActivatePowerUp}
               />
             )}
           </View>
@@ -36,7 +36,7 @@ export default class BottomBar extends React.Component {
               <PowerUp
                 powerUp={this.props.powerUps[2]}
                 index={2}
-                emitEngineEvent={this.props.emitEngineEvent}
+                handleActivatePowerUp={this.props.handleActivatePowerUp}
               />
             )}
           </View>

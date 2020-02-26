@@ -158,7 +158,7 @@ export default class GameView extends React.Component {
     }
   };
 
-  emitEngineEvent = (index, value) => {
+  handleActivatePowerUp = (index, value) => {
     this._gameEngineRef.dispatch({
       type: 'activatePowerUp',
       index: index,
@@ -198,7 +198,7 @@ export default class GameView extends React.Component {
           <BottomBar
             health={this.state.statusHealth}
             powerUps={this.state.powerUps}
-            emitEngineEvent={this.emitEngineEvent}
+            handleActivatePowerUp={this.handleActivatePowerUp}
           />
         </GameEngine>
       </View>

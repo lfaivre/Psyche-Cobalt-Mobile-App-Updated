@@ -5,7 +5,9 @@ import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
 
-const Create_Clock_Matter = (posX, posY, radius) => {
+const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375) / 2;
+
+const Create_Clock_Matter = (posX, posY) => {
   return Matter.Bodies.circle(posX, posY, radius, {
     collisionFilter: {
       category: 0x0004
