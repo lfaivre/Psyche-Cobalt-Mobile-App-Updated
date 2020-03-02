@@ -15,7 +15,9 @@ if (width > height) {
 }
 
 const randomBetween = (min, max) => {
-  return (Math.random() * (max - min + 1)) << 0;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 const calcHealth = (currentHealth, modifier) => {
@@ -45,23 +47,23 @@ const calcScore = (currentScore, modifier) => {
   }
 };
 
-const calcDensity = clearScreensPerSecond => {
+const calcDensity = density => {
   const framesPerSecond = 60;
-  return Math.floor(framesPerSecond / clearScreensPerSecond);
+  return Math.floor(framesPerSecond / density);
 };
 
-const outsideOfVerticalBounds = dangerBodyBounds => {
+const outsideOfVerticalBounds = bounds => {
   const screenHeight = SCREEN_HEIGHT;
-  return dangerBodyBounds.min.y >= screenHeight;
+  return bounds.min.y >= screenHeight;
 };
 
 const touchHandicap = 0;
-const touchWithinBounds = (dangerBodyBounds, touchPosition) => {
+const touchWithinBounds = (bounds, touchPosition) => {
   return (
-    touchPosition.x <= dangerBodyBounds.max.x + touchHandicap &&
-    touchPosition.x >= dangerBodyBounds.min.x - touchHandicap &&
-    touchPosition.y <= dangerBodyBounds.max.y + touchHandicap &&
-    touchPosition.y >= dangerBodyBounds.min.y - touchHandicap
+    touchPosition.x <= bounds.max.x + touchHandicap &&
+    touchPosition.x >= bounds.min.x - touchHandicap &&
+    touchPosition.y <= bounds.max.y + touchHandicap &&
+    touchPosition.y >= bounds.min.y - touchHandicap
   );
 };
 

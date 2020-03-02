@@ -15,37 +15,61 @@ import {
 
 // NOTE :: SYSTEMS
 
-let clearScreenSpeed = calcDensity(1 / 8);
-let clockSpeed = calcDensity(1 / 4);
-let healthSpeed = calcDensity(1 / 4);
+let clearScreenDensity = calcDensity(1 / randomBetween(8, 10));
+let clockDensity = calcDensity(1 / randomBetween(6, 8));
+let healthDensity = calcDensity(1 / randomBetween(4, 6));
 
 let clearScreenIterator = 0;
 let clockIterator = 0;
 let healthIterator = 0;
 
 export const DeployPowerUps = (entities, {}) => {
-  if (clearScreenIterator === clearScreenSpeed) {
+  if (clearScreenIterator === clearScreenDensity) {
     const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
     let body = Create_ClearScreen_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.clearScreen.min;
+    const maxSpeed = entities.levelsystem.speed.clearScreen.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
     const clearScreenGeneratedKey = `ClearScreen${Math.random()}`;
     entities.created.createdClearScreens.push(clearScreenGeneratedKey);
-    entities[clearScreenGeneratedKey] = { body, renderer: ClearScreen };
+    entities[clearScreenGeneratedKey] = { body, speed, renderer: ClearScreen };
+
+    const minDensity = entities.levelsystem.density.clearScreen.min;
+    const maxDensity = entities.levelsystem.density.clearScreen.max;
+    const density = calcDensity(1 / randomBetween(minDensity, maxDensity));
+    clearScreenDensity = density;
     clearScreenIterator = 0;
   }
-  if (clockIterator === clockSpeed) {
+  if (clockIterator === clockDensity) {
     const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
     let body = Create_Clock_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.health.min;
+    const maxSpeed = entities.levelsystem.speed.health.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
     const clockGeneratedKey = `Clock${Math.random()}`;
     entities.created.createdClocks.push(clockGeneratedKey);
-    entities[clockGeneratedKey] = { body, renderer: Clock };
+    entities[clockGeneratedKey] = { body, speed, renderer: Clock };
+
+    const minDensity = entities.levelsystem.density.clock.min;
+    const maxDensity = entities.levelsystem.density.clock.max;
+    const density = calcDensity(1 / randomBetween(minDensity, maxDensity));
+    clockDensity = density;
     clockIterator = 0;
   }
-  if (healthIterator === healthSpeed) {
+  if (healthIterator === healthDensity) {
     const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
     let body = Create_Health_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.clock.min;
+    const maxSpeed = entities.levelsystem.speed.clock.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
     const healthGeneratedKey = `Health${Math.random()}`;
     entities.created.createdHealths.push(healthGeneratedKey);
-    entities[healthGeneratedKey] = { body, renderer: Health };
+    entities[healthGeneratedKey] = { body, speed, renderer: Health };
+
+    const minDensity = entities.levelsystem.density.health.min;
+    const maxDensity = entities.levelsystem.density.health.max;
+    const density = calcDensity(1 / randomBetween(minDensity, maxDensity));
+    healthDensity = density;
     healthIterator = 0;
   }
 
@@ -81,22 +105,21 @@ export const RemovePowerUps = (entities, {}) => {
   return entities;
 };
 
-let clearScreenVerticalSpeed = 6;
-let clockVerticalSpeed = 6;
-let healthVerticalSpeed = 6;
-
 export const MovePowerUps = (entities, {}) => {
   for (clearScreen of entities.created.createdClearScreens) {
     const body = entities[clearScreen].body;
-    Matter.Body.translate(body, { x: 0, y: clearScreenVerticalSpeed });
+    const speed = entities[clearScreen].speed;
+    Matter.Body.translate(body, { x: 0, y: speed });
   }
   for (clock of entities.created.createdClocks) {
     const body = entities[clock].body;
-    Matter.Body.translate(body, { x: 0, y: clockVerticalSpeed });
+    const speed = entities[clock].speed;
+    Matter.Body.translate(body, { x: 0, y: speed });
   }
   for (health of entities.created.createdHealths) {
     const body = entities[health].body;
-    Matter.Body.translate(body, { x: 0, y: healthVerticalSpeed });
+    const speed = entities[health].speed;
+    Matter.Body.translate(body, { x: 0, y: speed });
   }
   return entities;
 };

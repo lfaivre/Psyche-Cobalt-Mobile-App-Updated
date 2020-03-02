@@ -9,16 +9,23 @@ import {
 } from '../../../game/utilities';
 
 // NOTE :: SYSTEMS
-let asteroidSpeed = calcDensity(2);
+let asteroidDensity = calcDensity(2);
 let asteroidIterator = 0;
 
 export const DeployDangers = (entities, {}) => {
-  if (asteroidIterator === asteroidSpeed) {
+  if (asteroidIterator === asteroidDensity) {
     const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
     let body = Create_Asteroid_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.asteroid.min;
+    const maxSpeed = entities.levelsystem.speed.asteroid.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
     const asteroidGeneratedKey = `Asteroid${Math.random()}`;
     entities.created.createdAsteroids.push(asteroidGeneratedKey);
-    entities[asteroidGeneratedKey] = { body: body, renderer: Asteroid };
+    entities[asteroidGeneratedKey] = { body, speed, renderer: Asteroid };
+
+    const minDensity = entities.levelsystem.density.asteroid.min;
+    const density = calcDensity(minDensity);
+    asteroidDensity = density;
     asteroidIterator = 0;
   }
   asteroidIterator++;
@@ -61,7 +68,7 @@ export const DestroyDangers = (entities, { touches, dispatch }) => {
   return entities;
 };
 
-let asteroidVerticalSpeed = 5;
+let asteroidSpeedModifier = 1;
 let clockEffectActive = false;
 let clockEffectIterator = 0;
 
@@ -71,7 +78,7 @@ export const MoveDangers = (entities, { events }) => {
     for (let i = 0; i < events.length; i++) {
       if (events[i].type === 'effectClock') {
         // TODO: Handle multiple clock events (iterator + 180?)
-        asteroidVerticalSpeed = 2.5;
+        asteroidSpeedModifier = 0.5;
         clockEffectActive = true;
       }
     }
@@ -81,7 +88,7 @@ export const MoveDangers = (entities, { events }) => {
     if (clockEffectIterator === 180) {
       clockEffectActive = false;
       clockEffectIterator = 0;
-      asteroidVerticalSpeed = 5;
+      asteroidSpeedModifier = 1;
     } else {
       clockEffectIterator++;
     }
@@ -89,7 +96,9 @@ export const MoveDangers = (entities, { events }) => {
 
   for (asteroid of entities.created.createdAsteroids) {
     const body = entities[asteroid].body;
-    Matter.Body.translate(body, { x: 0, y: asteroidVerticalSpeed });
+    const initialSpeed = entities[asteroid].speed;
+    const speed = initialSpeed * asteroidSpeedModifier;
+    Matter.Body.translate(body, { x: 0, y: speed });
   }
   return entities;
 };
