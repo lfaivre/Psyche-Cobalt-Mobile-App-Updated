@@ -19,9 +19,12 @@ export default class TopBar extends React.Component {
         >
           <Text style={styles.menuButtonText}>M</Text>
         </TouchableHighlight>
-        <Text style={styles.scoreText}>
-          SCORE {this.padScoreStatus(this.props.score, 10)}
-        </Text>
+        <View style={styles.infoContainer}>
+          <Text style={styles.scoreText}>
+            SCORE {this.padScoreStatus(this.props.score, 10)}
+          </Text>
+          <Text style={styles.scoreText}>LEVEL {this.props.level}</Text>
+        </View>
       </View>
     );
   }
@@ -51,6 +54,13 @@ const styles = {
     borderRadius: SCREEN_HEIGHT * (1 / 16),
     borderWidth: 1,
     borderColor: 'white'
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+    // backgroundColor: 'pink'
   },
   menuButtonText: {
     color: '#bca0dc',

@@ -26,7 +26,8 @@ export default class GameView extends React.Component {
     systems: systems,
     powerUps: ['empty', 'empty', 'empty'],
     statusHealth: 100,
-    statusScore: 0
+    statusScore: 0,
+    statusLevel: 0
   };
 
   _isMounted = false;
@@ -83,6 +84,7 @@ export default class GameView extends React.Component {
             systems: systems,
             statusHealth: 100,
             statusScore: 0,
+            statusScore: 0,
             powerUps: ['empty', 'empty', 'empty']
           });
         }
@@ -113,6 +115,8 @@ export default class GameView extends React.Component {
     });
   };
 
+  // TODO :: EXTRACT FROM CLASS (HOOK, WAIT BC LARGE REFACTOR)
+
   onEvent = e => {
     if (e.type === 'setStatusHealth') {
       const newHealth = e.value;
@@ -120,6 +124,9 @@ export default class GameView extends React.Component {
     } else if (e.type === 'setStatusScore') {
       const newScore = e.value;
       this.setState({ statusScore: newScore });
+    } else if (e.type === 'setStatusLevel') {
+      const newLevel = e.value;
+      this.setState({ statusLevel: newLevel });
     } else if (e.type === 'addPowerUpToBar') {
       for (const powerUpIndex in this.state.powerUps) {
         if (this.state.powerUps[powerUpIndex] === 'empty') {
@@ -194,6 +201,7 @@ export default class GameView extends React.Component {
           <TopBar
             setNavigationModalVisible={this.setNavigationModalVisible}
             score={this.state.statusScore}
+            level={this.state.statusLevel}
           />
           <BottomBar
             health={this.state.statusHealth}

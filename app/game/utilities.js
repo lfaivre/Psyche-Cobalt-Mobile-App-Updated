@@ -45,7 +45,7 @@ const calcScore = (currentScore, modifier) => {
   }
 };
 
-const calcSpeed = clearScreensPerSecond => {
+const calcDensity = clearScreensPerSecond => {
   const framesPerSecond = 60;
   return Math.floor(framesPerSecond / clearScreensPerSecond);
 };
@@ -71,7 +71,7 @@ export {
   randomBetween,
   calcHealth,
   calcScore,
-  calcSpeed,
+  calcDensity,
   outsideOfVerticalBounds,
   touchWithinBounds
 };

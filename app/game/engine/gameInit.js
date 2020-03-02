@@ -10,7 +10,8 @@ export const defaultEntities = () => {
     },
     player: {
       health: 100,
-      score: 0
+      score: 0,
+      level: 0
     },
     created: {
       createdAsteroids: [],

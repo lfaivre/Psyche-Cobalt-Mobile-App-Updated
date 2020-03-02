@@ -1,5 +1,5 @@
 import { Physics } from './physics';
-import { SystemPhase, SystemHealth, SystemScore } from './base';
+import { SystemPhase, SystemHealth, SystemScore, SystemLevels } from './base';
 import {
   DeployPowerUps,
   RemovePowerUps,
@@ -20,6 +20,7 @@ export const systems = [
   SystemPhase,
   SystemHealth,
   SystemScore,
+  SystemLevels,
   DeployPowerUps,
   RemovePowerUps,
   MovePowerUps,

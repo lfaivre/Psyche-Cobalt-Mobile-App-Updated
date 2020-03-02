@@ -50,3 +50,32 @@ export const SystemScore = (entities, { events, dispatch }) => {
   }
   return entities;
 };
+
+export const SystemLevels = (entities, { dispatch }) => {
+  // TODO :: DEFINE INITIAL LEVELS
+  if (entities.player.score === 0) {
+    entities.player.level = 1;
+    dispatch({ type: 'setStatusLevel', value: 1 });
+  }
+  if (entities.player.score === 200) {
+    entities.player.level = 2;
+    dispatch({ type: 'setStatusLevel', value: 2 });
+  }
+  if (entities.player.score === 400) {
+    entities.player.level = 3;
+    dispatch({ type: 'setStatusLevel', value: 3 });
+  }
+  if (entities.player.score === 600) {
+    entities.player.level = 4;
+    dispatch({ type: 'setStatusLevel', value: 4 });
+  }
+  if (entities.player.score === 800) {
+    entities.player.level = 5;
+    dispatch({ type: 'setStatusLevel', value: 5 });
+  }
+  if (entities.player.score === 1000) {
+    entities.player.level = 6;
+    dispatch({ type: 'setStatusLevel', value: 6 });
+  }
+  return entities;
+};

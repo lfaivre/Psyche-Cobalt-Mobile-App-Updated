@@ -3,13 +3,13 @@ import { Asteroid, Create_Asteroid_Matter } from '../renderers/Asteroid';
 import {
   SCREEN_WIDTH,
   randomBetween,
-  calcSpeed,
+  calcDensity,
   outsideOfVerticalBounds,
   touchWithinBounds
 } from '../../../game/utilities';
 
 // NOTE :: SYSTEMS
-let asteroidSpeed = calcSpeed(2);
+let asteroidSpeed = calcDensity(2);
 let asteroidIterator = 0;
 
 export const DeployDangers = (entities, {}) => {

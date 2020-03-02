@@ -8,16 +8,16 @@ import { Health, Create_Health_Matter } from '../renderers/Health';
 import {
   SCREEN_WIDTH,
   randomBetween,
-  calcSpeed,
+  calcDensity,
   outsideOfVerticalBounds,
   touchWithinBounds
 } from '../../../game/utilities';
 
 // NOTE :: SYSTEMS
 
-let clearScreenSpeed = calcSpeed(1 / 8);
-let clockSpeed = calcSpeed(1 / 4);
-let healthSpeed = calcSpeed(1 / 4);
+let clearScreenSpeed = calcDensity(1 / 8);
+let clockSpeed = calcDensity(1 / 4);
+let healthSpeed = calcDensity(1 / 4);
 
 let clearScreenIterator = 0;
 let clockIterator = 0;
