@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Matter from 'matter-js';
+import Emoji from 'react-native-emoji';
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
@@ -43,7 +44,9 @@ class ClearScreen extends React.Component {
             borderRadius: width / 2
           }
         ]}
-      />
+      >
+        <Emoji name="bomb" style={{ fontSize: radius }} />
+      </View>
     );
   }
 }
@@ -51,7 +54,10 @@ class ClearScreen extends React.Component {
 const styles = {
   asteroid: {
     position: 'absolute',
-    backgroundColor: '#DB7F8E'
+    backgroundColor: '#DB7F8E',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 

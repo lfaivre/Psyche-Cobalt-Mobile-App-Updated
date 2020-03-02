@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Matter from 'matter-js';
+import Emoji from 'react-native-emoji';
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
@@ -43,7 +44,9 @@ class Health extends React.Component {
             borderRadius: width / 2
           }
         ]}
-      />
+      >
+        <Emoji name="hammer_and_wrench" style={{ fontSize: radius }} />
+      </View>
     );
   }
 }
@@ -51,7 +54,10 @@ class Health extends React.Component {
 const styles = {
   asteroid: {
     position: 'absolute',
-    backgroundColor: '#A4FBA6'
+    backgroundColor: '#A4FBA6',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
-import { Fonts } from '../../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
+import { View, TouchableHighlight } from 'react-native';
+import Emoji from 'react-native-emoji';
 
 export default class PowerUp extends React.Component {
   render() {
@@ -16,7 +15,9 @@ export default class PowerUp extends React.Component {
             }}
             style={styles.powerUpClearScreen}
           >
-            <View></View>
+            <View>
+              <Emoji name="bomb" style={{ fontSize: 20 }} />
+            </View>
           </TouchableHighlight>
         );
       case 'clock':
@@ -29,7 +30,9 @@ export default class PowerUp extends React.Component {
             }}
             style={styles.powerUpClock}
           >
-            <View></View>
+            <View>
+              <Emoji name="stopwatch" style={{ fontSize: 20 }} />
+            </View>
           </TouchableHighlight>
         );
       case 'health':
@@ -42,7 +45,9 @@ export default class PowerUp extends React.Component {
             }}
             style={styles.powerUpHealth}
           >
-            <View></View>
+            <View>
+              <Emoji name="hammer_and_wrench" style={{ fontSize: 20 }} />
+            </View>
           </TouchableHighlight>
         );
       default:
