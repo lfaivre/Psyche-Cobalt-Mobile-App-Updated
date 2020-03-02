@@ -45,4 +45,33 @@ const calcScore = (currentScore, modifier) => {
   }
 };
 
-export { SCREEN_WIDTH, SCREEN_HEIGHT, randomBetween, calcHealth, calcScore };
+const calcSpeed = clearScreensPerSecond => {
+  const framesPerSecond = 60;
+  return Math.floor(framesPerSecond / clearScreensPerSecond);
+};
+
+const outsideOfVerticalBounds = dangerBodyBounds => {
+  const screenHeight = SCREEN_HEIGHT;
+  return dangerBodyBounds.min.y >= screenHeight;
+};
+
+const touchHandicap = 0;
+const touchWithinBounds = (dangerBodyBounds, touchPosition) => {
+  return (
+    touchPosition.x <= dangerBodyBounds.max.x + touchHandicap &&
+    touchPosition.x >= dangerBodyBounds.min.x - touchHandicap &&
+    touchPosition.y <= dangerBodyBounds.max.y + touchHandicap &&
+    touchPosition.y >= dangerBodyBounds.min.y - touchHandicap
+  );
+};
+
+export {
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
+  randomBetween,
+  calcHealth,
+  calcScore,
+  calcSpeed,
+  outsideOfVerticalBounds,
+  touchWithinBounds
+};
