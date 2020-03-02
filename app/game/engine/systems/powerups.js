@@ -7,7 +7,6 @@ import { Clock, Create_Clock_Matter } from '../renderers/Clock';
 import { Health, Create_Health_Matter } from '../renderers/Health';
 import {
   SCREEN_WIDTH,
-  SCREEN_HEIGHT,
   randomBetween,
   calcSpeed,
   outsideOfVerticalBounds,

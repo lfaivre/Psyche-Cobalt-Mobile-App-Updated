@@ -8,12 +8,12 @@ import {
   ExecutePowerUps
 } from './powerups';
 import {
-  DeployAsteroids,
-  DestroyAsteroids,
-  RemoveAsteroids,
-  MoveAsteroids,
-  RemoveCollidedAsteroids
-} from './dangerAsteroids';
+  DeployDangers,
+  RemoveDangers,
+  DestroyDangers,
+  MoveDangers,
+  RemoveCollidedDangers
+} from './dangers';
 
 export const systems = [
   Physics,
@@ -25,9 +25,9 @@ export const systems = [
   MovePowerUps,
   AddPowerUps,
   ExecutePowerUps,
-  DeployAsteroids,
-  DestroyAsteroids,
-  RemoveAsteroids,
-  MoveAsteroids,
-  RemoveCollidedAsteroids
+  DeployDangers,
+  RemoveDangers,
+  DestroyDangers,
+  MoveDangers,
+  RemoveCollidedDangers
 ];
