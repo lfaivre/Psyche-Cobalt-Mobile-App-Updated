@@ -5,6 +5,7 @@ import {
 } from '../renderers/ClearScreen';
 import { Clock, Create_Clock_Matter } from '../renderers/Clock';
 import { Health, Create_Health_Matter } from '../renderers/Health';
+import { GAME_DEFAULTS } from '../init';
 import {
   SCREEN_WIDTH,
   randomBetween,
@@ -15,9 +16,9 @@ import {
 
 // NOTE :: SYSTEMS
 
-let clearScreenDensity = calcDensity(1 / randomBetween(8, 10));
-let clockDensity = calcDensity(1 / randomBetween(6, 8));
-let healthDensity = calcDensity(1 / randomBetween(4, 6));
+let clearScreenDensity = GAME_DEFAULTS.clearScreenDensity;
+let clockDensity = GAME_DEFAULTS.clockDensity;
+let healthDensity = GAME_DEFAULTS.healthDensity;
 
 let clearScreenIterator = 0;
 let clockIterator = 0;
@@ -175,7 +176,7 @@ export const AddPowerUps = (entities, { touches, dispatch }) => {
 let clearScreenActive = false;
 let clearScreenIterations = 0;
 
-export const ExecutePowerUps = (entities, { touches, dispatch, events }) => {
+export const ExecutePowerUps = (entities, { dispatch, events }) => {
   if (clearScreenActive) {
     if (clearScreenIterations === 60) {
       clearScreenActive = false;

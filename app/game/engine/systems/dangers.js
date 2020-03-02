@@ -1,5 +1,6 @@
 import Matter from 'matter-js';
 import { Asteroid, Create_Asteroid_Matter } from '../renderers/Asteroid';
+import { GAME_DEFAULTS } from '../init';
 import {
   SCREEN_WIDTH,
   randomBetween,
@@ -9,7 +10,7 @@ import {
 } from '../../../game/utilities';
 
 // NOTE :: SYSTEMS
-let asteroidDensity = calcDensity(2);
+let asteroidDensity = GAME_DEFAULTS.asteroidDensity;
 let asteroidIterator = 0;
 
 export const DeployDangers = (entities, {}) => {

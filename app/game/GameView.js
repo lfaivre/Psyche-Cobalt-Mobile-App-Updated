@@ -12,7 +12,7 @@ import TopBar from './components/TopBar';
 
 // Game Engine
 import { ENGINE, WORLD } from './engine/physicsInit';
-import { defaultEntities } from './engine/gameInit';
+import { GAME_DEFAULTS, defaultEntities } from './engine/init';
 
 // GAME ENGINE :: SYSTEMS
 import { systems } from './engine/systems';
@@ -24,10 +24,10 @@ export default class GameView extends React.Component {
     gameOverModalVisible: false,
     running: true,
     systems: systems,
-    powerUps: ['empty', 'empty', 'empty'],
-    statusHealth: 100,
-    statusScore: 0,
-    statusLevel: 0
+    powerUps: GAME_DEFAULTS.powerUps,
+    statusHealth: GAME_DEFAULTS.player.health,
+    statusScore: GAME_DEFAULTS.player.score,
+    statusLevel: GAME_DEFAULTS.player.level
   };
 
   _isMounted = false;
@@ -82,10 +82,10 @@ export default class GameView extends React.Component {
         () => {
           this.setState({
             systems: systems,
-            statusHealth: 100,
-            statusScore: 0,
-            statusScore: 0,
-            powerUps: ['empty', 'empty', 'empty']
+            powerUps: GAME_DEFAULTS.powerUps,
+            statusHealth: GAME_DEFAULTS.player.health,
+            statusScore: GAME_DEFAULTS.player.score,
+            statusLevel: GAME_DEFAULTS.player.level
           });
         }
       );
@@ -142,13 +142,20 @@ export default class GameView extends React.Component {
       this.setState({ powerUps: powerUps }, () => {
         switch (e.value) {
           case 'clearScreen':
-            this._gameEngineRef.dispatch({ type: 'effectClearScreens' });
+            this._gameEngineRef.dispatch({
+              type: 'effectClearScreens'
+            });
             break;
           case 'clock':
-            this._gameEngineRef.dispatch({ type: 'effectClock' });
+            this._gameEngineRef.dispatch({
+              type: 'effectClock'
+            });
             break;
           case 'health':
-            this._gameEngineRef.dispatch({ type: 'setHealth', value: 10 });
+            this._gameEngineRef.dispatch({
+              type: 'setHealth',
+              value: 10
+            });
             break;
           default:
             break;
