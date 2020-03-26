@@ -4,7 +4,7 @@ import { View, Text, TouchableHighlight, Modal } from 'react-native';
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 
-export default class NavigationModal extends React.Component {
+export default class GameOverModal extends React.Component {
   render() {
     return (
       <Modal
@@ -15,36 +15,39 @@ export default class NavigationModal extends React.Component {
         onRequestClose={() => {}}
       >
         <View style={styles.modalContainer}>
-          <Text style={styles.titleText}>menu</Text>
+          <Text style={styles.titleText}>game over</Text>
+          <Text style={styles.titleText}>score: {this.props.score}</Text>
           <View style={styles.buttonContainer}>
+            <TouchableHighlight
+              onPress={() => {
+                // TODO: Add callback to handle async state change (?)
+                this.props.setModalVisible(!this.props.modalVisible);
+                this.props.handleGameReset();
+              }}
+              style={styles.exitButton}
+            >
+              <Text style={styles.exitButtonText}>restart</Text>
+            </TouchableHighlight>
+
             <TouchableHighlight
               onPress={() => {
                 // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
                 this.props.handleGameView('start');
               }}
-              style={styles.exitButton}
-            >
-              <Text style={styles.exitButtonText}>exit game</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              onPress={() => {
-                // TODO: Add callback to handle async state change (?)
-                this.props.setModalVisible(!this.props.modalVisible);
-                this.props.handleGameView('tutorial');
-              }}
               style={styles.tutorialButton}
             >
-              <Text style={styles.tutorialButtonText}>view tutorial</Text>
+              <Text style={styles.tutorialButtonText}>exit game</Text>
             </TouchableHighlight>
-            <TouchableHighlight
+
+            {/*<TouchableHighlight
               onPress={() => {
                 this.props.setModalVisible(!this.props.modalVisible);
               }}
               style={styles.cancelButton}
             >
               <Text style={styles.cancelButtonText}>cancel</Text>
-            </TouchableHighlight>
+            </TouchableHighlight>*/}
           </View>
         </View>
       </Modal>
@@ -98,19 +101,6 @@ const styles = {
     // backgroundColor: 'pink'
   },
   tutorialButtonText: {
-    color: '#bca0dc',
-    fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight
-  },
-  cancelButton: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    width: SCREEN_WIDTH * (1 / 5),
-    marginVertical: SCREEN_HEIGHT * (1 / 32),
-    justifyContent: 'center',
-    alignItems: 'center'
-    // backgroundColor: 'green'
-  },
-  cancelButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
     fontFamily: Fonts.RobotoLight

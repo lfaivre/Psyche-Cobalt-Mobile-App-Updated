@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  StatusBar,
-  Alert,
-  ImageBackground,
-  View,
-  Text,
-  Modal
-} from 'react-native';
+import { View, Text, Modal } from 'react-native';
 
 import { Fonts } from '../../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
+import { SCREEN_HEIGHT } from '../utilities';
 
 export default class LoadingModal extends React.Component {
   render() {
@@ -19,9 +12,7 @@ export default class LoadingModal extends React.Component {
         animationType="fade"
         transparent={false}
         visible={!this.props.imageLoaded}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}
+        onRequestClose={() => {}}
       >
         <View style={styles.loadingContainer}>
           <Text style={styles.loadingText}>initializing</Text>

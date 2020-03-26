@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View } from 'react-native';
 
 import TutorialNavigation from './tutorial/TutorialNavigation';
 import TutorialContainer from './tutorial/TutorialContainer';
@@ -20,7 +20,7 @@ export default class TutorialView extends React.Component {
     } else if (index > this.lengthZero) {
       this.setState({ index: this.lengthZero });
     } else {
-      console.log('ERROR: TUTORIAL INDEX OUT OF BOUNDS');
+      // console.log('ERROR: TUTORIAL INDEX OUT OF BOUNDS');
     }
   };
 
