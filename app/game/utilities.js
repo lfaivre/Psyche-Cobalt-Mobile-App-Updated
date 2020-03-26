@@ -1,13 +1,11 @@
 import { Dimensions } from 'react-native';
-import Matter from 'matter-js';
 
-// SCREEN HEIGHT AND SCREEN WIDTH
 const { width, height } = Dimensions.get('screen');
 
-// TEMPORARY TO WORK AROUND ERROR
 let SCREEN_WIDTH = 0;
 let SCREEN_HEIGHT = 0;
 
+// TEMPORARY TO WORK AROUND ERROR
 if (width > height) {
   SCREEN_WIDTH = width;
   SCREEN_HEIGHT = height;
@@ -16,33 +14,66 @@ if (width > height) {
   SCREEN_HEIGHT = width;
 }
 
-// BOX DIMENSIONS (TEMPORARY)
-const BOX_SIZE = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.075);
-const INITIAL_BOX = Matter.Bodies.circle(
-  SCREEN_WIDTH / 2,
-  SCREEN_HEIGHT / 2,
-  BOX_SIZE / 2
-);
+const randomBetween = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
-// PSYCHEROVER DIMENSIONS
-const PSYCHEROVER_WIDTH = Math.trunc(SCREEN_WIDTH * 0.15);
-const PSYCHEROVER_HEIGHT = Math.trunc(SCREEN_HEIGHT * 0.075);
-const INITIAL_PSYCHEROVER = Matter.Bodies.rectangle(
-  SCREEN_WIDTH / 2,
-  SCREEN_HEIGHT / 2,
-  PSYCHEROVER_WIDTH,
-  PSYCHEROVER_HEIGHT,
-  {
-    isStatic: true
+const calcHealth = (currentHealth, modifier) => {
+  if (currentHealth + modifier < 0) {
+    return 0;
+  } else if (currentHealth + modifier >= 0 && currentHealth + modifier <= 100) {
+    return currentHealth + modifier;
+  } else if (currentHealth + modifier > 100) {
+    return 100;
+  } else {
+    return null;
   }
-);
+};
+
+const calcScore = (currentScore, modifier) => {
+  if (currentScore + modifier < 0) {
+    return 0;
+  } else if (
+    currentScore + modifier >= 0 &&
+    currentScore + modifier <= Number.MAX_SAFE_INTEGER
+  ) {
+    return currentScore + modifier;
+  } else if (currentScore + modifier > Number.MAX_SAFE_INTEGER) {
+    return Number.MAX_SAFE_INTEGER;
+  } else {
+    return null;
+  }
+};
+
+const calcDensity = density => {
+  const framesPerSecond = 60;
+  return Math.floor(framesPerSecond / density);
+};
+
+const outsideOfVerticalBounds = bounds => {
+  const screenHeight = SCREEN_HEIGHT;
+  return bounds.min.y >= screenHeight;
+};
+
+const touchHandicap = 0;
+const touchWithinBounds = (bounds, touchPosition) => {
+  return (
+    touchPosition.x <= bounds.max.x + touchHandicap &&
+    touchPosition.x >= bounds.min.x - touchHandicap &&
+    touchPosition.y <= bounds.max.y + touchHandicap &&
+    touchPosition.y >= bounds.min.y - touchHandicap
+  );
+};
 
 export {
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
-  BOX_SIZE,
-  INITIAL_BOX,
-  PSYCHEROVER_WIDTH,
-  PSYCHEROVER_HEIGHT,
-  INITIAL_PSYCHEROVER
+  randomBetween,
+  calcHealth,
+  calcScore,
+  calcDensity,
+  outsideOfVerticalBounds,
+  touchWithinBounds
 };

@@ -1,21 +1,30 @@
 import React from 'react';
-import { View, Button, Text, TouchableHighlight } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 
 export default class TopBar extends React.Component {
+  padScoreStatus = (health, padSize) => {
+    return ('000000000' + health).substr(-padSize);
+  };
+
   render() {
     return (
       <View style={styles.topBarContainer}>
         <TouchableHighlight
           onPress={() => {
-            console.log('click menu');
-            this.props.handlePress(false);
+            this.props.setNavigationModalVisible(true);
           }}
           style={styles.menuButtonContainer}
         >
           <Text style={styles.menuButtonText}>M</Text>
         </TouchableHighlight>
+        <View style={styles.infoContainer}>
+          <Text style={styles.scoreText}>
+            SCORE {this.padScoreStatus(this.props.score, 10)}
+          </Text>
+          <Text style={styles.scoreText}>LEVEL {this.props.level}</Text>
+        </View>
       </View>
     );
   }
@@ -31,7 +40,8 @@ const styles = {
     top: 0,
     left: 0,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
     // backgroundColor: 'blue'
   },
   menuButtonContainer: {
@@ -45,9 +55,22 @@ const styles = {
     borderWidth: 1,
     borderColor: 'white'
   },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+    // backgroundColor: 'pink'
+  },
   menuButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
+    fontFamily: Fonts.RobotoLight
+  },
+  scoreText: {
+    marginHorizontal: SCREEN_WIDTH * (1 / 128),
+    color: '#bca0dc',
+    fontSize: SCREEN_HEIGHT * (1 / 24),
     fontFamily: Fonts.RobotoLight
   }
 };
