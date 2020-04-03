@@ -15,7 +15,7 @@ import {
   RemoveCollidedDangers
 } from './dangers';
 
-export const systems = [
+export const SYSTEMS = [
   Physics,
   SystemPhase,
   SystemHealth,

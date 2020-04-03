@@ -4,6 +4,13 @@ import { randomBetween, calcDensity } from '../utilities';
 
 // NOTE :: DEFAULT GAME VALUES
 
+export const POWERUP_ENUM = Object.freeze({
+  clearScreen: 'clearScreen',
+  clock: 'clock',
+  health: 'health',
+  empty: 'empty'
+});
+
 export const GAME_DEFAULTS = {
   player: {
     health: 100,
@@ -24,7 +31,7 @@ export const GAME_DEFAULTS = {
       clock: { min: 6, max: 8 }
     }
   },
-  powerUps: ['empty', 'empty', 'empty'],
+  powerUps: [POWERUP_ENUM.empty, POWERUP_ENUM.empty, POWERUP_ENUM.empty],
   clearScreenDensity: calcDensity(1 / randomBetween(8, 10)),
   clockDensity: calcDensity(1 / randomBetween(6, 8)),
   healthDensity: calcDensity(1 / randomBetween(4, 6)),

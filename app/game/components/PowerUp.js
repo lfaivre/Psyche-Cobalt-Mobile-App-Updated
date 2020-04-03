@@ -1,17 +1,21 @@
 import React from 'react';
 import { View, TouchableHighlight } from 'react-native';
 import Emoji from 'react-native-emoji';
+import { POWERUP_ENUM } from '../engine/init';
 
 export default class PowerUp extends React.Component {
   render() {
     switch (this.props.powerUp) {
-      case 'clearScreen':
+      case POWERUP_ENUM.clearScreen:
         return (
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpClearScreen!');
-              this.props.handleActivatePowerUp(this.props.index, 'clearScreen');
+              this.props.handleActivatePowerUp(
+                this.props.index,
+                POWERUP_ENUM.clearScreen
+              );
             }}
             style={styles.powerUpClearScreen}
           >
@@ -20,13 +24,16 @@ export default class PowerUp extends React.Component {
             </View>
           </TouchableHighlight>
         );
-      case 'clock':
+      case POWERUP_ENUM.clock:
         return (
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpClock!');
-              this.props.handleActivatePowerUp(this.props.index, 'clock');
+              this.props.handleActivatePowerUp(
+                this.props.index,
+                POWERUP_ENUM.clock
+              );
             }}
             style={styles.powerUpClock}
           >
@@ -35,13 +42,16 @@ export default class PowerUp extends React.Component {
             </View>
           </TouchableHighlight>
         );
-      case 'health':
+      case POWERUP_ENUM.health:
         return (
           // TODO: Convert to Button
           <TouchableHighlight
             onPress={() => {
               // console.log('Tapped powerUpHealth!');
-              this.props.handleActivatePowerUp(this.props.index, 'health');
+              this.props.handleActivatePowerUp(
+                this.props.index,
+                POWERUP_ENUM.health
+              );
             }}
             style={styles.powerUpHealth}
           >
