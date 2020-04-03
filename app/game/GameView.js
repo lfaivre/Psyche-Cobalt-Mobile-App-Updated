@@ -81,8 +81,8 @@ export default class GameView extends React.Component {
         },
         () => {
           this.setState({
-            systems: systems,
-            powerUps: GAME_DEFAULTS.powerUps,
+            systems: [...systems],
+            powerUps: [...GAME_DEFAULTS.powerUps],
             statusHealth: GAME_DEFAULTS.player.health,
             statusScore: GAME_DEFAULTS.player.score,
             statusLevel: GAME_DEFAULTS.player.level
