@@ -48,7 +48,7 @@ export default class BottomBar extends React.Component {
           <View
             style={[
               styles.healthBar,
-              { width: SCREEN_WIDTH * (1 / 2) * (this.props.health / 100) }
+              { width: SCREEN_WIDTH * (1 / 2) * (this.props.health / 100) },
             ]}
           ></View>
         </View>
@@ -68,13 +68,13 @@ const styles = {
     // top: (111 * SCREEN_HEIGHT) / 128,
     left: 0,
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
     // backgroundColor: 'green'
   },
   powerUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'purple'
   },
   powerUpCircle: {
@@ -84,7 +84,7 @@ const styles = {
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
     borderRadius: 50,
     borderWidth: 1,
-    borderColor: 'white'
+    borderColor: 'white',
     // backgroundColor: 'red'
   },
   healthContainer: {
@@ -92,19 +92,19 @@ const styles = {
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
     // backgroundColor: 'blue'
   },
   healthText: {
     marginBottom: SCREEN_WIDTH * (1 / 128),
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 24),
-    fontFamily: Fonts.RobotoLight
+    fontFamily: Fonts.BungeeRegular,
   },
   healthBar: {
     height: SCREEN_HEIGHT * (1 / 32),
     // width: SCREEN_WIDTH * (1 / 2),
     borderRadius: SCREEN_HEIGHT * (1 / 64),
-    backgroundColor: 'rgba(164,251,166, 1)'
-  }
+    backgroundColor: 'rgba(164,251,166, 1)',
+  },
 };
