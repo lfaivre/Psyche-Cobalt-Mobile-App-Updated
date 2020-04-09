@@ -5,6 +5,7 @@ import { Fonts } from '../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
 import { PSYCHE_FACTS } from '../game/repo/facts.js';
 import { randomBetween } from '../game/utilities';
+import { GAMEVIEW_ENUM } from '../game/types';
 
 export default class FactView extends React.Component {
   fact = () => {
@@ -20,7 +21,7 @@ export default class FactView extends React.Component {
           <Text style={styles.factText}>{this.fact()}</Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
-              onPress={() => this.props.handleGameView('game')}
+              onPress={() => this.props.handleGameView(GAMEVIEW_ENUM.game)}
               style={styles.startButton}
             >
               <Text style={styles.startButtonText}>start game</Text>
@@ -28,7 +29,7 @@ export default class FactView extends React.Component {
 
             <TouchableHighlight
               onPress={() => {
-                this.props.handleGameView('start');
+                this.props.handleGameView(GAMEVIEW_ENUM.start);
               }}
               style={styles.tutorialButton}
             >

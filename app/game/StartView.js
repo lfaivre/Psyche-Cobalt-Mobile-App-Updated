@@ -3,6 +3,7 @@ import { View, Text, TouchableHighlight } from 'react-native';
 
 import { Fonts } from '../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
+import { GAMEVIEW_ENUM } from '../game/types';
 
 export default class StartView extends React.Component {
   render() {
@@ -13,7 +14,7 @@ export default class StartView extends React.Component {
           <Text style={styles.titleText}>untitled game</Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
-              onPress={() => this.props.handleGameView('fact')}
+              onPress={() => this.props.handleGameView(GAMEVIEW_ENUM.fact)}
               style={styles.startButton}
             >
               <Text style={styles.startButtonText}>play</Text>
@@ -21,7 +22,7 @@ export default class StartView extends React.Component {
 
             <TouchableHighlight
               onPress={() => {
-                this.props.handleGameView('tutorial');
+                this.props.handleGameView(GAMEVIEW_ENUM.tutorial);
               }}
               style={styles.tutorialButton}
             >

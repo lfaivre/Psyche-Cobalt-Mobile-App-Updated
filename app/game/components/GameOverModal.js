@@ -3,6 +3,7 @@ import { View, Text, TouchableHighlight, Modal } from 'react-native';
 
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
+import { GAMEVIEW_ENUM } from '../types';
 
 export default class GameOverModal extends React.Component {
   render() {
@@ -24,7 +25,7 @@ export default class GameOverModal extends React.Component {
                 this.props.setModalVisible(!this.props.modalVisible);
                 // TODO: Differentiate between reset for exit and reset for game start
                 this.props.handleGameReset();
-                this.props.handleGameView('fact');
+                this.props.handleGameView(GAMEVIEW_ENUM.fact);
               }}
               style={styles.exitButton}
             >
@@ -35,7 +36,7 @@ export default class GameOverModal extends React.Component {
               onPress={() => {
                 // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
-                this.props.handleGameView('start');
+                this.props.handleGameView(GAMEVIEW_ENUM.start);
               }}
               style={styles.tutorialButton}
             >

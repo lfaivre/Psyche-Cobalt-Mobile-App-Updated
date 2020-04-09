@@ -3,6 +3,7 @@ import { View, Text, TouchableHighlight } from 'react-native';
 
 import { Fonts } from '../../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
+import { GAMEVIEW_ENUM } from '../types';
 
 export default class TutorialNavigation extends React.Component {
   render() {
@@ -19,14 +20,14 @@ export default class TutorialNavigation extends React.Component {
           <Text
             style={[
               styles.navText,
-              this.props.index === 0 ? { color: 'rgba(188,160,220,0.25)' } : {}
+              this.props.index === 0 ? { color: 'rgba(188,160,220,0.25)' } : {},
             ]}
           >
             previous
           </Text>
         </TouchableHighlight>
         <TouchableHighlight
-          onPress={() => this.props.handleGameView('start')}
+          onPress={() => this.props.handleGameView(GAMEVIEW_ENUM.start)}
           underlayColor="#1e2223"
           style={styles.navButton}
         >
@@ -45,7 +46,7 @@ export default class TutorialNavigation extends React.Component {
               styles.navText,
               this.props.index === this.props.lengthZero
                 ? { color: 'rgba(188,160,220,0.25)' }
-                : {}
+                : {},
             ]}
           >
             next
@@ -69,7 +70,7 @@ const styles = {
     left: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'green'
   },
   navButton: {
@@ -77,12 +78,12 @@ const styles = {
     alignSelf: 'stretch',
     margin: 0,
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'pink'
   },
   navText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight
-  }
+    fontFamily: Fonts.RobotoLight,
+  },
 };
