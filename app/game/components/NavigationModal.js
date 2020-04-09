@@ -65,7 +65,7 @@ const styles = {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 8),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
   buttonContainer: {
     flexDirection: 'column',
@@ -86,7 +86,7 @@ const styles = {
   exitButtonText: {
     color: '#1e2223',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
   tutorialButton: {
     height: SCREEN_HEIGHT * (1 / 8),
@@ -101,7 +101,7 @@ const styles = {
   tutorialButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
   cancelButton: {
     height: SCREEN_HEIGHT * (1 / 8),
@@ -112,8 +112,8 @@ const styles = {
     // backgroundColor: 'green'
   },
   cancelButtonText: {
-    color: '#bca0dc',
+    color: 'white',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
 };
