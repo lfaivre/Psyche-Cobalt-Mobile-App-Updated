@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, StatusBar, ImageBackground } from 'react-native';
+import { View, StatusBar, ImageBackground, Text } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
+import { Fonts } from '../components/Fonts';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from './utilities';
 import Matter from 'matter-js';
 
 // Components
@@ -20,6 +22,7 @@ import { Reset } from './engine/systems/reset';
 
 export default class GameView extends React.Component {
   state = {
+    imageLoaded: false,
     navigationModalVisible: false,
     gameOverModalVisible: false,
     running: true,
@@ -27,7 +30,7 @@ export default class GameView extends React.Component {
     powerUps: GAME_DEFAULTS.powerUps,
     statusHealth: GAME_DEFAULTS.player.health,
     statusScore: GAME_DEFAULTS.player.score,
-    statusLevel: GAME_DEFAULTS.player.level
+    statusLevel: GAME_DEFAULTS.player.level,
   };
 
   _isMounted = false;
@@ -48,17 +51,17 @@ export default class GameView extends React.Component {
 
   // NOTE :: MODAL HANDLERS
 
-  setNavigationModalVisible = visible => {
+  setNavigationModalVisible = (visible) => {
     this.setState({ navigationModalVisible: visible });
   };
 
-  setGameOverModalVisible = visible => {
+  setGameOverModalVisible = (visible) => {
     this.setState({ gameOverModalVisible: visible });
   };
 
   // NOTE :: GAME INITIALIZATION, STOP, AND RESET
 
-  setEngineRef = ref => {
+  setEngineRef = (ref) => {
     this._gameEngineRef = ref;
   };
 
@@ -77,7 +80,7 @@ export default class GameView extends React.Component {
       this._gameEngineRef.swap(defaultEntities());
       this.setState(
         {
-          running: true
+          running: true,
         },
         () => {
           this.setState({
@@ -85,7 +88,7 @@ export default class GameView extends React.Component {
             powerUps: [...GAME_DEFAULTS.powerUps],
             statusHealth: GAME_DEFAULTS.player.health,
             statusScore: GAME_DEFAULTS.player.score,
-            statusLevel: GAME_DEFAULTS.player.level
+            statusLevel: GAME_DEFAULTS.player.level,
           });
         }
       );
@@ -95,7 +98,7 @@ export default class GameView extends React.Component {
   // NOTE :: GAME HANDLERS
 
   runCollisionHandler = () => {
-    Matter.Events.on(ENGINE, 'collisionStart', e => {
+    Matter.Events.on(ENGINE, 'collisionStart', (e) => {
       if (
         this._isMounted &&
         this._gameEngineRef &&
@@ -109,7 +112,7 @@ export default class GameView extends React.Component {
         }
         this._gameEngineRef.dispatch({
           type: 'asteroidCollision',
-          id: id
+          id: id,
         });
       }
     });
@@ -117,7 +120,7 @@ export default class GameView extends React.Component {
 
   // TODO :: EXTRACT FROM CLASS (HOOK, WAIT BC LARGE REFACTOR)
 
-  onEvent = e => {
+  onEvent = (e) => {
     if (e.type === 'setStatusHealth') {
       const newHealth = e.value;
       this.setState({ statusHealth: newHealth });
@@ -143,18 +146,18 @@ export default class GameView extends React.Component {
         switch (e.value) {
           case POWERUP_ENUM.clearScreen:
             this._gameEngineRef.dispatch({
-              type: 'effectClearScreens'
+              type: 'effectClearScreens',
             });
             break;
           case POWERUP_ENUM.clock:
             this._gameEngineRef.dispatch({
-              type: 'effectClock'
+              type: 'effectClock',
             });
             break;
           case POWERUP_ENUM.health:
             this._gameEngineRef.dispatch({
               type: 'setHealth',
-              value: 10
+              value: 10,
             });
             break;
           default:
@@ -176,46 +179,59 @@ export default class GameView extends React.Component {
     this._gameEngineRef.dispatch({
       type: 'activatePowerUp',
       index: index,
-      value: value
+      value: value,
     });
   };
 
   render() {
     return (
       <View style={styles.outerContainer}>
-        <LoadingModal imageLoaded={true} />
-        <GameEngine
-          ref={this.setEngineRef}
-          running={this.state.running}
-          style={styles.innerContainer}
-          systems={this.state.systems}
-          entities={defaultEntities()}
-          onEvent={this.onEvent}
+        <ImageBackground
+          source={require('../assets/images/backgrounds/starsbg.jpg')}
+          style={styles.image}
+          onLoadEnd={() => this.setState({ imageLoaded: true })}
         >
-          <StatusBar hidden={true} />
-          <NavigationModal
-            modalVisible={this.state.navigationModalVisible}
-            setModalVisible={this.setNavigationModalVisible}
-            handleGameView={this.props.handleGameView}
-          />
-          <GameOverModal
-            modalVisible={this.state.gameOverModalVisible}
-            setModalVisible={this.setGameOverModalVisible}
-            handleGameView={this.props.handleGameView}
-            score={this.state.statusScore}
-            handleGameReset={this.resetGame}
-          />
-          <TopBar
-            setNavigationModalVisible={this.setNavigationModalVisible}
-            score={this.state.statusScore}
-            level={this.state.statusLevel}
-          />
-          <BottomBar
-            health={this.state.statusHealth}
-            powerUps={this.state.powerUps}
-            handleActivatePowerUp={this.handleActivatePowerUp}
-          />
-        </GameEngine>
+          {!this.state.imageLoaded && (
+            <View style={styles.loadingContainer}>
+              <Text style={styles.loadingText}>Loading...</Text>
+            </View>
+          )}
+          {this.state.imageLoaded && (
+            <GameEngine
+              ref={this.setEngineRef}
+              running={this.state.running}
+              style={styles.innerContainer}
+              systems={this.state.systems}
+              entities={defaultEntities()}
+              onEvent={this.onEvent}
+            >
+              <StatusBar hidden={true} />
+              <NavigationModal
+                modalVisible={this.state.navigationModalVisible}
+                setModalVisible={this.setNavigationModalVisible}
+                handleGameView={this.props.handleGameView}
+              />
+              <GameOverModal
+                modalVisible={this.state.gameOverModalVisible}
+                setModalVisible={this.setGameOverModalVisible}
+                handleGameView={this.props.handleGameView}
+                score={this.state.statusScore}
+                handleGameReset={this.resetGame}
+              />
+              <TopBar
+                setNavigationModalVisible={this.setNavigationModalVisible}
+                score={this.state.statusScore}
+                level={this.state.statusLevel}
+              />
+              <BottomBar
+                health={this.state.statusHealth}
+                powerUps={this.state.powerUps}
+                handleActivatePowerUp={this.handleActivatePowerUp}
+              />
+            </GameEngine>
+          )}
+        </ImageBackground>
+        {/* <LoadingModal imageLoaded={true} /> */}
       </View>
     );
   }
@@ -224,9 +240,28 @@ export default class GameView extends React.Component {
 const styles = {
   outerContainer: {
     flex: 1,
-    backgroundColor: '#1e2223'
+    // backgroundColor: '#1e2223'
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#1e2223',
+  },
+  loadingText: {
+    fontSize: SCREEN_HEIGHT * (1 / 16),
+    // letterSpacing: 2,
+    fontFamily: Fonts.BungeeRegular,
+    textAlign: 'center',
+    color: '#bca0dc',
   },
   innerContainer: {
-    flex: 1
-  }
+    flex: 1,
+  },
 };
