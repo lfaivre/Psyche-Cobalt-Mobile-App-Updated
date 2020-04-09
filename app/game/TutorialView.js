@@ -3,16 +3,17 @@ import { View } from 'react-native';
 
 import TutorialNavigation from './tutorial/TutorialNavigation';
 import TutorialContainer from './tutorial/TutorialContainer';
+import { TUTORIAL_VIEWS_LENGTH } from './tutorial/repo';
 
 export default class TutorialView extends React.Component {
   state = { index: 0 };
 
   componentDidMount() {
-    this.length = 2;
+    this.length = TUTORIAL_VIEWS_LENGTH;
     this.lengthZero = this.length - 1;
   }
 
-  handleTutorialNavigation = index => {
+  handleTutorialNavigation = (index) => {
     if (index >= 0 && index <= this.lengthZero) {
       this.setState({ index: index });
     } else if (index < 0) {
@@ -42,6 +43,6 @@ export default class TutorialView extends React.Component {
 const styles = {
   tutorialView: {
     flex: 1,
-    backgroundColor: '#1e2223'
-  }
+    backgroundColor: '#1e2223',
+  },
 };
