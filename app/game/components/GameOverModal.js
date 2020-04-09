@@ -22,7 +22,9 @@ export default class GameOverModal extends React.Component {
               onPress={() => {
                 // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
+                // TODO: Differentiate between reset for exit and reset for game start
                 this.props.handleGameReset();
+                this.props.handleGameView('fact');
               }}
               style={styles.exitButton}
             >
@@ -61,18 +63,18 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: 'rgba(30,34,35,0.75)'
+    backgroundColor: 'rgba(30,34,35,0.75)',
   },
   titleText: {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 8),
-    fontFamily: Fonts.RobotoLight
+    fontFamily: Fonts.RobotoLight,
   },
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'purple'
   },
   exitButton: {
@@ -83,12 +85,12 @@ const styles = {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#bca0dc'
+    backgroundColor: '#bca0dc',
   },
   exitButtonText: {
     color: '#1e2223',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight
+    fontFamily: Fonts.RobotoLight,
   },
   tutorialButton: {
     height: SCREEN_HEIGHT * (1 / 8),
@@ -97,12 +99,12 @@ const styles = {
     borderColor: '#bca0dc',
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'pink'
   },
   tutorialButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight
-  }
+    fontFamily: Fonts.RobotoLight,
+  },
 };

@@ -3,12 +3,13 @@ import React from 'react';
 // Components
 import StartView from '../game/StartView';
 import TutorialView from '../game/TutorialView';
+import FactView from '../game/FactView';
 import GameView from '../game/GameView';
 
 export default class GameOne extends React.Component {
   state = { gameView: 'start' };
 
-  handleGameView = view => {
+  handleGameView = (view) => {
     this.setState({ gameView: view });
   };
 
@@ -18,6 +19,8 @@ export default class GameOne extends React.Component {
         return (
           <StartView {...this.props} handleGameView={this.handleGameView} />
         );
+      case 'fact':
+        return <FactView handleGameView={this.handleGameView} />;
       case 'tutorial':
         return <TutorialView handleGameView={this.handleGameView} />;
       case 'game':
