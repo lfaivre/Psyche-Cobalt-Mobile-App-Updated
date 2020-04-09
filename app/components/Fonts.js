@@ -3,5 +3,6 @@ export const Fonts = {
   RobotoLight: 'RobotoLight',
   RobotoMedium: 'RobotoMedium',
   RobotoThin: 'RobotoThin',
-  RobotoBold: 'RobotoBold'
+  RobotoBold: 'RobotoBold',
+  BungeeRegular: 'BungeeRegular',
 };
