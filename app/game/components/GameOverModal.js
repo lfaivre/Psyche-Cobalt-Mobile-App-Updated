@@ -17,7 +17,8 @@ export default class GameOverModal extends React.Component {
       >
         <View style={styles.modalContainer}>
           <Text style={styles.titleText}>game over</Text>
-          <Text style={styles.titleText}>score: {this.props.score}</Text>
+          <Text style={styles.scoreText}>score: {this.props.score}</Text>
+          <Text style={styles.scoreText}>barely made it off earth</Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
               onPress={() => {
@@ -70,7 +71,13 @@ const styles = {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 8),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
+  },
+  scoreText: {
+    marginVertical: SCREEN_HEIGHT * (1 / 32),
+    color: 'white',
+    fontSize: SCREEN_HEIGHT * (1 / 16),
+    fontFamily: Fonts.BungeeRegular,
   },
   buttonContainer: {
     flexDirection: 'column',
@@ -91,7 +98,7 @@ const styles = {
   exitButtonText: {
     color: '#1e2223',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
   tutorialButton: {
     height: SCREEN_HEIGHT * (1 / 8),
@@ -106,6 +113,6 @@ const styles = {
   tutorialButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
 };
