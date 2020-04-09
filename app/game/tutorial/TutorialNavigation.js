@@ -14,7 +14,7 @@ export default class TutorialNavigation extends React.Component {
             this.props.handleTutorialNavigation(this.props.index - 1)
           }
           disabled={this.props.index === 0}
-          underlayColor="#1e2223"
+          underlayColor="transparent"
           style={styles.navButton}
         >
           <Text
@@ -28,17 +28,17 @@ export default class TutorialNavigation extends React.Component {
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() => this.props.handleGameView(GAMEVIEW_ENUM.start)}
-          underlayColor="#1e2223"
+          underlayColor="transparent"
           style={styles.navButton}
         >
-          <Text style={styles.navText}>exit</Text>
+          <Text style={styles.navTextWhite}>exit</Text>
         </TouchableHighlight>
         <TouchableHighlight
           onPress={() =>
             this.props.handleTutorialNavigation(this.props.index + 1)
           }
           disabled={this.props.index === this.props.lengthZero}
-          underlayColor="#1e2223"
+          underlayColor="transparent"
           style={styles.navButton}
         >
           <Text
@@ -84,6 +84,11 @@ const styles = {
   navText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
+  },
+  navTextWhite: {
+    color: 'white',
+    fontSize: SCREEN_HEIGHT * (1 / 16),
+    fontFamily: Fonts.BungeeRegular,
   },
 };
