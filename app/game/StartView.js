@@ -28,8 +28,6 @@ export default class StartView extends React.Component {
                 <Text style={styles.titleText}>PsycheTap</Text>
                 <Text style={styles.titleTextTwo}>PsycheTap</Text>
               </View>
-              {/* <Text style={styles.titleText}>PsycheTap</Text>
-              <Text style={styles.titleTextTwo}>PsycheTap</Text> */}
               <View style={styles.buttonContainer}>
                 <TouchableHighlight
                   onPress={() => this.props.handleGameView(GAMEVIEW_ENUM.fact)}
