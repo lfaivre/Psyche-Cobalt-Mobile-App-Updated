@@ -5,7 +5,7 @@ import {
 } from '../renderers/ClearScreen';
 import { Clock, Create_Clock_Matter } from '../renderers/Clock';
 import { Health, Create_Health_Matter } from '../renderers/Health';
-import { GAME_DEFAULTS } from '../init';
+import { GAME_DEFAULTS, POWERUP_ENUM } from '../init';
 import {
   SCREEN_WIDTH,
   randomBetween,
@@ -145,7 +145,10 @@ export const AddPowerUps = (entities, { touches, dispatch }) => {
             clearScreen
           );
           entities.created.createdClearScreens.splice(index, 1);
-          dispatch({ type: 'addPowerUpToBar', value: 'clearScreen' });
+          dispatch({
+            type: 'addPowerUpToBar',
+            value: POWERUP_ENUM.clearScreen
+          });
         }
       }
       for (clock of entities.created.createdClocks) {
@@ -154,7 +157,7 @@ export const AddPowerUps = (entities, { touches, dispatch }) => {
           delete entities[clock];
           const index = entities.created.createdClocks.indexOf(clock);
           entities.created.createdClocks.splice(index, 1);
-          dispatch({ type: 'addPowerUpToBar', value: 'clock' });
+          dispatch({ type: 'addPowerUpToBar', value: POWERUP_ENUM.clock });
         }
       }
       for (health of entities.created.createdHealths) {
@@ -163,7 +166,7 @@ export const AddPowerUps = (entities, { touches, dispatch }) => {
           delete entities[health];
           const index = entities.created.createdHealths.indexOf(health);
           entities.created.createdHealths.splice(index, 1);
-          dispatch({ type: 'addPowerUpToBar', value: 'health' });
+          dispatch({ type: 'addPowerUpToBar', value: POWERUP_ENUM.health });
         }
       }
     }

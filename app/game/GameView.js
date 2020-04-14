@@ -12,10 +12,10 @@ import TopBar from './components/TopBar';
 
 // Game Engine
 import { ENGINE, WORLD } from './engine/physicsInit';
-import { GAME_DEFAULTS, defaultEntities } from './engine/init';
+import { GAME_DEFAULTS, POWERUP_ENUM, defaultEntities } from './engine/init';
 
 // GAME ENGINE :: SYSTEMS
-import { systems } from './engine/systems';
+import { SYSTEMS } from './engine/systems';
 import { Reset } from './engine/systems/reset';
 
 export default class GameView extends React.Component {
@@ -23,7 +23,7 @@ export default class GameView extends React.Component {
     navigationModalVisible: false,
     gameOverModalVisible: false,
     running: true,
-    systems: systems,
+    systems: SYSTEMS,
     powerUps: GAME_DEFAULTS.powerUps,
     statusHealth: GAME_DEFAULTS.player.health,
     statusScore: GAME_DEFAULTS.player.score,
@@ -81,8 +81,8 @@ export default class GameView extends React.Component {
         },
         () => {
           this.setState({
-            systems: systems,
-            powerUps: GAME_DEFAULTS.powerUps,
+            systems: [...SYSTEMS],
+            powerUps: [...GAME_DEFAULTS.powerUps],
             statusHealth: GAME_DEFAULTS.player.health,
             statusScore: GAME_DEFAULTS.player.score,
             statusLevel: GAME_DEFAULTS.player.level
@@ -129,7 +129,7 @@ export default class GameView extends React.Component {
       this.setState({ statusLevel: newLevel });
     } else if (e.type === 'addPowerUpToBar') {
       for (const powerUpIndex in this.state.powerUps) {
-        if (this.state.powerUps[powerUpIndex] === 'empty') {
+        if (this.state.powerUps[powerUpIndex] === POWERUP_ENUM.empty) {
           let powerUps = this.state.powerUps;
           powerUps.splice(powerUpIndex, 1, e.value);
           this.setState({ powerUps: powerUps });
@@ -138,20 +138,20 @@ export default class GameView extends React.Component {
       }
     } else if (e.type === 'activatePowerUp') {
       let powerUps = this.state.powerUps;
-      powerUps.splice(e.index, 1, 'empty');
+      powerUps.splice(e.index, 1, POWERUP_ENUM.empty);
       this.setState({ powerUps: powerUps }, () => {
         switch (e.value) {
-          case 'clearScreen':
+          case POWERUP_ENUM.clearScreen:
             this._gameEngineRef.dispatch({
               type: 'effectClearScreens'
             });
             break;
-          case 'clock':
+          case POWERUP_ENUM.clock:
             this._gameEngineRef.dispatch({
               type: 'effectClock'
             });
             break;
-          case 'health':
+          case POWERUP_ENUM.health:
             this._gameEngineRef.dispatch({
               type: 'setHealth',
               value: 10
