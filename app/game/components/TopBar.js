@@ -17,7 +17,7 @@ export default class TopBar extends React.Component {
           }}
           style={styles.menuButtonContainer}
         >
-          <Text style={styles.menuButtonText}>M</Text>
+          <Text style={styles.menuButtonText}>m</Text>
         </TouchableHighlight>
         <View style={styles.infoContainer}>
           <Text style={styles.scoreText}>
@@ -41,7 +41,7 @@ const styles = {
     left: 0,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'blue'
   },
   menuButtonContainer: {
@@ -53,24 +53,26 @@ const styles = {
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
     borderRadius: SCREEN_HEIGHT * (1 / 16),
     borderWidth: 1,
-    borderColor: 'white'
+    borderColor: 'white',
+    // backgroundColor: 'white',
   },
   infoContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
     // backgroundColor: 'pink'
   },
   menuButtonText: {
-    color: '#bca0dc',
+    // color: '#bca0dc',
+    color: 'white',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight
+    fontFamily: Fonts.BungeeRegular,
   },
   scoreText: {
     marginHorizontal: SCREEN_WIDTH * (1 / 128),
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 24),
-    fontFamily: Fonts.RobotoLight
-  }
+    fontFamily: Fonts.BungeeRegular,
+  },
 };

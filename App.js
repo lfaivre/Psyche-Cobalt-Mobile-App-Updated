@@ -13,12 +13,12 @@ import { YellowBox } from 'react-native';
 import { ScreenOrientation } from 'expo';
 
 YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested' // TODO: Remove when fixed
+  'VirtualizedLists should never be nested', // TODO: Remove when fixed
 ]);
 
 export default class App extends React.Component {
   state = {
-    fontLoaded: false
+    fontLoaded: false,
   };
 
   async componentDidMount() {
@@ -30,7 +30,8 @@ export default class App extends React.Component {
       RobotoLight: require('./app/assets/fonts/Roboto-Light.ttf'),
       RobotoMedium: require('./app/assets/fonts/Roboto-Medium.ttf'),
       RobotoThin: require('./app/assets/fonts/Roboto-Thin.ttf'),
-      RobotoBold: require('./app/assets/fonts/Roboto-Bold.ttf')
+      RobotoBold: require('./app/assets/fonts/Roboto-Bold.ttf'),
+      BungeeRegular: require('./app/assets/fonts/Bungee-Regular.ttf'),
     });
 
     this.setState({ fontLoaded: true });
