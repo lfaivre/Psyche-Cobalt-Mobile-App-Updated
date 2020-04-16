@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationActions } from 'react-navigation';
-import { ScreenOrientation } from 'expo';
+// import { ScreenOrientation } from 'expo';
 import { ScrollView, Text, View, ImageBackground } from 'react-native';
 import { Accordion, Body, Header, Left, Icon, Content } from 'native-base';
 import { withNavigationFocus } from 'react-navigation';
@@ -30,15 +30,15 @@ class SideMenu extends React.Component {
    */
   navigateToScreen = (route) => async () => {
     if (route !== 'PsycheTap') {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT_UP
-      );
-      console.log('PORTRAIT_UP');
+      // await ScreenOrientation.lockAsync(
+      //   ScreenOrientation.OrientationLock.PORTRAIT_UP
+      // );
+      // console.log('PORTRAIT_UP');
     } else {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-      );
-      console.log('LANDSCAPE_LEFT');
+      // await ScreenOrientation.lockAsync(
+      //   ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+      // );
+      // console.log('LANDSCAPE_LEFT');
     }
     const navigateAction = NavigationActions.navigate({
       routeName: route,
