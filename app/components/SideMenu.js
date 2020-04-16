@@ -10,11 +10,11 @@ import styles from '../styles/SideMenu.style';
 
 /* Title for accordion */
 const missionArray = [
-  { title: <Text style={styles.accordionHeaderText}>Mission</Text> }
+  { title: <Text style={styles.accordionHeaderText}>Mission</Text> },
 ];
 
 const gameArray = [
-  { title: <Text style={styles.accordionHeaderText}>Games</Text> }
+  { title: <Text style={styles.accordionHeaderText}>Games</Text> },
 ];
 
 class SideMenu extends React.Component {
@@ -28,8 +28,8 @@ class SideMenu extends React.Component {
   /* Handle navigating to a new screen
    *  @param route, the screen to navigate to
    */
-  navigateToScreen = route => async () => {
-    if (route !== 'Game One') {
+  navigateToScreen = (route) => async () => {
+    if (route !== 'PsycheTap') {
       await ScreenOrientation.lockAsync(
         ScreenOrientation.OrientationLock.PORTRAIT_UP
       );
@@ -41,7 +41,7 @@ class SideMenu extends React.Component {
       console.log('LANDSCAPE_LEFT');
     }
     const navigateAction = NavigationActions.navigate({
-      routeName: route
+      routeName: route,
     });
     this.props.navigation.dispatch(navigateAction);
   };
@@ -52,7 +52,7 @@ class SideMenu extends React.Component {
       <ImageBackground
         source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
         style={{
-          width: '100%'
+          width: '100%',
         }}
       >
         <View style={styles.collapseView}>
@@ -96,15 +96,15 @@ class SideMenu extends React.Component {
       <ImageBackground
         source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
         style={{
-          width: '100%'
+          width: '100%',
         }}
       >
         <View style={styles.collapseView}>
           <Text
             style={styles.navItemStyle}
-            onPress={this.navigateToScreen('Game One')}
+            onPress={this.navigateToScreen('PsycheTap')}
           >
-            Game One
+            PsycheTap
           </Text>
           <Text
             style={styles.navItemStyle}
@@ -190,7 +190,7 @@ class SideMenu extends React.Component {
 }
 
 SideMenu.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 };
 
 export default withNavigationFocus(SideMenu);

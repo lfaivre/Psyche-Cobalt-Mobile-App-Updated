@@ -6,8 +6,8 @@ import {
   randomBetween,
   calcDensity,
   outsideOfVerticalBounds,
-  touchWithinBounds
-} from '../../../game/utilities';
+  touchWithinBounds,
+} from '../../../psychetap/utilities';
 
 // NOTE :: SYSTEMS
 let asteroidDensity = GAME_DEFAULTS.asteroidDensity;
@@ -47,8 +47,8 @@ export const RemoveDangers = (entities, {}) => {
 export const DestroyDangers = (entities, { touches, dispatch }) => {
   let touchPositions = [];
   touches
-    .filter(t => t.type === 'press')
-    .forEach(t => {
+    .filter((t) => t.type === 'press')
+    .forEach((t) => {
       const touchPosition = { x: t.event.pageX, y: t.event.pageY };
       touchPositions.push(touchPosition);
     });

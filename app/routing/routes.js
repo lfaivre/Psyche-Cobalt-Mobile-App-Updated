@@ -6,7 +6,7 @@ import AsteroidScreen from '../screens/AsteroidScreen';
 import SpacecraftScreen from '../screens/SpacecraftScreen';
 import ScienceScreen from '../screens/ScienceScreen';
 import TeamScreen from '../screens/TeamScreen';
-import GameOne from '../screens/GameOne';
+import PsycheTap from '../screens/PsycheTap';
 import GameTwo from '../screens/GameTwo';
 
 import SideMenu from '../components/SideMenu';
@@ -15,35 +15,35 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 
 const RouteConfigs = {
   Home: {
-    screen: HomeScreen
+    screen: HomeScreen,
   },
   Timeline: {
-    screen: TimelineScreen
+    screen: TimelineScreen,
   },
   'Social Media': {
-    screen: SocialMediaScreen
+    screen: SocialMediaScreen,
   },
   Overview: {
-    screen: OverviewScreen
+    screen: OverviewScreen,
   },
   'The Asteroid': {
-    screen: AsteroidScreen
+    screen: AsteroidScreen,
   },
   'The Spacecraft': {
-    screen: SpacecraftScreen
+    screen: SpacecraftScreen,
   },
   'Instruments and Science': {
-    screen: ScienceScreen
+    screen: ScienceScreen,
   },
   'The Team': {
-    screen: TeamScreen
+    screen: TeamScreen,
   },
-  'Game One': {
-    screen: GameOne
+  PsycheTap: {
+    screen: PsycheTap,
   },
   'Game Two': {
-    screen: GameTwo
-  }
+    screen: GameTwo,
+  },
 };
 
 const DrawerNavigatorConfig = {
@@ -51,7 +51,7 @@ const DrawerNavigatorConfig = {
   contentComponent: SideMenu,
   drawerOpenRoute: 'openDrawer',
   drawerCloseRoute: 'closeDrawer',
-  drawerToggleRoute: 'toggleDrawer'
+  drawerToggleRoute: 'toggleDrawer',
 };
 
 const RootDrawer = createDrawerNavigator(RouteConfigs, DrawerNavigatorConfig);

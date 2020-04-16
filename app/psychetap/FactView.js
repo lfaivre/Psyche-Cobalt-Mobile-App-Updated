@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 
 import { Fonts } from '../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
-import { PSYCHE_FACTS } from '../game/repo/facts.js';
-import { randomBetween } from '../game/utilities';
-import { GAMEVIEW_ENUM } from '../game/types';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../psychetap/utilities';
+import { PSYCHE_FACTS } from '../psychetap/repo/facts.js';
+import { randomBetween } from '../psychetap/utilities';
+import { GAMEVIEW_ENUM } from '../psychetap/types';
 
 export default class FactView extends React.Component {
   fact = () => {

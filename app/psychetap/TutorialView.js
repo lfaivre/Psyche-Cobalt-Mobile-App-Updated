@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, ImageBackground } from 'react-native';
 
 import { Fonts } from '../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../psychetap/utilities';
 import TutorialNavigation from './tutorial/TutorialNavigation';
 import TutorialContainer from './tutorial/TutorialContainer';
 import { TUTORIAL_VIEWS_LENGTH } from './tutorial/repo';

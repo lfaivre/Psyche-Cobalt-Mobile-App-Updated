@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, TouchableHighlight, ImageBackground } from 'react-native';
 
 import { Fonts } from '../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../game/utilities';
-import { GAMEVIEW_ENUM } from '../game/types';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../psychetap/utilities';
+import { GAMEVIEW_ENUM } from '../psychetap/types';
 
 export default class StartView extends React.Component {
   state = { imageLoaded: false };

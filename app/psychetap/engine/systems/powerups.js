@@ -1,7 +1,7 @@
 import Matter from 'matter-js';
 import {
   ClearScreen,
-  Create_ClearScreen_Matter
+  Create_ClearScreen_Matter,
 } from '../renderers/ClearScreen';
 import { Clock, Create_Clock_Matter } from '../renderers/Clock';
 import { Health, Create_Health_Matter } from '../renderers/Health';
@@ -11,8 +11,8 @@ import {
   randomBetween,
   calcDensity,
   outsideOfVerticalBounds,
-  touchWithinBounds
-} from '../../../game/utilities';
+  touchWithinBounds,
+} from '../../../psychetap/utilities';
 
 // NOTE :: SYSTEMS
 
@@ -128,8 +128,8 @@ export const MovePowerUps = (entities, {}) => {
 export const AddPowerUps = (entities, { touches, dispatch }) => {
   let touchPositions = [];
   touches
-    .filter(t => t.type === 'press')
-    .forEach(t => {
+    .filter((t) => t.type === 'press')
+    .forEach((t) => {
       const touchPosition = { x: t.event.pageX, y: t.event.pageY };
       touchPositions.push(touchPosition);
     });
@@ -147,7 +147,7 @@ export const AddPowerUps = (entities, { touches, dispatch }) => {
           entities.created.createdClearScreens.splice(index, 1);
           dispatch({
             type: 'addPowerUpToBar',
-            value: POWERUP_ENUM.clearScreen
+            value: POWERUP_ENUM.clearScreen,
           });
         }
       }

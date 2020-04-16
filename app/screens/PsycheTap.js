@@ -1,13 +1,13 @@
 import React from 'react';
 
 // Components
-import StartView from '../game/StartView';
-import TutorialView from '../game/TutorialView';
-import FactView from '../game/FactView';
-import GameView from '../game/GameView';
-import { GAMEVIEW_ENUM } from '../game/types';
+import StartView from '../psychetap/StartView';
+import TutorialView from '../psychetap/TutorialView';
+import FactView from '../psychetap/FactView';
+import GameView from '../psychetap/GameView';
+import { GAMEVIEW_ENUM } from '../psychetap/types';
 
-export default class GameOne extends React.Component {
+export default class PsycheTap extends React.Component {
   state = { gameView: GAMEVIEW_ENUM.start };
 
   handleGameView = (view) => {
