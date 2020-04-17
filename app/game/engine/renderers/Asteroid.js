@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import Matter from 'matter-js';
-import Emoji from 'react-native-emoji';
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
@@ -45,7 +44,7 @@ class Asteroid extends React.Component {
           }
         ]}
       >
-        <Emoji name="comet" style={{ fontSize: radius }} />
+        <Image source={require('../../../assets/images/projectiles/Asteroid.png')} style={styles.asteroid} />
       </View>
     );
   }
@@ -54,10 +53,11 @@ class Asteroid extends React.Component {
 const styles = {
   asteroid: {
     position: 'absolute',
-    backgroundColor: '#bfbfbf',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: radius,
+    height: radius
   }
 };
 

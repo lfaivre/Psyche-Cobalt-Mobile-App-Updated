@@ -32,6 +32,7 @@ export default class GameView extends React.Component {
 
   _isMounted = false;
   _gameEngineRef = null;
+  _bgImage = null;
 
   // NOTE :: LIFECYCLE HOOKS
 
@@ -183,39 +184,42 @@ export default class GameView extends React.Component {
   render() {
     return (
       <View style={styles.outerContainer}>
-        <LoadingModal imageLoaded={true} />
-        <GameEngine
-          ref={this.setEngineRef}
-          running={this.state.running}
-          style={styles.innerContainer}
-          systems={this.state.systems}
-          entities={defaultEntities()}
-          onEvent={this.onEvent}
-        >
-          <StatusBar hidden={true} />
-          <NavigationModal
-            modalVisible={this.state.navigationModalVisible}
-            setModalVisible={this.setNavigationModalVisible}
-            handleGameView={this.props.handleGameView}
-          />
-          <GameOverModal
-            modalVisible={this.state.gameOverModalVisible}
-            setModalVisible={this.setGameOverModalVisible}
-            handleGameView={this.props.handleGameView}
-            score={this.state.statusScore}
-            handleGameReset={this.resetGame}
-          />
-          <TopBar
-            setNavigationModalVisible={this.setNavigationModalVisible}
-            score={this.state.statusScore}
-            level={this.state.statusLevel}
-          />
-          <BottomBar
-            health={this.state.statusHealth}
-            powerUps={this.state.powerUps}
-            handleActivatePowerUp={this.handleActivatePowerUp}
-          />
-        </GameEngine>
+        <ImageBackground source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
+        style={styles.outerContainer}>
+          <LoadingModal imageLoaded={true} />
+          <GameEngine
+            ref={this.setEngineRef}
+            running={this.state.running}
+            style={styles.innerContainer}
+            systems={this.state.systems}
+            entities={defaultEntities()}
+            onEvent={this.onEvent}
+          >
+            <StatusBar hidden={true} />
+            <NavigationModal
+              modalVisible={this.state.navigationModalVisible}
+              setModalVisible={this.setNavigationModalVisible}
+              handleGameView={this.props.handleGameView}
+            />
+            <GameOverModal
+              modalVisible={this.state.gameOverModalVisible}
+              setModalVisible={this.setGameOverModalVisible}
+              handleGameView={this.props.handleGameView}
+              score={this.state.statusScore}
+              handleGameReset={this.resetGame}
+            />
+            <TopBar
+              setNavigationModalVisible={this.setNavigationModalVisible}
+              score={this.state.statusScore}
+              level={this.state.statusLevel}
+            />
+            <BottomBar
+              health={this.state.statusHealth}
+              powerUps={this.state.powerUps}
+              handleActivatePowerUp={this.handleActivatePowerUp}
+            />
+          </GameEngine>
+          </ImageBackground>
       </View>
     );
   }
@@ -224,7 +228,6 @@ export default class GameView extends React.Component {
 const styles = {
   outerContainer: {
     flex: 1,
-    backgroundColor: '#1e2223'
   },
   innerContainer: {
     flex: 1
