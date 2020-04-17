@@ -13,7 +13,8 @@ export const POWERUP_ENUM = Object.freeze({
 
 export const GAME_DEFAULTS = {
   player: {
-    health: 10,
+    // health: 10,
+    health: 100,
     score: 0,
     level: 0,
   },

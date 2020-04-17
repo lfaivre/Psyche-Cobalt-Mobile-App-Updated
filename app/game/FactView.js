@@ -58,16 +58,16 @@ const styles = {
     marginVertical: SCREEN_HEIGHT * (1 / 32),
     fontSize: SCREEN_HEIGHT * (1 / 8),
     // letterSpacing: 2,
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
     textAlign: 'center',
     color: 'white',
   },
   factText: {
     width: Math.floor(SCREEN_WIDTH * 0.75),
     marginVertical: SCREEN_HEIGHT * (1 / 32),
-    fontSize: SCREEN_HEIGHT * (1 / 24),
+    fontSize: SCREEN_HEIGHT * (1 / 20),
     // letterSpacing: 2,
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.RobotoThin,
     textAlign: 'center',
     color: 'white',
   },
@@ -90,7 +90,7 @@ const styles = {
   startButtonText: {
     color: '#1e2223',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
   tutorialButton: {
     height: SCREEN_HEIGHT * (1 / 8),
@@ -105,6 +105,6 @@ const styles = {
   tutorialButtonText: {
     color: '#bca0dc',
     fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.RobotoLight,
+    fontFamily: Fonts.BungeeRegular,
   },
 };
