@@ -188,7 +188,7 @@ export default class GameView extends React.Component {
     return (
       <View style={styles.outerContainer}>
         <ImageBackground
-          source={require('../assets/images/backgrounds/starsbg.jpg')}
+          source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
           style={styles.image}
           onLoadEnd={() => this.setState({ imageLoaded: true })}
         >
@@ -241,8 +241,6 @@ export default class GameView extends React.Component {
 const styles = {
   outerContainer: {
     flex: 1,
-<<<<<<< HEAD
-=======
     // backgroundColor: '#1e2223'
   },
   image: {
@@ -263,7 +261,6 @@ const styles = {
     fontFamily: Fonts.BungeeRegular,
     textAlign: 'center',
     color: '#bca0dc',
->>>>>>> 30e053b7e7f610e7424d890e7998eb693825c839
   },
   innerContainer: {
     flex: 1,
