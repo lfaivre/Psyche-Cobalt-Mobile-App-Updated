@@ -84,6 +84,6 @@ const styles = {
   },
   container: {
     flex: 1,
-    backgroundColor: '#1e2223',
+    // backgroundColor: '#1e2223',
   },
 };
