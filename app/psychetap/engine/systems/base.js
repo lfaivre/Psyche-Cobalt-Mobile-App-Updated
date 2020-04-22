@@ -1,3 +1,9 @@
+import {
+  LEVELS,
+  LEVELS_LENGTH,
+  FIRST_LEVEL,
+  FINAL_LEVEL,
+} from '../repo/levels';
 import { calcHealth, calcScore } from '../../utilities';
 
 export const SystemPhase = (entities, { events, dispatch }) => {
@@ -52,89 +58,16 @@ export const SystemScore = (entities, { events, dispatch }) => {
 };
 
 export const SystemLevels = (entities, { dispatch }) => {
-  if (entities.player.score === 0) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 1;
-
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 2;
-    entities.levelsystem.speed.asteroid.max = 3;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 2;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 1 });
+  if (entities.player.level === FINAL_LEVEL.level) {
+    return entities;
   }
-  if (entities.player.score === 200) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 2;
 
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 3;
-    entities.levelsystem.speed.asteroid.max = 4;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 2;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 2 });
-  }
-  if (entities.player.score === 400) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 3;
-
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 3;
-    entities.levelsystem.speed.asteroid.max = 4;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 3;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 3 });
-  }
-  if (entities.player.score === 600) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 4;
-
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 4;
-    entities.levelsystem.speed.asteroid.max = 5;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 3;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 4 });
-  }
-  if (entities.player.score === 800) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 5;
-
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 4;
-    entities.levelsystem.speed.asteroid.max = 5;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 4;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 5 });
-  }
-  if (entities.player.score === 1000) {
-    // NOTE :: SET LEVEL
-    entities.player.level = 6;
-
-    // NOTE :: SET ENTITY SPEED
-    entities.levelsystem.speed.asteroid.min = 5;
-    entities.levelsystem.speed.asteroid.max = 6;
-
-    // NOTE :: SET ENTITY DENSITY
-    entities.levelsystem.density.asteroid.min = 4;
-
-    // NOTE :: HANDLE VIEW CHANGES
-    dispatch({ type: 'setStatusLevel', value: 6 });
+  const next = LEVELS[entities.player.level + 1];
+  if (entities.player.score === next.requiredScore) {
+    entities.player.level = next.level;
+    entities.levelsystem.speed.asteroid = next.system.speed.asteroid;
+    entities.levelsystem.density.asteroid = next.system.density.asteroid;
+    dispatch({ type: 'setStatusLevel', value: next.level });
   }
   return entities;
 };
