@@ -5,6 +5,9 @@ import { Fonts } from '../components/Fonts';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from './utilities';
 import Matter from 'matter-js';
 
+// const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
+const backgroundImagePath = require('../assets/images/backgrounds/starsbg.jpg');
+
 // Components
 import LoadingModal from './components/LoadingModal';
 import NavigationModal from './components/NavigationModal';
@@ -21,6 +24,14 @@ import { SYSTEMS } from './engine/systems';
 import { Reset } from './engine/systems/reset';
 
 export default class GameView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.backgroundImagePath = backgroundImagePath;
+    this._isMounted = false;
+    this._gameEngineRef = null;
+    this._bgImage = null;
+  }
+
   state = {
     imageLoaded: false,
     navigationModalVisible: false,
@@ -32,10 +43,6 @@ export default class GameView extends React.Component {
     statusScore: GAME_DEFAULTS.player.score,
     statusLevel: GAME_DEFAULTS.player.level,
   };
-
-  _isMounted = false;
-  _gameEngineRef = null;
-  _bgImage = null;
 
   // NOTE :: LIFECYCLE HOOKS
 
@@ -188,7 +195,7 @@ export default class GameView extends React.Component {
     return (
       <View style={styles.outerContainer}>
         <ImageBackground
-          source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
+          source={this.backgroundImagePath}
           style={styles.image}
           onLoadEnd={() => this.setState({ imageLoaded: true })}
         >
