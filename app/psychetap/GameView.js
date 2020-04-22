@@ -35,6 +35,7 @@ export default class GameView extends React.Component {
 
   _isMounted = false;
   _gameEngineRef = null;
+  _bgImage = null;
 
   // NOTE :: LIFECYCLE HOOKS
 
@@ -187,7 +188,7 @@ export default class GameView extends React.Component {
     return (
       <View style={styles.outerContainer}>
         <ImageBackground
-          source={require('../assets/images/backgrounds/starsbg.jpg')}
+          source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
           style={styles.image}
           onLoadEnd={() => this.setState({ imageLoaded: true })}
         >
