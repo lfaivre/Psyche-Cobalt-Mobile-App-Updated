@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableHighlight } from 'react-native';
-import Emoji from 'react-native-emoji';
+// import Emoji from 'react-native-emoji';
 import { POWERUP_ENUM } from '../engine/init';
 
 export default class PowerUp extends React.Component {
@@ -19,9 +19,7 @@ export default class PowerUp extends React.Component {
             }}
             style={styles.powerUpClearScreen}
           >
-            <View>
-              <Emoji name="bomb" style={{ fontSize: 20 }} />
-            </View>
+            <View>{/* <Emoji name="bomb" style={{ fontSize: 20 }} /> */}</View>
           </TouchableHighlight>
         );
       case POWERUP_ENUM.clock:
@@ -38,7 +36,7 @@ export default class PowerUp extends React.Component {
             style={styles.powerUpClock}
           >
             <View>
-              <Emoji name="stopwatch" style={{ fontSize: 20 }} />
+              {/* <Emoji name="stopwatch" style={{ fontSize: 20 }} /> */}
             </View>
           </TouchableHighlight>
         );
@@ -56,7 +54,7 @@ export default class PowerUp extends React.Component {
             style={styles.powerUpHealth}
           >
             <View>
-              <Emoji name="hammer_and_wrench" style={{ fontSize: 20 }} />
+              {/* <Emoji name="hammer_and_wrench" style={{ fontSize: 20 }} /> */}
             </View>
           </TouchableHighlight>
         );
@@ -83,7 +81,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
-    backgroundColor: '#DB7F8E'
+    backgroundColor: '#DB7F8E',
     // backgroundColor: '#7A9B76'
   },
   powerUpHealth: {
@@ -94,7 +92,7 @@ const styles = {
     borderRadius: 50,
     // backgroundColor: '#F1DEDE',
     // backgroundColor: '#7A9B76'
-    backgroundColor: '#A4FBA6'
+    backgroundColor: '#A4FBA6',
   },
   powerUpClock: {
     flex: 1,
@@ -104,7 +102,7 @@ const styles = {
     borderRadius: 50,
     // backgroundColor: '#F1DEDE',
     // backgroundColor: '#7A9B76'
-    backgroundColor: '#EDFF71'
+    backgroundColor: '#EDFF71',
   },
   powerUpEmpty: {
     flex: 1,
@@ -114,6 +112,6 @@ const styles = {
     borderRadius: 50,
     // backgroundColor: '#F1DEDE',
     // backgroundColor: '#7A9B76'
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 };

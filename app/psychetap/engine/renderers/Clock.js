@@ -1,23 +1,26 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import Matter from 'matter-js';
-import Emoji from 'react-native-emoji';
-
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
 
+const clockImagePath = require('../../../assets/psychetap/powerups/Clock.png');
 const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375) / 2;
-
 const Create_Clock_Matter = (posX, posY) => {
   return Matter.Bodies.circle(posX, posY, radius, {
     collisionFilter: {
-      category: 0x0004
+      category: 0x0004,
       //   mask: 0x0001
-    }
+    },
   });
 };
 
 class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.imageURI = clockImagePath;
+  }
+
   componentDidMount() {
     Matter.World.add(WORLD, [this.props.body]);
   }
@@ -35,30 +38,33 @@ class Clock extends React.Component {
     return (
       <View
         style={[
-          styles.asteroid,
+          styles.clock,
           {
             left: x,
             top: y,
-            width: width,
-            height: height,
-            borderRadius: width / 2
-          }
+            width,
+            height,
+            borderRadius: width / 2,
+          },
         ]}
       >
-        <Emoji name="stopwatch" style={{ fontSize: radius }} />
+        <Image source={this.imageURI} style={styles.image} />
       </View>
     );
   }
 }
 
 const styles = {
-  asteroid: {
+  clock: {
     position: 'absolute',
-    backgroundColor: '#EDFF71',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'contain',
+  },
 };
 
 export { Clock, Create_Clock_Matter };

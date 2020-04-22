@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image } from 'react-native';
 import Matter from 'matter-js';
-
 import { SCREEN_WIDTH, SCREEN_HEIGHT, randomBetween } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
 
@@ -10,9 +9,7 @@ const asteroidImagePaths = [
   require('../../../assets/psychetap/dangers/Asteroid2.png'),
   require('../../../assets/psychetap/dangers/Asteroid3.png'),
 ];
-
 const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.125) / 2;
-
 const Create_Asteroid_Matter = (posX, posY) => {
   return Matter.Bodies.circle(posX, posY, radius, {
     collisionFilter: {
@@ -53,8 +50,8 @@ class Asteroid extends React.Component {
           {
             left: x,
             top: y,
-            width: width,
-            height: height,
+            width,
+            height,
             borderRadius: width / 2,
           },
         ]}
@@ -71,8 +68,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: radius * 2,
-    height: radius * 2,
   },
   image: {
     flex: 1,
