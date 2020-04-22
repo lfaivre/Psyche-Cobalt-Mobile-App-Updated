@@ -18,7 +18,7 @@ const Create_ClearScreen_Matter = (posX, posY) => {
 class ClearScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.imageURI = clearScreenImagePath;
+    this.clearScreenImagePath = clearScreenImagePath;
   }
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class ClearScreen extends React.Component {
           },
         ]}
       >
-        <Image source={this.imageURI} style={styles.image} />
+        <Image source={this.clearScreenImagePath} style={styles.image} />
       </View>
     );
   }

@@ -18,7 +18,7 @@ const Create_Health_Matter = (posX, posY) => {
 class Health extends React.Component {
   constructor(props) {
     super(props);
-    this.imageURI = healthImagePath;
+    this.healthImagePath = healthImagePath;
   }
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class Health extends React.Component {
           },
         ]}
       >
-        <Image source={this.imageURI} style={styles.image} />
+        <Image source={this.healthImagePath} style={styles.image} />
       </View>
     );
   }

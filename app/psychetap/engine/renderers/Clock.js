@@ -18,7 +18,7 @@ const Create_Clock_Matter = (posX, posY) => {
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    this.imageURI = clockImagePath;
+    this.clockImagePath = clockImagePath;
   }
 
   componentDidMount() {
@@ -48,7 +48,7 @@ class Clock extends React.Component {
           },
         ]}
       >
-        <Image source={this.imageURI} style={styles.image} />
+        <Image source={this.clockImagePath} style={styles.image} />
       </View>
     );
   }
