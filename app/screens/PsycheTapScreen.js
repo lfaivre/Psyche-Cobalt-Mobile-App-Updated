@@ -8,6 +8,14 @@ import { GAMEVIEW_ENUM } from '../psychetap/types';
 export default class PsycheTapScreen extends React.Component {
   state = { gameView: GAMEVIEW_ENUM.start };
 
+  componentDidMount() {
+    console.log('MOUNTED: PsycheTapScreen');
+  }
+
+  componentWillUnmount() {
+    console.log('WILL UNMOUNT: PsycheTapScreen');
+  }
+
   handleGameView = (view) => {
     this.setState({ gameView: view });
   };

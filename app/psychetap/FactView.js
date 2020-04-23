@@ -8,6 +8,14 @@ import { randomBetween } from '../psychetap/utilities';
 import { GAMEVIEW_ENUM } from '../psychetap/types';
 
 export default class FactView extends React.Component {
+  componentDidMount() {
+    console.log('MOUNTED: FactView');
+  }
+
+  componentWillUnmount() {
+    console.log('WILL UNMOUNT: FactView');
+  }
+
   fact = () => {
     return PSYCHE_FACTS[randomBetween(0, PSYCHE_FACTS.length - 1)];
   };
@@ -17,7 +25,7 @@ export default class FactView extends React.Component {
       <View style={styles.outerContainer}>
         {/* <NavigationHeader {...this.props} /> */}
         <View style={styles.container}>
-          <Text style={styles.titleText}>did you know?</Text>
+          <Text style={styles.titleText}>Did You Know?</Text>
           <Text style={styles.factText}>{this.fact()}</Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight

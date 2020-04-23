@@ -47,12 +47,14 @@ export default class GameView extends React.Component {
   // NOTE :: LIFECYCLE HOOKS
 
   componentDidMount() {
+    console.log('MOUNTED: GameView');
     this._isMounted = true;
     this.resetGame();
     this.runCollisionHandler();
   }
 
   componentWillUnmount() {
+    console.log('WILL UNMOUNT: GameView');
     this.stopGame();
     this._isMounted = false;
   }

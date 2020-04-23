@@ -11,8 +11,13 @@ export default class TutorialView extends React.Component {
   state = { index: 0, imageLoaded: false };
 
   componentDidMount() {
+    console.log('MOUNTED: TutorialView');
     this.length = TUTORIAL_VIEWS_LENGTH;
     this.lengthZero = this.length - 1;
+  }
+
+  componentWillUnmount() {
+    console.log('WILL UNMOUNT: TutorialView');
   }
 
   handleTutorialNavigation = (index) => {
