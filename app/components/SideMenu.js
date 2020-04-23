@@ -28,19 +28,16 @@ class SideMenu extends React.Component {
 
   // REMOVE :: ScreenOrientation BEFORE NATIVE BUILD
   handleScreenOrientation = async (routeName) => {
-    console.log('ROUTE NAME', routeName);
     switch (routeName) {
       case 'PsycheTap':
         await ScreenOrientation.lockAsync(
           ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
         );
-        console.log('LANDSCAPE_LEFT');
         break;
       default:
         await ScreenOrientation.lockAsync(
           ScreenOrientation.OrientationLock.PORTRAIT_UP
         );
-        console.log('PORTRAIT_UP');
         break;
     }
   };
