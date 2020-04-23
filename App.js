@@ -9,12 +9,15 @@
 import React from 'react';
 import Routes from './app/routing/routes';
 import * as Font from 'expo-font';
-import { YellowBox } from 'react-native';
-import { ScreenOrientation } from 'expo';
 
+// NOTE :: DEVELOPMENT ONLY
+import { YellowBox, View } from 'react-native';
 YellowBox.ignoreWarnings([
-  'VirtualizedLists should never be nested', // TODO: Remove when fixed
+  'VirtualizedLists should never be nested', // TODO: REMOVE WHEN FIXED
 ]);
+
+// NOTE :: REMOVE ScreenOrientation BEFORE NATIVE BUILD
+import { ScreenOrientation } from 'expo';
 
 export default class App extends React.Component {
   state = {
@@ -22,9 +25,11 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
+    // NOTE :: REMOVE ScreenOrientation BEFORE NATIVE BUILD
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
+
     await Font.loadAsync({
       Roboto: require('./app/assets/fonts/Roboto-Regular.ttf'),
       RobotoLight: require('./app/assets/fonts/Roboto-Light.ttf'),
@@ -33,12 +38,11 @@ export default class App extends React.Component {
       RobotoBold: require('./app/assets/fonts/Roboto-Bold.ttf'),
       BungeeRegular: require('./app/assets/fonts/Bungee-Regular.ttf'),
     });
-
     this.setState({ fontLoaded: true });
   }
 
   render() {
-    // TODO: Add loading component, use instead of null
-    return this.state.fontLoaded ? <Routes /> : null;
+    // TODO :: ADD LOADING COMPONENT INSTEAD OF EMPTY VIEW
+    return this.state.fontLoaded ? <Routes /> : <View></View>;
   }
 }
