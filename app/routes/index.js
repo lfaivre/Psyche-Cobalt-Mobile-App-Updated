@@ -1,3 +1,8 @@
+import { createAppContainer } from 'react-navigation';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import SideMenu from '../components/SideMenu';
+
+// NOTE :: IMPORT SCREENS
 import HomeScreen from '../screens/HomeScreen';
 import TimelineScreen from '../screens/TimelineScreen';
 import SocialMediaScreen from '../screens/SocialMediaScreen';
@@ -7,12 +12,8 @@ import SpacecraftScreen from '../screens/SpacecraftScreen';
 import ScienceScreen from '../screens/ScienceScreen';
 import TeamScreen from '../screens/TeamScreen';
 import PsycheTap from '../screens/PsycheTap';
-import GameTwo from '../screens/GameTwo';
 
-import SideMenu from '../components/SideMenu';
-import { createAppContainer } from 'react-navigation';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-
+// NOTE :: CONFIGURE ROUTES & DRAWER NAVIGATOR
 const RouteConfigs = {
   Home: {
     screen: HomeScreen,
@@ -41,21 +42,19 @@ const RouteConfigs = {
   PsycheTap: {
     screen: PsycheTap,
   },
-  'Game Two': {
-    screen: GameTwo,
-  },
 };
 
 const DrawerNavigatorConfig = {
-  initialRouteName: 'Home', // Set diff for testing right now
+  initialRouteName: 'Home',
   contentComponent: SideMenu,
   drawerOpenRoute: 'openDrawer',
   drawerCloseRoute: 'closeDrawer',
   drawerToggleRoute: 'toggleDrawer',
 };
 
+// NOTE :: CREATE DRAWER NAVIGATOR FROM CONFIGURATION
 const RootDrawer = createDrawerNavigator(RouteConfigs, DrawerNavigatorConfig);
 
+// NOTE :: CREATE AND EXPORT APP CONTAINER (FROM DRAWER NAVIGATOR)
 const AppContainer = createAppContainer(RootDrawer);
-
 export default AppContainer;

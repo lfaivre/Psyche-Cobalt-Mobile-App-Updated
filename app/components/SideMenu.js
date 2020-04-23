@@ -1,12 +1,15 @@
 import React from 'react';
-import { NavigationActions } from 'react-navigation';
-import { ScreenOrientation } from 'expo';
 import { ScrollView, Text, View, ImageBackground } from 'react-native';
+import { NavigationActions, withNavigationFocus } from 'react-navigation';
 import { Accordion, Body, Header, Left, Icon, Content } from 'native-base';
-import { withNavigationFocus } from 'react-navigation';
-
 import PropTypes from 'prop-types';
 import styles from '../styles/SideMenu.style';
+
+// REMOVE :: ScreenOrientation BEFORE NATIVE BUILD
+import { ScreenOrientation } from 'expo';
+
+// NOTE :: IMAGE IMPORT
+const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
 
 /* Title for accordion */
 const missionArray = [
@@ -20,29 +23,34 @@ const gameArray = [
 class SideMenu extends React.Component {
   constructor(props) {
     super(props);
-
-    // state variables
-    this.state = {};
+    this.backgroundImagePath = backgroundImagePath;
   }
+
+  // REMOVE :: ScreenOrientation BEFORE NATIVE BUILD
+  handleScreenOrientation = async (routeName) => {
+    console.log('ROUTE NAME', routeName);
+    switch (routeName) {
+      case 'PsycheTap':
+        await ScreenOrientation.lockAsync(
+          ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
+        );
+        console.log('LANDSCAPE_LEFT');
+        break;
+      default:
+        await ScreenOrientation.lockAsync(
+          ScreenOrientation.OrientationLock.PORTRAIT_UP
+        );
+        console.log('PORTRAIT_UP');
+        break;
+    }
+  };
 
   /* Handle navigating to a new screen
    *  @param route, the screen to navigate to
    */
-  navigateToScreen = (route) => async () => {
-    if (route !== 'PsycheTap') {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.PORTRAIT_UP
-      );
-      console.log('PORTRAIT_UP');
-    } else {
-      await ScreenOrientation.lockAsync(
-        ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
-      );
-      console.log('LANDSCAPE_LEFT');
-    }
-    const navigateAction = NavigationActions.navigate({
-      routeName: route,
-    });
+  navigateToScreen = (routeName) => async () => {
+    await this.handleScreenOrientation(routeName);
+    const navigateAction = NavigationActions.navigate({ routeName });
     this.props.navigation.dispatch(navigateAction);
   };
 
@@ -50,10 +58,8 @@ class SideMenu extends React.Component {
   renderMissionContent = () => {
     return (
       <ImageBackground
-        source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
-        style={{
-          width: '100%',
-        }}
+        source={this.backgroundImagePath}
+        style={{ width: '100%' }}
       >
         <View style={styles.collapseView}>
           <Text
@@ -94,10 +100,8 @@ class SideMenu extends React.Component {
   renderGameContent = () => {
     return (
       <ImageBackground
-        source={require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png')}
-        style={{
-          width: '100%',
-        }}
+        source={this.backgroundImagePath}
+        style={{ width: '100%' }}
       >
         <View style={styles.collapseView}>
           <Text
@@ -105,12 +109,6 @@ class SideMenu extends React.Component {
             onPress={this.navigateToScreen('PsycheTap')}
           >
             PsycheTap
-          </Text>
-          <Text
-            style={styles.navItemStyle}
-            onPress={this.navigateToScreen('Game Two')}
-          >
-            Game Two
           </Text>
         </View>
       </ImageBackground>
@@ -189,8 +187,6 @@ class SideMenu extends React.Component {
   }
 }
 
-SideMenu.propTypes = {
-  navigation: PropTypes.object,
-};
+SideMenu.propTypes = { navigation: PropTypes.object };
 
 export default withNavigationFocus(SideMenu);

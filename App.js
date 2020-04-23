@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import Routes from './app/routing/routes';
+import Routes from './app/routes';
 import * as Font from 'expo-font';
 
 // NOTE :: DEVELOPMENT ONLY
@@ -16,7 +16,7 @@ YellowBox.ignoreWarnings([
   'VirtualizedLists should never be nested', // TODO: REMOVE WHEN FIXED
 ]);
 
-// NOTE :: REMOVE ScreenOrientation BEFORE NATIVE BUILD
+// REMOVE :: ScreenOrientation BEFORE NATIVE BUILD
 import { ScreenOrientation } from 'expo';
 
 export default class App extends React.Component {
@@ -25,7 +25,7 @@ export default class App extends React.Component {
   };
 
   async componentDidMount() {
-    // NOTE :: REMOVE ScreenOrientation BEFORE NATIVE BUILD
+    // REMOVE :: ScreenOrientation BEFORE NATIVE BUILD
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.PORTRAIT_UP
     );
