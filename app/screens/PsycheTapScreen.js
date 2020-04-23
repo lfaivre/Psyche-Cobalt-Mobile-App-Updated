@@ -1,20 +1,12 @@
 import React from 'react';
-import StartView from '../psychetap/StartView';
-import TutorialView from '../psychetap/TutorialView';
-import FactView from '../psychetap/FactView';
-import GameView from '../psychetap/GameView';
+import StartView from '../psychetap/views/StartView';
+import TutorialView from '../psychetap/views/TutorialView';
+import FactView from '../psychetap/views/FactView';
+import GameView from '../psychetap/views/GameView';
 import { GAMEVIEW_ENUM } from '../psychetap/types';
 
 export default class PsycheTapScreen extends React.Component {
   state = { gameView: GAMEVIEW_ENUM.start };
-
-  componentDidMount() {
-    console.log('MOUNTED: PsycheTapScreen');
-  }
-
-  componentWillUnmount() {
-    console.log('WILL UNMOUNT: PsycheTapScreen');
-  }
 
   handleGameView = (view) => {
     this.setState({ gameView: view });

@@ -1,27 +1,27 @@
 import React from 'react';
 import { View, StatusBar, ImageBackground, Text } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
-import { Fonts } from '../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from './utilities';
+import { Fonts } from '../../components/Fonts';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 import Matter from 'matter-js';
 
 // const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
-const backgroundImagePath = require('../assets/images/backgrounds/starsbg.jpg');
+const backgroundImagePath = require('../../assets/images/backgrounds/starsbg.jpg');
 
 // Components
-import LoadingModal from './components/LoadingModal';
-import NavigationModal from './components/NavigationModal';
-import GameOverModal from './components/GameOverModal';
-import BottomBar from './components/BottomBar';
-import TopBar from './components/TopBar';
+import LoadingModal from '../components/LoadingModal';
+import NavigationModal from '../components/NavigationModal';
+import GameOverModal from '../components/GameOverModal';
+import BottomBar from '../components/BottomBar';
+import TopBar from '../components/TopBar';
 
 // Game Engine
-import { ENGINE, WORLD } from './engine/physicsInit';
-import { GAME_DEFAULTS, POWERUP_ENUM, defaultEntities } from './engine/init';
+import { ENGINE, WORLD } from '../engine/physicsInit';
+import { GAME_DEFAULTS, POWERUP_ENUM, defaultEntities } from '../engine/init';
 
 // GAME ENGINE :: SYSTEMS
-import { SYSTEMS } from './engine/systems';
-import { Reset } from './engine/systems/reset';
+import { SYSTEMS } from '../engine/systems';
+import { Reset } from '../engine/systems/reset';
 
 export default class GameView extends React.Component {
   constructor(props) {

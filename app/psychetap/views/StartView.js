@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, ImageBackground } from 'react-native';
-import { GAMEVIEW_ENUM } from '../psychetap/types';
-import styles from './styles/StartView.style';
+import { GAMEVIEW_ENUM } from '../types';
+import styles from '../styles/StartView.style';
 
-const backgroundImagePath = require('../assets/images/backgrounds/surfacebg.jpg');
+const backgroundImagePath = require('../../assets/images/backgrounds/surfacebg.jpg');
 
 export default class StartView extends React.Component {
   constructor(props) {

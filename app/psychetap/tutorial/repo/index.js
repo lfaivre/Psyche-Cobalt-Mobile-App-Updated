@@ -150,3 +150,4 @@ export const TUTORIAL_VIEWS = [
 ];
 
 export const TUTORIAL_VIEWS_LENGTH = TUTORIAL_VIEWS.length;
+export const TUTORIAL_VIEWS_LENGTH_ZERO = TUTORIAL_VIEWS.length - 1;

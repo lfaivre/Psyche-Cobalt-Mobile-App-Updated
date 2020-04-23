@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
-import { PSYCHE_FACTS } from '../psychetap/repo/facts.js';
-import { randomBetween } from '../psychetap/utilities';
-import { GAMEVIEW_ENUM } from '../psychetap/types';
-import styles from './styles/FactView.style';
+import { PSYCHE_FACTS } from '../repo/facts.js';
+import { randomBetween } from '../utilities';
+import { GAMEVIEW_ENUM } from '../types';
+import styles from '../styles/FactView.style';
 
 export default class FactView extends React.Component {
   get fact() {
