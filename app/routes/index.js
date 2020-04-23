@@ -11,7 +11,7 @@ import AsteroidScreen from '../screens/AsteroidScreen';
 import SpacecraftScreen from '../screens/SpacecraftScreen';
 import ScienceScreen from '../screens/ScienceScreen';
 import TeamScreen from '../screens/TeamScreen';
-import PsycheTap from '../screens/PsycheTap';
+import PsycheTapScreen from '../screens/PsycheTapScreen';
 
 // NOTE :: CONFIGURE ROUTES & DRAWER NAVIGATOR
 const RouteConfigs = {
@@ -40,7 +40,7 @@ const RouteConfigs = {
     screen: TeamScreen,
   },
   PsycheTap: {
-    screen: PsycheTap,
+    screen: PsycheTapScreen,
   },
 };
 

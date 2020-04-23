@@ -1,13 +1,11 @@
 import React from 'react';
-
-// Components
 import StartView from '../psychetap/StartView';
 import TutorialView from '../psychetap/TutorialView';
 import FactView from '../psychetap/FactView';
 import GameView from '../psychetap/GameView';
 import { GAMEVIEW_ENUM } from '../psychetap/types';
 
-export default class PsycheTap extends React.Component {
+export default class PsycheTapScreen extends React.Component {
   state = { gameView: GAMEVIEW_ENUM.start };
 
   handleGameView = (view) => {
