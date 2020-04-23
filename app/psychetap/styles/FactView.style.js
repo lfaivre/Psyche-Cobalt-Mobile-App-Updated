@@ -1,3 +1,4 @@
+import { SCREEN_WIDTH } from '../../psychetap/utilities';
 import { Fonts } from '../../components/Fonts';
 import {
   PSYCHETAP_COLORS,
@@ -9,49 +10,27 @@ import {
 export default {
   outerContainer: {
     flex: 1,
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'center',
-    resizeMode: 'cover',
-  },
-  loadingContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: PSYCHETAP_COLORS.DarkGray,
   },
-  loadingText: {
-    color: PSYCHETAP_COLORS.LightPurple,
-    fontSize: FONT_SIZE.Small,
-    fontFamily: Fonts.BungeeRegular,
-    textAlign: 'center',
-  },
-  innerContainer: {
+  container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
-  textWrapper: {
-    position: 'relative',
-  },
-  titleTextOne: {
+  titleText: {
     marginVertical: SPACING.Small,
-    color: PSYCHETAP_COLORS.LightPurple,
-    fontSize: FONT_SIZE.Large,
+    color: PSYCHETAP_COLORS.White,
+    fontSize: FONT_SIZE.Medium,
     fontFamily: Fonts.BungeeRegular,
     textAlign: 'center',
   },
-  titleTextTwo: {
-    position: 'absolute',
-    top: 4,
-    left: 4,
+  factText: {
+    width: Math.floor(SCREEN_WIDTH * 0.75),
     marginVertical: SPACING.Small,
     color: PSYCHETAP_COLORS.White,
-    fontSize: FONT_SIZE.Large,
-    fontFamily: Fonts.BungeeRegular,
+    fontSize: FONT_SIZE.XSmall,
+    fontFamily: Fonts.RobotoThin,
     textAlign: 'center',
   },
   buttonContainer: {

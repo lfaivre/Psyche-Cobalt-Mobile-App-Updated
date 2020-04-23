@@ -7,7 +7,9 @@ export const PSYCHETAP_COLORS = {
 };
 
 export const FONT_SIZE = {
+  XSmall: SCREEN_HEIGHT * (1 / 20),
   Small: SCREEN_HEIGHT * (1 / 16),
+  Medium: SCREEN_HEIGHT * (1 / 8),
   Large: SCREEN_HEIGHT * (1 / 4),
 };
 
