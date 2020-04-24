@@ -30,10 +30,9 @@ export default {
     height: BUTTON_SIZE.MediumRound.Height,
     width: BUTTON_SIZE.MediumRound.Width,
     padding: SPACING_HORIZONTAL.XXSmall,
+    borderWidth: BUTTON_SIZE.MediumRound.BorderWidth,
     borderRadius: BUTTON_SIZE.MediumRound.BorderRadius,
     marginHorizontal: SPACING_HORIZONTAL.XXSmall,
-    borderRadius: 50,
-    borderWidth: 2,
     borderColor: PSYCHETAP_COLORS.White,
   },
   healthContainer: {

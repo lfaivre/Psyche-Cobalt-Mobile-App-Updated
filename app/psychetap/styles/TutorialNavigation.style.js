@@ -3,6 +3,7 @@ import { Fonts } from '../../components/Fonts';
 import {
   PSYCHETAP_COLORS,
   FONT_SIZE,
+  SPACING_VERTICAL,
   SPACING_HORIZONTAL,
   BUTTON_SIZE,
 } from './_variables.style';
@@ -24,7 +25,10 @@ export default {
   exitButton: {
     height: BUTTON_SIZE.Small.Height,
     width: BUTTON_SIZE.Small.Width,
+    borderWidth: BUTTON_SIZE.Small.BorderWidth,
     borderRadius: BUTTON_SIZE.Small.BorderRadius,
+    borderColor: PSYCHETAP_COLORS.LightPurple,
+    marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: PSYCHETAP_COLORS.LightPurple,

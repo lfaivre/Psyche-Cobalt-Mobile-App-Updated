@@ -62,8 +62,8 @@ export default {
   startButton: {
     height: BUTTON_SIZE.Large.Height,
     width: BUTTON_SIZE.Large.Width,
-    borderWidth: 1,
-    borderRadius: BUTTON_SIZE.Small.BorderRadius,
+    borderWidth: BUTTON_SIZE.Large.BorderWidth,
+    borderRadius: BUTTON_SIZE.Large.BorderRadius,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
@@ -78,8 +78,8 @@ export default {
   tutorialButton: {
     height: BUTTON_SIZE.Small.Height,
     width: BUTTON_SIZE.Small.Width,
+    borderWidth: BUTTON_SIZE.Small.BorderWidth,
     borderRadius: BUTTON_SIZE.Small.BorderRadius,
-    borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
