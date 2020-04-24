@@ -28,7 +28,6 @@ class Truck extends React.Component {
   }
 
   componentDidMount() {
-    console.log('MOUNT A TRUCK');
     Matter.World.add(WORLD, [this.props.body]);
   }
 

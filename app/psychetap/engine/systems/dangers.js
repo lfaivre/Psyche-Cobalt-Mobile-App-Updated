@@ -205,7 +205,7 @@ export const RemoveCollidedDangers = (entities, { dispatch, events }) => {
 
   if (events.length) {
     for (let i = 0; i < events.length; i++) {
-      if (events[i].type === 'asteroidCollision') {
+      if (events[i].type === 'dangerCollision') {
         destroyDangers.push(events[i].id);
         entities.destroy.destroyDangers.push(events[i].id);
       }

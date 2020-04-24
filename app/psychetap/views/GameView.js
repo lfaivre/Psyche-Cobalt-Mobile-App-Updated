@@ -41,14 +41,12 @@ export default class GameView extends React.Component {
   // NOTE :: LIFECYCLE HOOKS
 
   componentDidMount() {
-    console.log('MOUNTED: GameView');
     this._isMounted = true;
     this.resetGame();
     this.runCollisionHandler();
   }
 
   componentWillUnmount() {
-    console.log('WILL UNMOUNT: GameView');
     this.stopGame();
     this._isMounted = false;
   }
@@ -71,14 +69,12 @@ export default class GameView extends React.Component {
 
   stopGame = () => {
     if (this._isMounted && this._gameEngineRef) {
-      console.log('STOP GAME');
       this.setState({ running: false, systems: [] });
     }
   };
 
   resetGame = () => {
     if (this._isMounted && this._gameEngineRef) {
-      console.log('RESET GAME');
       Matter.World.clear(WORLD);
       Matter.Engine.clear(ENGINE);
       this._gameEngineRef.swap(defaultEntities());
@@ -115,7 +111,7 @@ export default class GameView extends React.Component {
           id = e.pairs[0].bodyB.id;
         }
         this._gameEngineRef.dispatch({
-          type: 'asteroidCollision',
+          type: 'dangerCollision',
           id: id,
         });
       }
@@ -173,7 +169,6 @@ export default class GameView extends React.Component {
         this._gameEngineRef.dispatch({ type: 'beginCleanup' });
       });
     } else if (e.type === 'endCleanup') {
-      console.log('RESET ENTITIES COMPLETE');
       this.stopGame();
       this.setGameOverModalVisible(true);
     }

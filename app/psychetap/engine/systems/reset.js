@@ -27,6 +27,24 @@ export const Reset = (entities, { touches, dispatch, events }) => {
           );
         }
       }
+      for (truck of entities.created.createdTrucks) {
+        if (entities[truck]) {
+          delete entities[truck];
+          entities.created.createdTrucks.splice(
+            entities.created.createdTrucks.indexOf(truck),
+            1
+          );
+        }
+      }
+      for (rubberDuck of entities.created.createdRubberDucks) {
+        if (entities[rubberDuck]) {
+          delete entities[rubberDuck];
+          entities.created.createdRubberDucks.splice(
+            entities.created.createdRubberDucks.indexOf(rubberDuck),
+            1
+          );
+        }
+      }
       for (clearScreen of entities.created.createdClearScreens) {
         if (entities[clearScreen]) {
           delete entities[clearScreen];
