@@ -1,5 +1,6 @@
 import Matter from 'matter-js';
 import { Asteroid, Create_Asteroid_Matter } from '../renderers/Asteroid';
+import { Truck, Create_Truck_Matter } from '../renderers/Truck';
 import { GAME_DEFAULTS } from '../init';
 import {
   SCREEN_WIDTH,
@@ -11,7 +12,10 @@ import {
 
 // NOTE :: SYSTEMS
 let asteroidDensity = GAME_DEFAULTS.asteroidDensity;
+let truckDensity = GAME_DEFAULTS.truckDensity;
+
 let asteroidIterator = 0;
+let truckIterator = 0;
 
 export const DeployDangers = (entities, {}) => {
   if (asteroidIterator === asteroidDensity) {
@@ -29,7 +33,26 @@ export const DeployDangers = (entities, {}) => {
     asteroidDensity = density;
     asteroidIterator = 0;
   }
+
+  if (truckIterator === truckDensity) {
+    const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
+    let body = Create_Truck_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.truck.min;
+    const maxSpeed = entities.levelsystem.speed.truck.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
+    const truckGeneratedKey = `Truck${Math.random()}`;
+    entities.created.createdTrucks.push(truckGeneratedKey);
+    entities[truckGeneratedKey] = { body, speed, renderer: Truck };
+
+    const minDensity = entities.levelsystem.density.truck.min;
+    const density = calcDensity(1 / minDensity);
+    truckDensity = density;
+    truckIterator = 0;
+  }
+
   asteroidIterator++;
+  truckIterator++;
+
   return entities;
 };
 
@@ -39,6 +62,13 @@ export const RemoveDangers = (entities, {}) => {
       delete entities[asteroid];
       const index = entities.created.createdAsteroids.indexOf(asteroid);
       entities.created.createdAsteroids.splice(index, 1);
+    }
+  }
+  for (truck of entities.created.createdTrucks) {
+    if (outsideOfVerticalBounds(entities[truck].body.bounds)) {
+      delete entities[truck];
+      const index = entities.created.createdTrucks.indexOf(truck);
+      entities.created.createdTrucks.splice(index, 1);
     }
   }
   return entities;
@@ -64,12 +94,22 @@ export const DestroyDangers = (entities, { touches, dispatch }) => {
           dispatch({ type: 'setScore', value: 10 });
         }
       }
+      for (truck of entities.created.createdTrucks) {
+        const bounds = entities[truck].body.bounds;
+        if (touchWithinBounds(bounds, touchPosition)) {
+          delete entities[truck];
+          const index = entities.created.createdTrucks.indexOf(truck);
+          entities.created.createdTrucks.splice(index, 1);
+          dispatch({ type: 'setScore', value: 30 });
+        }
+      }
     }
   }
   return entities;
 };
 
 let asteroidSpeedModifier = 1;
+let truckSpeedModifier = 1;
 let clockEffectActive = false;
 let clockEffectIterator = 0;
 
@@ -80,6 +120,7 @@ export const MoveDangers = (entities, { events }) => {
       if (events[i].type === 'effectClock') {
         // TODO: Handle multiple clock events (iterator + 180?)
         asteroidSpeedModifier = 0.5;
+        truckSpeedModifier = 0.5;
         clockEffectActive = true;
       }
     }
@@ -90,6 +131,7 @@ export const MoveDangers = (entities, { events }) => {
       clockEffectActive = false;
       clockEffectIterator = 0;
       asteroidSpeedModifier = 1;
+      truckSpeedModifier = 1;
     } else {
       clockEffectIterator++;
     }
@@ -101,29 +143,51 @@ export const MoveDangers = (entities, { events }) => {
     const speed = initialSpeed * asteroidSpeedModifier;
     Matter.Body.translate(body, { x: 0, y: speed });
   }
+
+  for (truck of entities.created.createdTrucks) {
+    const body = entities[truck].body;
+    const initialSpeed = entities[truck].speed;
+    const speed = initialSpeed * truckSpeedModifier;
+    Matter.Body.translate(body, { x: 0, y: speed });
+  }
   return entities;
 };
 
 export const RemoveCollidedDangers = (entities, { dispatch, events }) => {
   // TODO :: REFACTOR
-  let destroyAsteroids = [];
+  let destroyDangers = [];
+
   if (events.length) {
     for (let i = 0; i < events.length; i++) {
       if (events[i].type === 'asteroidCollision') {
-        destroyAsteroids.push(events[i].id);
-        entities.destroy.destroyAsteroids.push(events[i].id);
-        dispatch({ type: 'setHealth', value: -10 });
+        destroyDangers.push(events[i].id);
+        entities.destroy.destroyDangers.push(events[i].id);
       }
     }
   }
 
-  for (asteroid of entities.created.createdAsteroids) {
-    for (id of destroyAsteroids) {
+  for (id of destroyDangers) {
+    for (asteroid of entities.created.createdAsteroids) {
       if (entities[asteroid] && entities[asteroid].body.id === id) {
         delete entities[asteroid];
         const index = entities.created.createdAsteroids.indexOf(asteroid);
         entities.created.createdAsteroids.splice(index, 1);
-        dispatch({ type: 'removeAfterCollision', id: id });
+        dispatch({
+          type: 'setHealth',
+          value: -10,
+        });
+      }
+    }
+
+    for (truck of entities.created.createdTrucks) {
+      if (entities[truck] && entities[truck].body.id === id) {
+        delete entities[truck];
+        const index = entities.created.createdTrucks.indexOf(truck);
+        entities.created.createdTrucks.splice(index, 1);
+        dispatch({
+          type: 'setHealth',
+          value: -30,
+        });
       }
     }
   }

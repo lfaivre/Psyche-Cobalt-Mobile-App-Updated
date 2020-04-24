@@ -63,17 +63,4 @@ class Asteroid extends React.Component {
   }
 }
 
-// const styles = {
-//   asteroid: {
-//     position: 'absolute',
-//     display: 'flex',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   image: {
-//     flex: 1,
-//     resizeMode: 'contain',
-//   },
-// };
-
 export { Asteroid, Create_Asteroid_Matter };

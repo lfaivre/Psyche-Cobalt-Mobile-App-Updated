@@ -21,12 +21,14 @@ export const GAME_DEFAULTS = {
   levelsystem: {
     speed: {
       asteroid: { min: 2, max: 3 },
+      truck: { min: 4, max: 6 },
       clearScreen: { min: 4, max: 6 },
       health: { min: 4, max: 6 },
       clock: { min: 4, max: 6 },
     },
     density: {
       asteroid: { min: 2, max: 2 },
+      truck: { min: 10, max: 10 },
       clearScreen: { min: 8, max: 10 },
       health: { min: 4, max: 6 },
       clock: { min: 6, max: 8 },
@@ -37,6 +39,7 @@ export const GAME_DEFAULTS = {
   clockDensity: calcDensity(1 / randomBetween(6, 8)),
   healthDensity: calcDensity(1 / randomBetween(4, 6)),
   asteroidDensity: calcDensity(2),
+  truckDensity: calcDensity(1 / 10),
 };
 
 // NOTE :: RNGE - DEFAULT ENTITIES
@@ -54,12 +57,14 @@ export const defaultEntities = () => {
     levelsystem: {
       speed: {
         asteroid: GAME_DEFAULTS.levelsystem.speed.asteroid,
+        truck: GAME_DEFAULTS.levelsystem.speed.truck,
         clearScreen: GAME_DEFAULTS.levelsystem.speed.clearScreen,
         health: GAME_DEFAULTS.levelsystem.speed.health,
         clock: GAME_DEFAULTS.levelsystem.speed.clock,
       },
       density: {
         asteroid: GAME_DEFAULTS.levelsystem.density.asteroid,
+        truck: GAME_DEFAULTS.levelsystem.density.truck,
         clearScreen: GAME_DEFAULTS.levelsystem.density.clearScreen,
         health: GAME_DEFAULTS.levelsystem.density.health,
         clock: GAME_DEFAULTS.levelsystem.density.clock,
@@ -67,12 +72,15 @@ export const defaultEntities = () => {
     },
     created: {
       createdAsteroids: [],
+      createdTrucks: [],
       createdClearScreens: [],
       createdHealths: [],
       createdClocks: [],
     },
     destroy: {
+      destroyDangers: [],
       destroyAsteroids: [],
+      destroyTrucks: [],
     },
     psycheRover: {
       body: PsycheRover_Matter,
