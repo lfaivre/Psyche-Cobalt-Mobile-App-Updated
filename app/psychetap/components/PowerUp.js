@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableHighlight, Image } from 'react-native';
 import { POWERUP_ENUM } from '../engine/init';
+import styles from '../styles/PowerUp.style';
 
 const clearScreenImagePath = require('../../assets/psychetap/powerups/ClearScreen.png');
 const clockImagePath = require('../../assets/psychetap/powerups/Clock.png');
@@ -48,21 +49,3 @@ export default class PowerUp extends React.Component {
     );
   }
 }
-
-const styles = {
-  outerContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-  },
-  container: {
-    flex: 1,
-  },
-  image: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
-  },
-};
