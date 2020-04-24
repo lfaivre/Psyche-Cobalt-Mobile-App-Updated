@@ -1,21 +1,22 @@
 import React from 'react';
 import { View, StatusBar, ImageBackground, Text } from 'react-native';
-import { GameEngine } from 'react-native-game-engine';
 import Matter from 'matter-js';
-import styles from '../styles/GameView.style';
-// const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
-const backgroundImagePath = require('../../assets/images/backgrounds/starsbg.jpg');
 
-// Components
 import NavigationModal from '../components/NavigationModal';
 import GameOverModal from '../components/GameOverModal';
 import BottomBar from '../components/BottomBar';
 import TopBar from '../components/TopBar';
 
-// Game Engine
+import styles from '../styles/GameView.style';
+
+// NOTE :: GAME ENGINE
+import { GameEngine } from 'react-native-game-engine';
 import { ENGINE, WORLD } from '../engine/physicsInit';
 import { GAME_DEFAULTS, POWERUP_ENUM, defaultEntities } from '../engine/init';
 import { SYSTEMS, RESET_SYSTEMS } from '../engine/systems';
+
+// const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
+const backgroundImagePath = require('../../assets/images/backgrounds/starsbg.jpg');
 
 export default class GameView extends React.Component {
   constructor(props) {

@@ -34,4 +34,9 @@ export const BUTTON_SIZE = {
     Width: SCREEN_WIDTH * (3 / 5),
     BorderRadius: 12.5,
   },
+  SmallRound: {
+    Height: SCREEN_HEIGHT * (1 / 8),
+    Width: SCREEN_HEIGHT * (1 / 8),
+    BorderRadius: SCREEN_HEIGHT * (1 / 16),
+  },
 };
