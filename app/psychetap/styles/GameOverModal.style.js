@@ -20,12 +20,18 @@ export default {
     fontSize: FONT_SIZE.Medium,
     fontFamily: Fonts.BungeeRegular,
   },
+  scoreText: {
+    marginVertical: SPACING_VERTICAL.Small,
+    color: PSYCHETAP_COLORS.White,
+    fontSize: FONT_SIZE.Small,
+    fontFamily: Fonts.BungeeRegular,
+  },
   buttonContainer: {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
-  exitButton: {
+  restartButton: {
     height: BUTTON_SIZE.Large.Height,
     width: BUTTON_SIZE.Large.Width,
     borderWidth: BUTTON_SIZE.Large.BorderWidth,
@@ -36,12 +42,12 @@ export default {
     alignItems: 'center',
     backgroundColor: PSYCHETAP_COLORS.LightPurple,
   },
-  exitButtonText: {
+  restartButtonText: {
     color: PSYCHETAP_COLORS.DarkGray,
     fontSize: FONT_SIZE.Small,
     fontFamily: Fonts.BungeeRegular,
   },
-  tutorialButton: {
+  exitButton: {
     height: BUTTON_SIZE.Small.Height,
     width: BUTTON_SIZE.Small.Width,
     borderWidth: BUTTON_SIZE.Small.BorderWidth,
@@ -51,21 +57,8 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  tutorialButtonText: {
+  exitButtonText: {
     color: PSYCHETAP_COLORS.LightPurple,
-    fontSize: FONT_SIZE.Small,
-    fontFamily: Fonts.BungeeRegular,
-  },
-  cancelButton: {
-    height: BUTTON_SIZE.Small.Height,
-    width: BUTTON_SIZE.Small.Width,
-    marginVertical: SPACING_VERTICAL.Small,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: PSYCHETAP_COLORS.Transparent,
-  },
-  cancelButtonText: {
-    color: PSYCHETAP_COLORS.White,
     fontSize: FONT_SIZE.Small,
     fontFamily: Fonts.BungeeRegular,
   },
