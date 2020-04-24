@@ -1,6 +1,7 @@
 import Matter from 'matter-js';
 import { Asteroid, Create_Asteroid_Matter } from '../renderers/Asteroid';
 import { Truck, Create_Truck_Matter } from '../renderers/Truck';
+import { RubberDuck, Create_RubberDuck_Matter } from '../renderers/RubberDuck';
 import { GAME_DEFAULTS } from '../init';
 import {
   SCREEN_WIDTH,
@@ -13,9 +14,11 @@ import {
 // NOTE :: SYSTEMS
 let asteroidDensity = GAME_DEFAULTS.asteroidDensity;
 let truckDensity = GAME_DEFAULTS.truckDensity;
+let rubberDuckDensity = GAME_DEFAULTS.rubberDuckDensity;
 
 let asteroidIterator = 0;
 let truckIterator = 0;
+let rubberDuckIterator = 0;
 
 export const DeployDangers = (entities, {}) => {
   if (asteroidIterator === asteroidDensity) {
@@ -50,8 +53,25 @@ export const DeployDangers = (entities, {}) => {
     truckIterator = 0;
   }
 
+  if (rubberDuckIterator === rubberDuckDensity) {
+    const randomHorizontalPos = randomBetween(0, SCREEN_WIDTH - 1);
+    let body = Create_RubberDuck_Matter(randomHorizontalPos, 0);
+    const minSpeed = entities.levelsystem.speed.rubberDuck.min;
+    const maxSpeed = entities.levelsystem.speed.rubberDuck.max;
+    const speed = randomBetween(minSpeed, maxSpeed);
+    const rubberDuckGeneratedKey = `RubberDuck${Math.random()}`;
+    entities.created.createdRubberDucks.push(rubberDuckGeneratedKey);
+    entities[rubberDuckGeneratedKey] = { body, speed, renderer: RubberDuck };
+
+    const minDensity = entities.levelsystem.density.rubberDuck.min;
+    const density = calcDensity(1 / minDensity);
+    rubberDuckDensity = density;
+    rubberDuckIterator = 0;
+  }
+
   asteroidIterator++;
   truckIterator++;
+  rubberDuckIterator++;
 
   return entities;
 };
@@ -69,6 +89,13 @@ export const RemoveDangers = (entities, {}) => {
       delete entities[truck];
       const index = entities.created.createdTrucks.indexOf(truck);
       entities.created.createdTrucks.splice(index, 1);
+    }
+  }
+  for (rubberDuck of entities.created.createdRubberDucks) {
+    if (outsideOfVerticalBounds(entities[rubberDuck].body.bounds)) {
+      delete entities[rubberDuck];
+      const index = entities.created.createdRubberDucks.indexOf(rubberDuck);
+      entities.created.createdRubberDucks.splice(index, 1);
     }
   }
   return entities;
@@ -103,6 +130,15 @@ export const DestroyDangers = (entities, { touches, dispatch }) => {
           dispatch({ type: 'setScore', value: 30 });
         }
       }
+      for (rubberDuck of entities.created.createdRubberDucks) {
+        const bounds = entities[rubberDuck].body.bounds;
+        if (touchWithinBounds(bounds, touchPosition)) {
+          delete entities[rubberDuck];
+          const index = entities.created.createdRubberDucks.indexOf(rubberDuck);
+          entities.created.createdRubberDucks.splice(index, 1);
+          dispatch({ type: 'setScore', value: 20 });
+        }
+      }
     }
   }
   return entities;
@@ -110,6 +146,7 @@ export const DestroyDangers = (entities, { touches, dispatch }) => {
 
 let asteroidSpeedModifier = 1;
 let truckSpeedModifier = 1;
+let rubberDuckSpeedModifier = 1;
 let clockEffectActive = false;
 let clockEffectIterator = 0;
 
@@ -121,6 +158,7 @@ export const MoveDangers = (entities, { events }) => {
         // TODO: Handle multiple clock events (iterator + 180?)
         asteroidSpeedModifier = 0.5;
         truckSpeedModifier = 0.5;
+        rubberDuckSpeedModifier = 0.5;
         clockEffectActive = true;
       }
     }
@@ -132,6 +170,7 @@ export const MoveDangers = (entities, { events }) => {
       clockEffectIterator = 0;
       asteroidSpeedModifier = 1;
       truckSpeedModifier = 1;
+      rubberDuckSpeedModifier = 1;
     } else {
       clockEffectIterator++;
     }
@@ -148,6 +187,13 @@ export const MoveDangers = (entities, { events }) => {
     const body = entities[truck].body;
     const initialSpeed = entities[truck].speed;
     const speed = initialSpeed * truckSpeedModifier;
+    Matter.Body.translate(body, { x: 0, y: speed });
+  }
+
+  for (rubberDuck of entities.created.createdRubberDucks) {
+    const body = entities[rubberDuck].body;
+    const initialSpeed = entities[rubberDuck].speed;
+    const speed = initialSpeed * rubberDuckSpeedModifier;
     Matter.Body.translate(body, { x: 0, y: speed });
   }
   return entities;
@@ -187,6 +233,18 @@ export const RemoveCollidedDangers = (entities, { dispatch, events }) => {
         dispatch({
           type: 'setHealth',
           value: -30,
+        });
+      }
+    }
+
+    for (rubberDuck of entities.created.createdRubberDucks) {
+      if (entities[rubberDuck] && entities[rubberDuck].body.id === id) {
+        delete entities[rubberDuck];
+        const index = entities.created.createdRubberDucks.indexOf(rubberDuck);
+        entities.created.createdRubberDucks.splice(index, 1);
+        dispatch({
+          type: 'setHealth',
+          value: -20,
         });
       }
     }

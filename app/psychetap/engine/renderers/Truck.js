@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import Matter from 'matter-js';
-import { SCREEN_WIDTH, SCREEN_HEIGHT, randomBetween } from '../../utilities';
+import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
 import styles from '../../styles/Truck.style';
 
@@ -29,7 +29,6 @@ class Truck extends React.Component {
 
   componentDidMount() {
     console.log('MOUNT A TRUCK');
-    // PsycheRover_Matter.render.sprite.texture = this.psycheRoverImagePath;
     Matter.World.add(WORLD, [this.props.body]);
   }
 
@@ -42,7 +41,6 @@ class Truck extends React.Component {
     const height = Math.trunc(SCREEN_HEIGHT * 0.15);
     const x = this.props.body.position.x - width / 2;
     const y = this.props.body.position.y - height / 2;
-    this.props.body.render.sprite.texture = this.truckImagePath;
 
     return (
       <View

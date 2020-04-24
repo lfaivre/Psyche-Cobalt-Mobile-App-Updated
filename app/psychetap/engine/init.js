@@ -13,7 +13,6 @@ export const POWERUP_ENUM = Object.freeze({
 
 export const GAME_DEFAULTS = {
   player: {
-    // health: 10,
     health: 100,
     score: 0,
     level: 0,
@@ -22,6 +21,7 @@ export const GAME_DEFAULTS = {
     speed: {
       asteroid: { min: 2, max: 3 },
       truck: { min: 4, max: 6 },
+      rubberDuck: { min: 4, max: 5 },
       clearScreen: { min: 4, max: 6 },
       health: { min: 4, max: 6 },
       clock: { min: 4, max: 6 },
@@ -29,6 +29,7 @@ export const GAME_DEFAULTS = {
     density: {
       asteroid: { min: 2, max: 2 },
       truck: { min: 10, max: 10 },
+      rubberDuck: { min: 8, max: 8 },
       clearScreen: { min: 8, max: 10 },
       health: { min: 4, max: 6 },
       clock: { min: 6, max: 8 },
@@ -40,6 +41,7 @@ export const GAME_DEFAULTS = {
   healthDensity: calcDensity(1 / randomBetween(4, 6)),
   asteroidDensity: calcDensity(2),
   truckDensity: calcDensity(1 / 10),
+  rubberDuckDensity: calcDensity(1 / 8),
 };
 
 // NOTE :: RNGE - DEFAULT ENTITIES
@@ -58,6 +60,7 @@ export const defaultEntities = () => {
       speed: {
         asteroid: GAME_DEFAULTS.levelsystem.speed.asteroid,
         truck: GAME_DEFAULTS.levelsystem.speed.truck,
+        rubberDuck: GAME_DEFAULTS.levelsystem.speed.rubberDuck,
         clearScreen: GAME_DEFAULTS.levelsystem.speed.clearScreen,
         health: GAME_DEFAULTS.levelsystem.speed.health,
         clock: GAME_DEFAULTS.levelsystem.speed.clock,
@@ -65,6 +68,7 @@ export const defaultEntities = () => {
       density: {
         asteroid: GAME_DEFAULTS.levelsystem.density.asteroid,
         truck: GAME_DEFAULTS.levelsystem.density.truck,
+        rubberDuck: GAME_DEFAULTS.levelsystem.density.rubberDuck,
         clearScreen: GAME_DEFAULTS.levelsystem.density.clearScreen,
         health: GAME_DEFAULTS.levelsystem.density.health,
         clock: GAME_DEFAULTS.levelsystem.density.clock,
@@ -73,14 +77,13 @@ export const defaultEntities = () => {
     created: {
       createdAsteroids: [],
       createdTrucks: [],
+      createdRubberDucks: [],
       createdClearScreens: [],
       createdHealths: [],
       createdClocks: [],
     },
     destroy: {
       destroyDangers: [],
-      destroyAsteroids: [],
-      destroyTrucks: [],
     },
     psycheRover: {
       body: PsycheRover_Matter,
