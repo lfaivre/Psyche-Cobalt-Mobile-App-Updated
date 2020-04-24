@@ -3,6 +3,7 @@ import { View, Image, StyleSheet } from 'react-native';
 import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
+import styles from '../../styles/PsycheRover.style';
 
 const psycheRoverImagePath = require('../../../assets/psychetap/spacecraft/Psyche.png');
 const PsycheRover_Matter = Matter.Bodies.rectangle(
@@ -57,20 +58,5 @@ class PsycheRover extends React.Component {
     );
   }
 }
-
-const styles = {
-  psycheRover: {
-    position: 'absolute',
-    bottom: 10,
-    top: Math.trunc(-SCREEN_HEIGHT / 3.7),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-};
 
 export { PsycheRover, PsycheRover_Matter };

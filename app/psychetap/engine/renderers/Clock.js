@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
+import styles from '../../styles/Clock.style';
 
 const clockImagePath = require('../../../assets/psychetap/powerups/Clock.png');
 const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375) / 2;
@@ -53,18 +54,5 @@ class Clock extends React.Component {
     );
   }
 }
-
-const styles = {
-  clock: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-};
 
 export { Clock, Create_Clock_Matter };

@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT, randomBetween } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
+import styles from '../../styles/Asteroid.style';
 
 const asteroidImagePaths = [
   require('../../../assets/psychetap/dangers/Asteroid1.png'),
@@ -62,17 +63,17 @@ class Asteroid extends React.Component {
   }
 }
 
-const styles = {
-  asteroid: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-};
+// const styles = {
+//   asteroid: {
+//     position: 'absolute',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   image: {
+//     flex: 1,
+//     resizeMode: 'contain',
+//   },
+// };
 
 export { Asteroid, Create_Asteroid_Matter };

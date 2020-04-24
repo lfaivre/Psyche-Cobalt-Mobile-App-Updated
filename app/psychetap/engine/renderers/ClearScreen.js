@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
+import styles from '../../styles/ClearScreen.style';
 
 const clearScreenImagePath = require('../../../assets/psychetap/powerups/ClearScreen.png');
 const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375) / 2;
@@ -53,18 +54,5 @@ class ClearScreen extends React.Component {
     );
   }
 }
-
-const styles = {
-  clearScreen: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-};
 
 export { ClearScreen, Create_ClearScreen_Matter };

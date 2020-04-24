@@ -3,6 +3,7 @@ import { View, Image } from 'react-native';
 import Matter from 'matter-js';
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../utilities';
 import { WORLD } from '../../engine/physicsInit';
+import styles from '../../styles/Health.style';
 
 const healthImagePath = require('../../../assets/psychetap/powerups/Health.png');
 const radius = Math.trunc(Math.max(SCREEN_WIDTH, SCREEN_HEIGHT) * 0.09375) / 2;
@@ -53,18 +54,5 @@ class Health extends React.Component {
     );
   }
 }
-
-const styles = {
-  health: {
-    position: 'absolute',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'contain',
-  },
-};
 
 export { Health, Create_Health_Matter };
