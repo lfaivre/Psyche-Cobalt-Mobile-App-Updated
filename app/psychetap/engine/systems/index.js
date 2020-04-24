@@ -1,18 +1,19 @@
 import { Physics } from './physics';
+import { Reset } from './reset';
 import { SystemPhase, SystemHealth, SystemScore, SystemLevels } from './base';
 import {
   DeployPowerUps,
   RemovePowerUps,
   MovePowerUps,
   AddPowerUps,
-  ExecutePowerUps
+  ExecutePowerUps,
 } from './powerups';
 import {
   DeployDangers,
   RemoveDangers,
   DestroyDangers,
   MoveDangers,
-  RemoveCollidedDangers
+  RemoveCollidedDangers,
 } from './dangers';
 
 export const SYSTEMS = [
@@ -30,5 +31,7 @@ export const SYSTEMS = [
   RemoveDangers,
   DestroyDangers,
   MoveDangers,
-  RemoveCollidedDangers
+  RemoveCollidedDangers,
 ];
+
+export const RESET_SYSTEMS = Reset;

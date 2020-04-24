@@ -30,7 +30,7 @@ export default {
     marginVertical: SPACING_VERTICAL.Small,
     color: PSYCHETAP_COLORS.White,
     fontSize: FONT_SIZE.XSmall,
-    fontFamily: Fonts.RobotoThin,
+    fontFamily: Fonts.Roboto,
     textAlign: 'center',
   },
   buttonContainer: {
@@ -41,6 +41,7 @@ export default {
   startButton: {
     height: BUTTON_SIZE.Large.Height,
     width: BUTTON_SIZE.Large.Width,
+    borderRadius: BUTTON_SIZE.Small.BorderRadius,
     borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,
@@ -56,6 +57,7 @@ export default {
   tutorialButton: {
     height: BUTTON_SIZE.Small.Height,
     width: BUTTON_SIZE.Small.Width,
+    borderRadius: BUTTON_SIZE.Small.BorderRadius,
     borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,

@@ -1,15 +1,12 @@
 import React from 'react';
 import { View, StatusBar, ImageBackground, Text } from 'react-native';
 import { GameEngine } from 'react-native-game-engine';
-import { Fonts } from '../../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 import Matter from 'matter-js';
-
+import styles from '../styles/GameView.style';
 // const backgroundImagePath = require('../assets/images/backgrounds/AssetsPsyche_BackgroundBreakup_LightPurpletoDark-01.png');
 const backgroundImagePath = require('../../assets/images/backgrounds/starsbg.jpg');
 
 // Components
-import LoadingModal from '../components/LoadingModal';
 import NavigationModal from '../components/NavigationModal';
 import GameOverModal from '../components/GameOverModal';
 import BottomBar from '../components/BottomBar';
@@ -18,10 +15,7 @@ import TopBar from '../components/TopBar';
 // Game Engine
 import { ENGINE, WORLD } from '../engine/physicsInit';
 import { GAME_DEFAULTS, POWERUP_ENUM, defaultEntities } from '../engine/init';
-
-// GAME ENGINE :: SYSTEMS
-import { SYSTEMS } from '../engine/systems';
-import { Reset } from '../engine/systems/reset';
+import { SYSTEMS, RESET_SYSTEMS } from '../engine/systems';
 
 export default class GameView extends React.Component {
   constructor(props) {
@@ -29,7 +23,6 @@ export default class GameView extends React.Component {
     this.backgroundImagePath = backgroundImagePath;
     this._isMounted = false;
     this._gameEngineRef = null;
-    this._bgImage = null;
   }
 
   state = {
@@ -175,7 +168,7 @@ export default class GameView extends React.Component {
         }
       });
     } else if (e.type === 'gameOver') {
-      this.setState({ systems: [Reset] }, () => {
+      this.setState({ systems: [RESET_SYSTEMS] }, () => {
         this._gameEngineRef.dispatch({ type: 'beginCleanup' });
       });
     } else if (e.type === 'endCleanup') {
@@ -241,37 +234,7 @@ export default class GameView extends React.Component {
             </GameEngine>
           )}
         </ImageBackground>
-        {/* <LoadingModal imageLoaded={true} /> */}
       </View>
     );
   }
 }
-
-const styles = {
-  outerContainer: {
-    flex: 1,
-    // backgroundColor: '#1e2223'
-  },
-  image: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-  },
-  loadingContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#1e2223',
-  },
-  loadingText: {
-    fontSize: SCREEN_HEIGHT * (1 / 16),
-    // letterSpacing: 2,
-    fontFamily: Fonts.BungeeRegular,
-    textAlign: 'center',
-    color: '#bca0dc',
-  },
-  innerContainer: {
-    flex: 1,
-  },
-};

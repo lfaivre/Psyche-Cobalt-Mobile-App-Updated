@@ -63,6 +63,7 @@ export default {
     height: BUTTON_SIZE.Large.Height,
     width: BUTTON_SIZE.Large.Width,
     borderWidth: 1,
+    borderRadius: BUTTON_SIZE.Small.BorderRadius,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
@@ -77,6 +78,7 @@ export default {
   tutorialButton: {
     height: BUTTON_SIZE.Small.Height,
     width: BUTTON_SIZE.Small.Width,
+    borderRadius: BUTTON_SIZE.Small.BorderRadius,
     borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
     marginVertical: SPACING_VERTICAL.Small,
