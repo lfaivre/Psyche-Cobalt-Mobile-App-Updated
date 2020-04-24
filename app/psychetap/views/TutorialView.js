@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ImageBackground } from 'react-native';
 import TutorialNavigation from '../tutorial/TutorialNavigation';
 import TutorialContainer from '../tutorial/TutorialContainer';
-import { TUTORIAL_VIEWS_LENGTH_ZERO } from '../tutorial/repo';
 import styles from '../styles/TutorialView.style';
 
 const backgroundImagePath = require('../../assets/images/backgrounds/surfacebg.jpg');
@@ -13,20 +12,7 @@ export default class TutorialView extends React.Component {
     this.backgroundImagePath = backgroundImagePath;
   }
 
-  state = { index: 0, imageLoaded: false };
-
-  componentDidMount() {
-    this.lengthZero = TUTORIAL_VIEWS_LENGTH_ZERO;
-  }
-
-  handleTutorialNavigation = (index) => {
-    if (index <= 0) {
-      this.setState({ index: 0 });
-    } else if (index >= this.lengthZero) {
-      this.setState({ index: this.lengthZero });
-    }
-    this.setState({ index });
-  };
+  state = { imageLoaded: false };
 
   render() {
     return (
@@ -44,13 +30,8 @@ export default class TutorialView extends React.Component {
 
           {this.state.imageLoaded && (
             <View style={styles.innerContainer}>
-              <TutorialContainer index={this.state.index} />
-              <TutorialNavigation
-                index={this.state.index}
-                lengthZero={this.lengthZero}
-                handleTutorialNavigation={this.handleTutorialNavigation}
-                handleGameView={this.props.handleGameView}
-              />
+              <TutorialContainer />
+              <TutorialNavigation handleGameView={this.props.handleGameView} />
             </View>
           )}
         </ImageBackground>

@@ -25,7 +25,7 @@ export default {
   },
   title: {
     width: '100%',
-    marginBottom: SPACING_VERTICAL.XSmall,
+    marginVertical: SPACING_VERTICAL.XSmall,
     fontSize: FONT_SIZE.Medium,
     fontFamily: Fonts.BungeeRegular,
     textAlign: 'center',

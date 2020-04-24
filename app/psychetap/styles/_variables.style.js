@@ -27,9 +27,11 @@ export const BUTTON_SIZE = {
   Small: {
     Height: SCREEN_HEIGHT * (1 / 8),
     Width: SCREEN_WIDTH * (2 / 5),
+    BorderRadius: 12.5,
   },
   Large: {
     Height: SCREEN_HEIGHT * (1 / 8),
     Width: SCREEN_WIDTH * (3 / 5),
+    BorderRadius: 12.5,
   },
 };
