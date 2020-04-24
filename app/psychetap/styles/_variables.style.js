@@ -5,6 +5,7 @@ export const PSYCHETAP_COLORS = {
   Transparent: 'transparent',
   DarkGray: '#1e2223',
   LightPurple: '#bca0dc',
+  LightGreen: '#a4fba6',
 };
 
 export const FONT_SIZE = {
@@ -37,6 +38,11 @@ export const BUTTON_SIZE = {
   SmallRound: {
     Height: SCREEN_HEIGHT * (1 / 8),
     Width: SCREEN_HEIGHT * (1 / 8),
-    BorderRadius: SCREEN_HEIGHT * (1 / 16),
+    BorderRadius: 50,
+  },
+  MediumRound: {
+    Height: SCREEN_HEIGHT * (3 / 16),
+    Width: SCREEN_HEIGHT * (3 / 16),
+    BorderRadius: 50,
   },
 };

@@ -3,7 +3,6 @@ import { Fonts } from '../../components/Fonts';
 import {
   PSYCHETAP_COLORS,
   FONT_SIZE,
-  SPACING_VERTICAL,
   SPACING_HORIZONTAL,
   BUTTON_SIZE,
 } from './_variables.style';
@@ -25,7 +24,7 @@ export default {
     height: BUTTON_SIZE.SmallRound.Height,
     width: BUTTON_SIZE.SmallRound.Width,
     borderRadius: BUTTON_SIZE.SmallRound.BorderRadius,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: PSYCHETAP_COLORS.White,
     marginHorizontal: SPACING_HORIZONTAL.XXSmall,
     flexDirection: 'row',
