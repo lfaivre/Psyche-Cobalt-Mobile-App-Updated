@@ -3,7 +3,7 @@ import { Fonts } from '../../components/Fonts';
 import {
   PSYCHETAP_COLORS,
   FONT_SIZE,
-  SPACING,
+  SPACING_VERTICAL,
   BUTTON_SIZE,
 } from './_variables.style';
 
@@ -19,7 +19,7 @@ export default {
     alignItems: 'center',
   },
   titleText: {
-    marginVertical: SPACING.Small,
+    marginVertical: SPACING_VERTICAL.Small,
     color: PSYCHETAP_COLORS.White,
     fontSize: FONT_SIZE.Medium,
     fontFamily: Fonts.BungeeRegular,
@@ -27,7 +27,7 @@ export default {
   },
   factText: {
     width: Math.floor(SCREEN_WIDTH * 0.75),
-    marginVertical: SPACING.Small,
+    marginVertical: SPACING_VERTICAL.Small,
     color: PSYCHETAP_COLORS.White,
     fontSize: FONT_SIZE.XSmall,
     fontFamily: Fonts.RobotoThin,
@@ -43,7 +43,7 @@ export default {
     width: BUTTON_SIZE.Large.Width,
     borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
-    marginVertical: SPACING.Small,
+    marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: PSYCHETAP_COLORS.LightPurple,
@@ -58,7 +58,7 @@ export default {
     width: BUTTON_SIZE.Small.Width,
     borderWidth: 1,
     borderColor: PSYCHETAP_COLORS.LightPurple,
-    marginVertical: SPACING.Small,
+    marginVertical: SPACING_VERTICAL.Small,
     justifyContent: 'center',
     alignItems: 'center',
   },

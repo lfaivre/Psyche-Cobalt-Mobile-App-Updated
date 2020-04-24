@@ -1,62 +1,75 @@
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../psychetap/utilities';
 import { Fonts } from '../../components/Fonts';
-import { PSYCHETAP_COLORS, FONT_SIZE } from './_variables.style';
+import {
+  PSYCHETAP_COLORS,
+  FONT_SIZE,
+  SPACING_VERTICAL,
+  SPACING_HORIZONTAL,
+} from './_variables.style';
 
 export default {
-  topContent: {
-    backgroundColor: 'transparent',
+  outerContainer: {
+    backgroundColor: PSYCHETAP_COLORS.Transparent,
   },
-  content: {
-    width: SCREEN_WIDTH - SCREEN_WIDTH * (2 / 128),
-    paddingTop: SCREEN_WIDTH * (1 / 128),
-    paddingBottom: SCREEN_HEIGHT * (2 / 8) + SCREEN_WIDTH * (1 / 128),
-    paddingHorizontal: SCREEN_WIDTH * (1 / 128),
-    marginVertical: SCREEN_WIDTH * (1 / 128),
-    marginHorizontal: SCREEN_WIDTH * (1 / 128),
+  innerContainer: {
+    width: SCREEN_WIDTH - 2 * SPACING_HORIZONTAL.XXSmall,
+    paddingTop: SPACING_HORIZONTAL.XXSmall,
+    paddingBottom: SPACING_HORIZONTAL.XXSmall + SCREEN_HEIGHT * (2 / 8),
+    paddingHorizontal: SPACING_HORIZONTAL.XXSmall,
+    marginVertical: SPACING_HORIZONTAL.XXSmall,
+    marginHorizontal: SPACING_HORIZONTAL.XXSmall,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-  },
-  contentSection: {
-    margin: SCREEN_WIDTH * (1 / 128),
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imageContent: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    resizeMode: 'contain',
-  },
-  container: {
-    height: SCREEN_HEIGHT * (7 / 8) - SCREEN_WIDTH * (3 / 128),
-    width: SCREEN_WIDTH - SCREEN_WIDTH * (2 / 128),
-    paddingVertical: SCREEN_WIDTH * (1 / 128),
-    paddingHorizontal: SCREEN_WIDTH * (1 / 128),
-    marginVertical: SCREEN_WIDTH * (1 / 128),
-    marginHorizontal: SCREEN_WIDTH * (1 / 128),
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: PSYCHETAP_COLORS.DarkGray,
   },
   title: {
-    marginVertical: SCREEN_HEIGHT * (1 / 64),
-    fontSize: SCREEN_HEIGHT * (1 / 8),
+    width: '100%',
+    marginBottom: SPACING_VERTICAL.XSmall,
+    fontSize: FONT_SIZE.Medium,
     fontFamily: Fonts.BungeeRegular,
     textAlign: 'center',
-    color: '#bca0dc',
+    color: PSYCHETAP_COLORS.LightPurple,
+  },
+  section: {
+    width: '100%',
+    marginBottom: SPACING_HORIZONTAL.XXSmall,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   subtitle: {
-    marginVertical: SCREEN_HEIGHT * (1 / 128),
-    color: '#bca0dc',
-    fontSize: SCREEN_HEIGHT * (1 / 16),
+    width: '100%',
+    marginBottom: SPACING_VERTICAL.XSmall,
+    color: PSYCHETAP_COLORS.White,
+    fontSize: FONT_SIZE.Small,
     fontFamily: Fonts.BungeeRegular,
-  },
-  bodyText: {
-    width: Math.floor(SCREEN_WIDTH * 0.75),
-    marginVertical: SCREEN_WIDTH * (1 / 64),
-    fontSize: SCREEN_HEIGHT * (1 / 20),
-    fontFamily: Fonts.RobotoLight,
     textAlign: 'center',
-    color: 'white',
+  },
+  outerContent: {
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  innerContent: {
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginBottom: SPACING_VERTICAL.XSmall,
+  },
+  text: {
+    width: SCREEN_WIDTH * (3 / 4),
+    marginBottom: SPACING_VERTICAL.XSmall,
+    fontSize: FONT_SIZE.XSmall,
+    fontFamily: Fonts.Roboto,
+    textAlign: 'left',
+    color: PSYCHETAP_COLORS.White,
+  },
+  image: {
+    height: SCREEN_HEIGHT * (1 / 8),
+    marginVertical: SPACING_VERTICAL.XSmall,
+    resizeMode: 'contain',
   },
 };

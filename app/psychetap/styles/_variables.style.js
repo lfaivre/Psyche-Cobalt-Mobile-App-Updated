@@ -2,6 +2,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../psychetap/utilities';
 
 export const PSYCHETAP_COLORS = {
   White: 'white',
+  Transparent: 'transparent',
   DarkGray: '#1e2223',
   LightPurple: '#bca0dc',
 };
@@ -13,8 +14,13 @@ export const FONT_SIZE = {
   Large: SCREEN_HEIGHT * (1 / 4),
 };
 
-export const SPACING = {
+export const SPACING_VERTICAL = {
+  XSmall: SCREEN_HEIGHT * (1 / 64),
   Small: SCREEN_HEIGHT * (1 / 32),
+};
+
+export const SPACING_HORIZONTAL = {
+  XXSmall: SCREEN_WIDTH * (1 / 128),
 };
 
 export const BUTTON_SIZE = {

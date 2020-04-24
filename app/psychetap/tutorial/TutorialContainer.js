@@ -7,30 +7,34 @@ import styles from '../styles/TutorialContainer.style';
 export default class TutorialContainer extends React.Component {
   render() {
     return (
-      <Container style={styles.topContent}>
-        <Content contentContainerStyle={styles.content}>
+      <Container style={styles.outerContainer}>
+        <Content contentContainerStyle={styles.innerContainer}>
           <Text style={styles.title}>Tutorial</Text>
-          <Text style={styles.subtitle}>
-            {TUTORIAL_VIEWS[this.props.index].title}
-          </Text>
-          <View>
-            {TUTORIAL_VIEWS[this.props.index].content.map((content) => {
-              return (
-                <View
-                  key={content.id + Math.random()}
-                  style={styles.contentSection}
-                >
-                  <Text style={styles.bodyText}>{content.text}</Text>
-                  {content.imagePath && (
-                    <Image
-                      source={content.imagePath}
-                      style={styles.imageContent}
-                    />
-                  )}
+          {TUTORIAL_VIEWS.map((section) => {
+            return (
+              <View style={styles.section} key={section.title + Math.random()}>
+                <Text style={styles.subtitle}>{section.title}</Text>
+                <View style={styles.outerContent}>
+                  {section.content.map((content) => {
+                    return (
+                      <View
+                        key={content.id + Math.random()}
+                        style={styles.innerContent}
+                      >
+                        <Text style={styles.text}>{content.text}</Text>
+                        {content.imagePath && (
+                          <Image
+                            source={content.imagePath}
+                            style={styles.image}
+                          />
+                        )}
+                      </View>
+                    );
+                  })}
                 </View>
-              );
-            })}
-          </View>
+              </View>
+            );
+          })}
         </Content>
       </Container>
     );
