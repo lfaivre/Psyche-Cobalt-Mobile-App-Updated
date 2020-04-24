@@ -86,7 +86,7 @@ export const LEVELS = [
   },
   {
     level: 5,
-    text: 'You reached Level 5!',
+    text: 'You made it to Psyche!',
     requiredScore: 2000,
     system: {
       speed: {

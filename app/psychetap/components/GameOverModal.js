@@ -16,7 +16,7 @@ export default class GameOverModal extends React.Component {
         <View style={styles.modalContainer}>
           <Text style={styles.titleText}>Game Over</Text>
           <Text style={styles.scoreText}>Score: {this.props.score}</Text>
-          <Text style={styles.scoreText}>Barely made it off of Earth!</Text>
+          <Text style={styles.scoreText}>{this.props.text}</Text>
           <View style={styles.buttonContainer}>
             <TouchableHighlight
               onPress={() => {

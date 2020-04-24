@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StatusBar, ImageBackground, Text } from 'react-native';
 import Matter from 'matter-js';
+import { LEVELS } from '../engine/repo/levels';
 
 import NavigationModal from '../components/NavigationModal';
 import GameOverModal from '../components/GameOverModal';
@@ -214,6 +215,7 @@ export default class GameView extends React.Component {
                 modalVisible={this.state.gameOverModalVisible}
                 setModalVisible={this.setGameOverModalVisible}
                 handleGameView={this.props.handleGameView}
+                text={LEVELS[this.state.statusLevel].text}
                 score={this.state.statusScore}
                 handleGameReset={this.resetGame}
               />
