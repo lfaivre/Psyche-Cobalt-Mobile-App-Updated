@@ -1,11 +1,4 @@
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../../psychetap/utilities';
-import { Fonts } from '../../components/Fonts';
-import {
-  PSYCHETAP_COLORS,
-  FONT_SIZE,
-  SPACING_HORIZONTAL,
-  BUTTON_SIZE,
-} from './_variables.style';
+import { BUTTON_SIZE } from './_variables.style';
 
 export default {
   outerContainer: {

@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableHighlight, Modal } from 'react-native';
-
-import { Fonts } from '../../components/Fonts';
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from '../utilities';
 import { GAMEVIEW_ENUM } from '../types';
+import styles from '../styles/NavigationModal.style';
 
 export default class NavigationModal extends React.Component {
   render() {
@@ -20,7 +18,6 @@ export default class NavigationModal extends React.Component {
           <View style={styles.buttonContainer}>
             <TouchableHighlight
               onPress={() => {
-                // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
                 this.props.handleGameView(GAMEVIEW_ENUM.start);
               }}
@@ -30,7 +27,6 @@ export default class NavigationModal extends React.Component {
             </TouchableHighlight>
             <TouchableHighlight
               onPress={() => {
-                // TODO: Add callback to handle async state change (?)
                 this.props.setModalVisible(!this.props.modalVisible);
                 this.props.handleGameView(GAMEVIEW_ENUM.tutorial);
               }}
@@ -52,68 +48,3 @@ export default class NavigationModal extends React.Component {
     );
   }
 }
-
-const styles = {
-  modalContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'rgba(30,34,35,0.75)',
-  },
-  titleText: {
-    marginVertical: SCREEN_HEIGHT * (1 / 32),
-    color: '#bca0dc',
-    fontSize: SCREEN_HEIGHT * (1 / 8),
-    fontFamily: Fonts.BungeeRegular,
-  },
-  buttonContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    // backgroundColor: 'purple'
-  },
-  exitButton: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    width: SCREEN_WIDTH * (3 / 5),
-    borderWidth: 1,
-    borderColor: '#bca0dc',
-    marginVertical: SCREEN_HEIGHT * (1 / 32),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#bca0dc',
-  },
-  exitButtonText: {
-    color: '#1e2223',
-    fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.BungeeRegular,
-  },
-  tutorialButton: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    width: SCREEN_WIDTH * (2 / 5),
-    borderWidth: 1,
-    borderColor: '#bca0dc',
-    marginVertical: SCREEN_HEIGHT * (1 / 32),
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'pink'
-  },
-  tutorialButtonText: {
-    color: '#bca0dc',
-    fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.BungeeRegular,
-  },
-  cancelButton: {
-    height: SCREEN_HEIGHT * (1 / 8),
-    width: SCREEN_WIDTH * (1 / 5),
-    marginVertical: SCREEN_HEIGHT * (1 / 32),
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'green'
-  },
-  cancelButtonText: {
-    color: 'white',
-    fontSize: SCREEN_HEIGHT * (1 / 16),
-    fontFamily: Fonts.BungeeRegular,
-  },
-};
